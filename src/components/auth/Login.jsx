@@ -28,8 +28,6 @@ export const Login = props => {
                     props.history.push("/")
                 }
                 else {
-                    console.log(res)
-                    console.log(invalidDialog.current)
                     invalidDialog.current.showModal()
                 }
             })
