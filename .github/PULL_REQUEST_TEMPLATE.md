@@ -6,7 +6,7 @@ Please also include relevant motivation and context.
 
 List any dependencies that are required for this change.
 
-Fixes # (issue)
+Closes # (issue)
 
 ## Type of change
 
@@ -19,9 +19,9 @@ Please delete options that are not relevant.
 
 # Testing Instructions
 
-Please describe the tests required to verify your changes. 
+Please describe the tests required to verify your changes.
 
-Provide instructions so PR Tester can check functionality. 
+Provide instructions so PR Tester can check functionality.
 
 Please also list any relevant details for your tests
 
@@ -29,16 +29,14 @@ Please also list any relevant details for your tests
 `git checkout <branch-name>`
 `npm start`
 
-
 ## PostMan
 
 ## Browser
 
-
 # Checklist:
+
 - [ ] My code follows the style guidelines of this project
 - [ ] I have performed a self-review of my own code
 - [ ] I have commented my code, particularly in hard-to-understand areas
 - [ ] My changes generate no new warnings or errors
 - [ ] I have added test instructions that prove my fix is effective or that my feature works
-	
