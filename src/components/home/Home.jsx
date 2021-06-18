@@ -2,8 +2,9 @@ import React from "react"
 import { Link } from 'react-router-dom'
 
 
+import { Footer } from "../footer/Footer"
 import logo from '../../assets/images/pugTransport.svg'
-import styles from "./home.module.css"
+import styles from "./Home.module.css"
 
 
 export const Home = ( props ) => {
@@ -36,6 +37,7 @@ export const Home = ( props ) => {
                     </Link>
                 </div>
             </main>
+            <Footer />
         </>
     )
 }

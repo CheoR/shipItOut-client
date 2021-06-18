@@ -9,10 +9,10 @@ export const ApplicationViews = () => {
             margin: "5rem 2rem",
             backgroundColor: "lightgoldenrodyellow"
         }}>
-            <Route exact path="/">
+            {/* <Route exact path="/">
                 console.log("made it here")
                 <Home />
-            </Route>
+            </Route> */}
         </main>
     </>
 }

@@ -1,5 +1,5 @@
 import React from "react"
-import { Route, Redirect } from "react-router-dom"
+import { Route } from "react-router-dom"
 import { ApplicationViews } from "./ApplicationViews"
 
 import { NavBar } from "./nav/NavBar"
@@ -14,19 +14,20 @@ export const ShipItOut = () => (
     <Route render={() => {
         if (localStorage.getItem("user_token")) {
             return <>
-            console.log("there is a token");
                 <Route render={NavBar} />
                 <Route render={props => <ApplicationViews {...props} />} />
             </>
-        } else {
-            return <>
-                {/* <Route render={NavBar} /> */}
-                <Route render={Home} />
-            </>
-        }
+        } 
+        // else {
+        //     return <>
+        //         {/* <Route render={NavBar} /> */}
+        //         {console.log(" i am home -")}
+        //         <Route render={Home} />
+        //     </>
+        // }
     }} />
-
-    <Route path="/login" render={Login} />
-    <Route path="/register" render={Register} />
+    <Route exact path="/" render={Home} />
+    <Route exact path="/login" render={Login} />
+    <Route exact path="/register" render={Register} />
     </>
 )
