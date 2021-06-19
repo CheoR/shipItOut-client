@@ -11,6 +11,7 @@ import { PageNotFound } from "./helpers/PageNotFound"
 import { BookingList } from "./booking/BookingList"
 import { ContainerList } from "./container/ContainerList"
 import styles from "./ShipItOut.module.css"
+import { ProductList } from "./product/ProductList"
 
 export const ShipItOut = () => (
     
@@ -23,6 +24,7 @@ export const ShipItOut = () => (
             : <NavBar loggedIn={false} />
         }
       <Switch>
+        <Route exact path="/products"   component={ProductList} />
         <Route exact path="/containers" component={ContainerList} />
         <Route exact path="/bookings"   component={BookingList} />
         <Route exact path="/register"   component={Register} />
