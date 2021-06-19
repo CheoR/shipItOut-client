@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react"
 import { Add, Delete, Update, View } from "../btn/Button"
+import { PageNotFound } from "../helpers/PageNotFound"
 import { Table } from "../table/Table"
 
 import styles from "./BookingList.module.css"
 
 export const BookingList = () => {
-  const token = 'a21c520dfc25fa2764ffdb1c4d8db69e6b0df117'
 
+  const token = localStorage.getItem("user_token")
   const [data, setData] = useState([])
   const [query, setQuery] = useState("")
   const [colToSearch, setColToSearch] = useState(["booking", "notes"])
@@ -32,6 +33,9 @@ export const BookingList = () => {
         })
         setData(res)
       })
+      .catch(err => {
+        {console.log(`some error: ${err}`)}
+      })
 
   }, [])
 
@@ -42,29 +46,36 @@ export const BookingList = () => {
   const columns = data[0] && Object.keys(data[0])
   return (
 
-    <section className={styles.page}>
-      <h1 className={styles.title}>Bookings</h1>
-      <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
-      {
-        columns && columns.map(header => 
-          <label key={header}>
-            <input type="checkbox" checked={colToSearch.includes(header)} onChange={(e) => { 
-              const checked = colToSearch.includes(header)
-              setColToSearch(prev => checked
-                ? prev.filter(searchCol => searchCol !== header)
-                : [...prev, header]
-              )
-            }}  />
-            {header}
-          </label>)
-      }
-      <Table data={search(data)}/>
-      <section className={styles.btnList}>
-        <Add />
-        <View />
-        <Update />
-        <Delete />
-      </section>
-    </section>
+    token
+    
+      ?
+        <section className={styles.page}>
+          <h1 className={styles.title}>Bookings</h1>
+          <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+          {
+            columns && columns.map(header => 
+              <label key={header}>
+                <input type="checkbox" checked={colToSearch.includes(header)} onChange={(e) => { 
+                  const checked = colToSearch.includes(header)
+                  setColToSearch(prev => checked
+                    ? prev.filter(searchCol => searchCol !== header)
+                    : [...prev, header]
+                  )
+                }}  />
+                {header}
+              </label>)
+          }
+          <Table data={search(data)}/>
+    
+          <section className={styles.btnList}>
+            <Add />
+            <View />
+            <Update />
+            <Delete />
+          </section>
+        </section>
+      :
+        <PageNotFound />
+    
   )
 }
