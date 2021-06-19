@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom"
 import logo from "../../assets/images/pugTransport.svg"
 import styles from "./NavBar.module.css"
 
-export const NavBar = ({ props }) => {
+export const NavBar = () => {
 
     const location = useLocation()
     const url = location.pathname
