@@ -1,10 +1,19 @@
-import React from "react"
-import { Link } from "react-router-dom"
+import React, { useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
 
 import logo from "../../assets/images/pugTransport.svg"
 import styles from "./NavBar.module.css"
 
 export const NavBar = ({ props }) => {
+
+    const location = useLocation()
+    const url = location.pathname
+    let token = localStorage.getItem("user_token")
+
+    useEffect(() => {
+        // rerender navbar when user logs in/out
+        console.log(`current url: ${url}`)
+    },  [ url ])
 
     return (
         <div className={styles.navbar}>
@@ -13,12 +22,12 @@ export const NavBar = ({ props }) => {
             </div>
             <ul className={styles.ulList}>
                 <li className={styles.navBarItem}>
-                    <Link className={styles.navLink} to="/">
+                    <Link className={styles.navLink} to={`${token ? "/bookings" : "/"}`}>
                         <button className={styles.navLinkBtn}>Home</button>
                     </Link>
                 </li>
                 {
-                    localStorage.getItem("user_token")
+                    token
                     ?<>
                         <li className={styles.navBarItem}>
                             <Link className={styles.navLink} to="/bookings">
@@ -47,13 +56,6 @@ export const NavBar = ({ props }) => {
                                     Logout
                                 </button>
                             </Link>
-                            {/* <button className={styles.navLink}
-                                onClick={() => {
-                                    localStorage.removeItem("user_token")
-                                    // history.push("/")
-                                    props.history.push({ pathname: "/" })
-                                }}
-                            >Logout</button> */}
                         </li>
                         </>
                     :
