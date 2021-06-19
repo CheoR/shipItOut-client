@@ -1,33 +1,35 @@
 import React from "react"
-import { Route } from "react-router-dom"
-import { ApplicationViews } from "./ApplicationViews"
+import { BrowserRouter, Switch, Route } from "react-router-dom"
 
 import { NavBar } from "./nav/NavBar"
 import { Login } from "./auth/Login"
 import { Register } from "./auth/Register"
 
 import { Home } from "./home/Home"
-
+import { Footer } from "./footer/Footer"
+import { PageNotFound } from "./helpers/PageNotFound"
+import { BookingList } from "./booking/BookingList"
+import styles from "./ShipItOut.module.css"
 
 export const ShipItOut = () => (
-    <>
-    <Route render={() => {
-        if (localStorage.getItem("user_token")) {
-            return <>
-                <Route render={NavBar} />
-                <Route render={props => <ApplicationViews {...props} />} />
-            </>
-        } 
-        // else {
-        //     return <>
-        //         {/* <Route render={NavBar} /> */}
-        //         {console.log(" i am home -")}
-        //         <Route render={Home} />
-        //     </>
-        // }
-    }} />
-    <Route exact path="/" render={Home} />
-    <Route exact path="/login" render={Login} />
-    <Route exact path="/register" render={Register} />
-    </>
-)
+    
+    <BrowserRouter>
+    <main className={styles.shipItout}>
+        {            
+
+            localStorage.getItem("user_token")
+            ? <NavBar loggedIn={true} />
+            : <NavBar loggedIn={false} />
+        }
+      <Switch>
+        <Route exact path="/bookings" component={BookingList} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login"    component={Login} />
+        <Route exact path="/"         component={Home} />
+        <Route                        component={PageNotFound} />
+      </Switch>
+      <Footer />
+    </main>
+  </BrowserRouter>
+);
+

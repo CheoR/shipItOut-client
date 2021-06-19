@@ -2,7 +2,6 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 import "./Auth.css"
-import { Footer } from "../footer/Footer"
 
 export const Login = props => {
     const username = React.createRef()
@@ -63,7 +62,6 @@ export const Login = props => {
             <section className="link--register">
                 <Link to="/register">Not a member yet?</Link>
             </section>
-            <Footer />
         </main>
     )
 }

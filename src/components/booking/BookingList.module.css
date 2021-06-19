@@ -1,6 +1,7 @@
 .page {
   background: orange;
-  display: grid;
+  /* display: grid; */
+  height: 100vh;
 }
 
 .title {
