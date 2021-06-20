@@ -133,13 +133,15 @@ export const DataTable = ({ endpoint, Icon }) => {
             className={classes.button}
             startIcon={<VisibilityIcon />}
             component={Link}
-            to={`/bookings/${selectionModel[0]}`}
+            to={`/${endpoint}/${selectionModel[0]}`}
           >View</Button>
           <Button
             variant="contained"
             color="primary"
             className={classes.button}
             startIcon={<UpdateIcon />}
+            component={Link}
+            to={`/${endpoint}/${selectionModel[0]}`}
           >Update</Button>
 
           {
