@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom"
 
 import { DataGrid, gridCheckboxSelectionColDef, GridToolbar } from '@material-ui/data-grid'
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -10,7 +12,6 @@ import UpdateIcon from '@material-ui/icons/Update'
 import AddIcon from '@material-ui/icons/Add'
 import Button from '@material-ui/core/Button'
 import Icon from '@material-ui/core/Icon'
-import { useEffect, useState } from 'react'
 
 import logo from "../../assets/images/pugTransport.svg"
 import { PageNotFound } from '../helpers/PageNotFound'
@@ -24,6 +25,7 @@ import styles from "./Table.module.css"
 
 
 export const DataTable = ({ endpoint, Icon }) => {
+
     const [data, setData] = useState([])
     const [ columns, setColumns ] = useState([])
     // const [ rows, setRows ] = useState([])
@@ -130,6 +132,8 @@ export const DataTable = ({ endpoint, Icon }) => {
             color="primary"
             className={classes.button}
             startIcon={<VisibilityIcon />}
+            component={Link}
+            to={`/bookings/${selectionModel[0]}`}
           >View</Button>
           <Button
             variant="contained"

@@ -8,6 +8,7 @@ import { PageNotFound } from "./helpers/PageNotFound"
 import { Footer } from "./footer/Footer"
 
 import { Home } from "./home/Home"
+import { BookingView } from "./booking/BookingView"
 import { BookingList } from "./booking/BookingList"
 import { ContainerList } from "./container/ContainerList"
 import { ProductList } from "./product/ProductList"
@@ -20,8 +21,9 @@ export const ShipItOut = () => (
     <main className={styles.shipItout}>
       <NavBar/>
       <Switch>
-        <Route exact path="/products"   component={ProductList} />
+        <Route exact path="/bookings/:id(\d+)" component={BookingView} />
         <Route exact path="/containers" component={ContainerList} />
+        <Route exact path="/products"   component={ProductList} />
         <Route exact path="/bookings"   component={BookingList} />
         <Route exact path="/register"   component={Register} />
         <Route exact path="/login"      component={Login} />
