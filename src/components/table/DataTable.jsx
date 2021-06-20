@@ -1,18 +1,20 @@
-import * as React from 'react';
+import * as React from 'react'
 
-import { DataGrid, gridCheckboxSelectionColDef, GridToolbar } from '@material-ui/data-grid';
+import { DataGrid, gridCheckboxSelectionColDef, GridToolbar } from '@material-ui/data-grid'
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import ButtonGroup from '@material-ui/core/ButtonGroup';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import DeleteIcon from '@material-ui/icons/Delete';
-import UpdateIcon from '@material-ui/icons/Update';
-import AddIcon from '@material-ui/icons/Add';
-import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
-import { useEffect, useState } from 'react';
+import ButtonGroup from '@material-ui/core/ButtonGroup'
+import { makeStyles } from '@material-ui/core/styles'
+import Typography from '@material-ui/core/Typography'
+import DeleteIcon from '@material-ui/icons/Delete'
+import UpdateIcon from '@material-ui/icons/Update'
+import AddIcon from '@material-ui/icons/Add'
+import Button from '@material-ui/core/Button'
+import Icon from '@material-ui/core/Icon'
+import { useEffect, useState } from 'react'
 
-import { PageNotFound } from '../helpers/PageNotFound';
+import logo from "../../assets/images/pugTransport.svg"
+import { PageNotFound } from '../helpers/PageNotFound'
+import styles from "./Table.module.css"
 
 
 // const rows = [
@@ -89,8 +91,7 @@ export const DataTable = ({ endpoint, Icon }) => {
 
   }, [])
   
-  if(isLoading) return <>Loading . . . </>
-
+  if(isLoading) return  <div><img src={logo} className={styles.logo} alt="Rotating compoany logo" /> Loading  . . </div>
 
   return (
     data
