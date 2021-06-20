@@ -22,14 +22,15 @@ export const ShipItOut = () => (
       <NavBar/>
       <Switch>
         <Route exact path="/containers/:id(\d+)" component={ContainerView} />
-        <Route exact path="/bookings/:id(\d+)"  component={BookingView} />
-        <Route exact path="/containers"         component={ContainerList} />
-        <Route exact path="/products"           component={ProductList} />
-        <Route exact path="/bookings"           component={BookingList} />
-        <Route exact path="/register"           component={Register} />
-        <Route exact path="/login"              component={Login} />
-        <Route exact path="/"                   component={Home} />
-        <Route                                  component={PageNotFound} />
+        <Route exact path="/bookings/:id(\d+)"   component={BookingView} />
+        <Route exact path="/products/:id(\d+)"   component={ProductList} />
+        <Route exact path="/containers"          component={ContainerList} />
+        <Route exact path="/products"            component={ProductList} />
+        <Route exact path="/bookings"            component={BookingList} />
+        <Route exact path="/register"            component={Register} />
+        <Route exact path="/login"               component={Login} />
+        <Route exact path="/"                    component={Home} />
+        <Route                                   component={PageNotFound} />
       </Switch>
       <Footer />
     </main>
