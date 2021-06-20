@@ -1,6 +1,6 @@
-.page {
+/* .page {
   background: orange;
-  /* display: grid; */
+  display: grid;
   height: 100vh;
 }
 
@@ -17,4 +17,9 @@
 
   display: flex;
   justify-content: center;
+} */
+
+.booking {
+  /* background: lightblue; */
+  height: 100%;
 }
