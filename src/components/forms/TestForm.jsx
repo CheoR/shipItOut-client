@@ -21,8 +21,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 // import AdapterDateFns from '@material-ui/lab/AdapterDateFns';
 // import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
 // import DateTimePicker from '@material-ui/lab/DateTimePicker';
-import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
 
+import { DateTimePicker } from "@material-ui/pickers";
 
 
 import styles from "./TestForm.module.css"
@@ -240,17 +240,19 @@ export const TestForm = () => {
 
   const classes = useStyles()
 
-  //  const handlePickupDateChange = (e) => {
-  //    setPickupTime(e)
-  //     .then(() => {
-  //       const name = 'pickup'
-  //       setFormValues({
-  //          ...formValues,
-  //          [name]: pickupTime,
-  //        })
-  //     })
+  const handlePickupDateChange = (e) => {
+    console.log("in handle pick up change")
+    console.log(`e.id: ${e.id} e.name: ${e.name} e.label: ${e.label} e.value: ${e.value}`)
+    setPickupTime(e)
+      .then(() => {
+        const name = 'pickup'
+        setFormValues({
+          ...formValues,
+          [name]: pickupTime,
+        })
+      })
 
-  //  }
+  }
 
   const handleCheckBoxChange = (e) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.checked })
@@ -443,6 +445,14 @@ export const TestForm = () => {
                   control={<Checkbox checked={formValues.issues} onChange={handleCheckBoxChange} name="issues" />}
                 />
               </FormGroup>
+
+              <DateTimePicker
+                value={formValues.pickup}
+                disablePast
+                onChange={handlePickupDateChange}
+                label="COWS OF TIME"
+                showTodayButton
+              />
 
 
               <div style={{ background: "orange" }}>selected: {console.table(formValues)}</div>
