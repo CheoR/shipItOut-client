@@ -26,33 +26,33 @@ import styles from "./Table.module.css"
 
 export const DataTable = ({ endpoint, Icon }) => {
 
-    const [data, setData] = useState([])
-    const [ columns, setColumns ] = useState([])
-    // const [ rows, setRows ] = useState([])
-    const [ isLoading, setIsLoading ] = useState(true)
-      const [selectionModel, setSelectionModel] = useState([])
-    const token = localStorage.getItem("user_token")
-    const useStyles = makeStyles((theme) => ({
-      root: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        '& > *': {
-        margin: theme.spacing(1),
-        },
-      },
-      button: {
+  const [data, setData] = useState([])
+  const [columns, setColumns] = useState([])
+  // const [ rows, setRows ] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [selectionModel, setSelectionModel] = useState([])
+  const token = localStorage.getItem("user_token")
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      '& > *': {
         margin: theme.spacing(1),
       },
-    }));
-    const classes = useStyles()
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  }));
+  const classes = useStyles()
 
-    useEffect(() => {
-      fetch(`http://127.0.0.1:8000/${endpoint}`, {
-        headers: {
-          Authorization: `Token ${token}`
-        }
-      })
+  useEffect(() => {
+    fetch(`http://127.0.0.1:8000/${endpoint}`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
       .then(res => res.json())
       .then(res => {
         console.log("res is ")
@@ -62,9 +62,9 @@ export const DataTable = ({ endpoint, Icon }) => {
 
         const headers = colHeaders.map((header) => {
           return {
-            field: `${header}`, 
+            field: `${header}`,
             headerName: `${header}`,
-            description:`${header}`,
+            description: `${header}`,
             width: 140
           }
         })
@@ -72,93 +72,93 @@ export const DataTable = ({ endpoint, Icon }) => {
         setIsLoading(false)
       })
       .catch(err => {
-        {console.log(`some error: ${err}`)}
+        { console.log(`some error: ${err}`) }
         const header = 'Data Not Found'
         setColumns([
           {
-            field: `${header}`, 
+            field: `${header}`,
             headerName: `${header}`,
-            description:`${header}`,
+            description: `${header}`,
             flex: 1
           }
         ])
         setData([
           {
             id: 0,
-            header : header
+            header: header
           }
         ])
         setIsLoading(false)
       })
 
   }, [])
-  
-  if(isLoading) return  <div><img src={logo} className={styles.logo} alt="Rotating compoany logo" /> Loading  . . </div>
+
+  if (isLoading) return <div><img src={logo} className={styles.logo} alt="Rotating compoany logo" /> Loading  . . </div>
 
   return (
     data
-    ?
-    <div style={{ height: '80%', width: '90%' , margin: '0 auto'}}>
-      <Typography variant="h2" component="h2" gutterBottom>
-        <Icon /> {endpoint}
-      </Typography>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={25}
-        checkboxSelection
-        disableSelectionOnClick
-         onSelectionModelChange={(newSelection) => {
-          setSelectionModel(newSelection.selectionModel);
-        }}
-        selectionModel={selectionModel}
-      />
+      ?
+      <div style={{ height: '80%', width: '90%', margin: '0 auto' }}>
+        <Typography variant="h2" component="h2" gutterBottom>
+          <Icon /> {endpoint}
+        </Typography>
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={25}
+          checkboxSelection
+          disableSelectionOnClick
+          onSelectionModelChange={(newSelection) => {
+            setSelectionModel(newSelection.selectionModel);
+          }}
+          selectionModel={selectionModel}
+        />
 
-      <div className={classes.root}>
-        <ButtonGroup color="primary" aria-label="outlined primary button group">
-          {
-            endpoint === "containers"
-            ? <></>
-            :
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                startIcon={<AddIcon />}
-              >New</Button>
-          }
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<VisibilityIcon />}
-            component={Link}
-            to={`/${endpoint}/${selectionModel[0]}`}
-          >View</Button>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
-            startIcon={<UpdateIcon />}
-            component={Link}
-            to={`/${endpoint}/${selectionModel[0]}`}
-          >Update</Button>
-
-          {
-            endpoint === "containers"
-            ?
-              <></>
-            :
-              <Button
+        <div className={classes.root}>
+          <ButtonGroup color="primary" aria-label="outlined primary button group">
+            {
+              endpoint === "containers"
+                ? <></>
+                :
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  startIcon={<AddIcon />}
+                >New</Button>
+            }
+            <Button
               variant="contained"
               color="primary"
               className={classes.button}
-              startIcon={<DeleteIcon />}
-              >Delete</Button>
-          }
-        </ButtonGroup>
+              startIcon={<VisibilityIcon />}
+              component={Link}
+              to={`/${endpoint}/${selectionModel[0]}`}
+            >View</Button>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<UpdateIcon />}
+              component={Link}
+              to={`/${endpoint}/update/${selectionModel[0]}`}
+            >Update</Button>
+
+            {
+              endpoint === "containers"
+                ?
+                <></>
+                :
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  startIcon={<DeleteIcon />}
+                >Delete</Button>
+            }
+          </ButtonGroup>
+        </div>
       </div>
-    </div>
-    : <PageNotFound />
+      : <PageNotFound />
   )
 }
