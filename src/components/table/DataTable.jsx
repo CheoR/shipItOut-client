@@ -46,7 +46,7 @@ export const DataTable = ({ endpoint, Icon }) => {
   const classes = useStyles()
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_DOMAIN}/${endpoint}`, {
+    fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
       headers: {
         Authorization: `Token ${token}`
       }
