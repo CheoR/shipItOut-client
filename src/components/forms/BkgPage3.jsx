@@ -32,10 +32,10 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
 
  const classes = useStyles();
 
- const next = (e) => {
-  e.preventDefault()
-  nextStep()
- }
+//  const next = (e) => {
+//   e.preventDefault()
+//   nextStep()
+//  }
 
  const back = (e) => {
     e.preventDefault()
