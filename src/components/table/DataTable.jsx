@@ -46,7 +46,7 @@ export const DataTable = ({ endpoint, Icon }) => {
   const classes = useStyles()
 
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/${endpoint}`, {
+    fetch(`${process.env.REACT_APP_DOMAIN}/${endpoint}`, {
       headers: {
         Authorization: `Token ${token}`
       }
