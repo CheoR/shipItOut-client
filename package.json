@@ -1,5 +1,5 @@
 {
-  "name": "shipitout - NSS capstone project",
+  "name": "shipitout",
   "version": "0.1.0",
   "description": "NSS capstone project. CRA frontend, Django backend.",
   "private": true,
