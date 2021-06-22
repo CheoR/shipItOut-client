@@ -37,3 +37,8 @@ Open the [Latest ShipItOut db diagram](https://dbdiagram.io/d/60be3bdfb29a09603d
 <details>
   <img src="./src/assets/images/ShipItOut.png" alt="entity relationship diagram for Ship It Out database" />
 </details>
+
+## Wireframe
+
+<img src="./src/assets/images/ShipItOut_Drawio.jpg" alt="Wireframe for Ship It Out" />
+

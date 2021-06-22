@@ -1,42 +1,78 @@
-import React from "react"
-import { Link } from "react-router-dom"
-import "./NavBar.css"
+import React, { useEffect } from "react"
+import { Link, useLocation } from "react-router-dom"
 
-export const NavBar = (props) => {
+import logo from "../../assets/images/pugTransport.svg"
+import styles from "./NavBar.module.css"
+
+export const NavBar = () => {
+
+    const location = useLocation()
+    const url = location.pathname
+    let token = localStorage.getItem("user_token")
+
+    useEffect(() => {
+        // rerender navbar when user logs in/out
+        console.log(`current url: ${url}`)
+    },  [ url ])
 
     return (
-        <ul className="navbar">
-            <li className="navbar__item">
-                <Link className="nav-link" to="/">Home</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="nav-link" to="/bookings">Bookings</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="nav-link" to="/containers">Containers</Link>
-            </li>
-            <li className="navbar__item">
-                <Link className="nav-link" to="/products">Products</Link>
-            </li>
-            {
-                (localStorage.getItem("user_token") !== null) ?
-                    <li className="nav-item">
-                        <button className="nav-link fakeLink"
-                            onClick={() => {
-                                localStorage.removeItem("user_token")
-                                props.history.push({ pathname: "/" })
-                            }}
-                        >Logout</button>
-                    </li>:
-                    <>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/login">Login</Link>
+        <div className={styles.navbar}>
+            <div className={styles.imgContainer}>
+                <img src={logo} className={styles.img} alt="Pug TransportLogo"/>
+            </div>
+            <ul className={styles.ulList}>
+                <li className={styles.navBarItem}>
+                    <Link className={styles.navLink} to={`${token ? "/bookings" : "/"}`}>
+                        <button className={styles.navLinkBtn}>Home</button>
+                    </Link>
+                </li>
+                {
+                    token
+                    ?<>
+                        <li className={styles.navBarItem}>
+                            <Link className={styles.navLink} to="/bookings">
+                                <button className={styles.navLinkBtn}>Bookings</button>
+                            </Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/register">Register</Link>
+                        <li className={styles.navBarItem}>
+                            <Link className={styles.navLink} to="/containers">
+                                <button className={styles.navLinkBtn}>
+                                    Containers
+                                </button>
+                            </Link>
                         </li>
-                    </>
-            } 
-        </ul>
+                        <li className={styles.navBarItem}>
+                            <Link className={styles.navLink} to="/products">
+                                <button className={styles.navLinkBtn}>
+                                    Products
+                                </button>
+                            </Link>
+                        </li>
+                        <li className={styles.navBarItem}>
+                            <Link className={styles.navLink} to="/">
+                                <button className={styles.navLinkBtn} onClick={() => {
+                                    localStorage.removeItem("user_token")
+                                }}>
+                                    Logout
+                                </button>
+                            </Link>
+                        </li>
+                        </>
+                    :
+                        <>
+                            <li className={styles.navBarItem}>
+                                <Link className={styles.navLink} to="/login">
+                                    <button className={styles.navLinkBtn}>Login</button>
+                                </Link>
+                            </li>
+                            <li className={styles.navBarItem}>
+                                <Link className={styles.navLink} to="/register">
+                                    <button className={styles.navLinkBtn}>Register</button>
+                                </Link>
+                            </li>
+                        </>
+                }
+            </ul>
+        </div>
     )
 }

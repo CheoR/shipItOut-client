@@ -1,0 +1,24 @@
+/* .page {
+  background: orange;
+  display: grid;
+  height: 100vh;
+}
+
+.title {
+  border: 2px solid black;
+  text-align: center;
+}
+
+.btnList {
+  border: 2px solid black;
+
+  width: 80%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: center;
+} */
+
+.container {
+  height: 100%;
+}

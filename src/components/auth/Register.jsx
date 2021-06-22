@@ -55,7 +55,7 @@ export const Register = (props) => {
                 .then(res => {
                     if ("token" in res) {
                         localStorage.setItem("user_token", res.token)
-                        props.history.push("/")
+                        props.history.push("/bookings")
                     } else {
                         console.log(res)
                         console.log(invalidDialog.current)

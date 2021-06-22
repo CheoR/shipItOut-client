@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.bookingInfo {
+  /* background: orange; */
+  width: 40%;
+  max-height: 450px;
+  margin: 0 auto;
+  margin-bottom: 10%;
+}
+
+.bookingInfo__form {
+  /* background: pink; */
+  width: 100%;
+  height: 430px;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  gap: 25px;
+}
+
+.leftSide {
+  width: 25%;
+  /* background: lightblue; */
+}
+
+.leftSide input {
+  width: 80%;
+}
+
+.rightSide {
+  /* width: 75%; */
+  width: 100%;
+  height: 90%;
+  /* background: lightgreen; */
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+fieldset > div {
+  /* width: 100%; */
+  flex-grow: 1;
+  /* border: 1px solid black; */
+}
+
+.checkbox__item {
+  display: flex;
+  justify-content: left;
+  gap: 15px;
+}
