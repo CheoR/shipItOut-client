@@ -2,17 +2,16 @@ import * as React from 'react'
 import { useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 
-import { DataGrid, gridCheckboxSelectionColDef, GridToolbar } from '@material-ui/data-grid'
-import VisibilityIcon from '@material-ui/icons/Visibility';
-import ButtonGroup from '@material-ui/core/ButtonGroup'
+import { DataGrid } from '@material-ui/data-grid'
+
 import { makeStyles } from '@material-ui/core/styles'
-import Typography from '@material-ui/core/Typography'
+import { ButtonGroup, Button, Typography } from '@material-ui/core'
+
 import DeleteIcon from '@material-ui/icons/Delete'
 import UpdateIcon from '@material-ui/icons/Update'
 import AddIcon from '@material-ui/icons/Add'
-import Button from '@material-ui/core/Button'
-import Icon from '@material-ui/core/Icon'
 
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import logo from "../../assets/images/pugTransport.svg"
 import { PageNotFound } from '../helpers/PageNotFound'
 import styles from "./Table.module.css"
@@ -71,7 +70,6 @@ export const DataTable = ({ endpoint, Icon }) => {
         setIsLoading(false)
       })
       .catch(err => {
-        { console.log(`some error: ${err}`) }
         const header = 'Data Not Found'
         setColumns([
           {
