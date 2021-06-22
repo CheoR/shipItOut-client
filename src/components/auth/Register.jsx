@@ -43,7 +43,7 @@ export const Register = (props) => {
                 "phone": phone.current.value
             }
 
-            return fetch(`${process.env.REACT_APP_DOMAIN}/register`, {
+            return fetch(`${process.env.REACT_APP_API}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
