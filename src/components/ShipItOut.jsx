@@ -18,25 +18,27 @@ import { ProductList } from "./product/ProductList"
 import styles from "./ShipItOut.module.css"
 import { FormUser } from "./forms/FormUser"
 import { TestForm } from "./forms/TestForm"
+import { BkgPage } from "./forms/BkgPage"
 
 export const ShipItOut = () => (
-    <BrowserRouter>
+  <BrowserRouter>
     <main className={styles.shipItout}>
-      <NavBar/>
+      <NavBar />
       <Switch>
+        <Route exact path="/bkg" component={BkgPage} />
         <Route exact path="/test" component={TestForm} />
         <Route exact path="/signup" component={FormUser} />
         <Route exact path="/bookings/update/:id(\d+)" component={BookingUpdate} />
-        <Route exact path="/containers/:id(\d+)"      component={ContainerView} />
-        <Route exact path="/bookings/:id(\d+)"        component={BookingView} />
-        <Route exact path="/products/:id(\d+)"        component={ProductList} />
-        <Route exact path="/containers"               component={ContainerList} />
-        <Route exact path="/products"                 component={ProductList} />
-        <Route exact path="/bookings"                 component={BookingList} />
-        <Route exact path="/register"                 component={Register} />
-        <Route exact path="/login"                    component={Login} />
-        <Route exact path="/"                         component={Home} />
-        <Route                                        component={PageNotFound} />
+        <Route exact path="/containers/:id(\d+)" component={ContainerView} />
+        <Route exact path="/bookings/:id(\d+)" component={BookingView} />
+        <Route exact path="/products/:id(\d+)" component={ProductList} />
+        <Route exact path="/containers" component={ContainerList} />
+        <Route exact path="/products" component={ProductList} />
+        <Route exact path="/bookings" component={BookingList} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/" component={Home} />
+        <Route component={PageNotFound} />
       </Switch>
       <Footer />
     </main>

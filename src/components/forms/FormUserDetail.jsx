@@ -1,7 +1,6 @@
 import React from "react"
 
 import { ThemeProvider } from "@material-ui/core/styles"
-import { AppBar } from "@material-ui/core"
 import { TextField } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -25,7 +24,6 @@ export const FormUserDetail = ({ nextStep, handleChange, values }) => {
   return (
     <ThemeProvider>
       <div>
-        {/* <AppBar title="Enter User Details" /> */}
         <h1>Enter user details</h1>
 
         <TextField
