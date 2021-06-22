@@ -19,15 +19,15 @@ export const Register = (props) => {
 
 
     // redundant check if all fields are filled
-    const isBlank = ( e ) => e.length === 0;
+    const isBlank = (e) => e.length === 0;
 
 
     const fields = [firstName, lastName]
 
     const handleRegister = (e) => {
         e.preventDefault()
-        
-        if(fields.some(isBlank)) {
+
+        if (fields.some(isBlank)) {
             blankFieldsDialog.current.showModal()
         }
 
@@ -43,7 +43,7 @@ export const Register = (props) => {
                 "phone": phone.current.value
             }
 
-            return fetch("http://127.0.0.1:8000/register", {
+            return fetch(`${process.env.REACT_APP_DOMAIN}/register`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
