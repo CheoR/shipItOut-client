@@ -8,7 +8,6 @@ import { BkPage4 } from "./BkgPage4"
 export const BkgPage = () => {
 
 
- const [productList, setProductList] = useState([])
  const [pickupTime, setPickupTime] = useState(new Date())
  const [portCutTime, setPortCutTime] = useState(new Date())
  const [railCutTime, setRailCutTime] = useState(new Date())
@@ -33,10 +32,15 @@ export const BkgPage = () => {
   address: "",
   bkg_notes: "",
   cntr_notes: "",
-  damaged: false,
+  cntrDamaged: false,
   inspection: false,
   overweight: false,
-  products: productList
+  commodity: "",
+  weight: 0,
+  fragile: false,
+  hazardous: false,
+  reefer: false,
+  productDamaged: false
  })
 
 
@@ -161,9 +165,14 @@ export const BkgPage = () => {
    return (
 
     <BkgPage3
+     handleInputChange={handleInputChange}
+     handleCheckBoxChange={handleCheckBoxChange}
+     handlePickupDateChange={handlePickupDateChange}
+     handlePortCutDateChange={handlePortCutDateChange}
+     handleRailCutDateChange={handleRailCutDateChange}
+     handleSubmit={handleSubmit}
      nextStep={nextStep}
-     backStep={prevStep}
-     handleChange={handleInputChange}
+     prevStep={prevStep}
      formValues={formValues}
     />
    )

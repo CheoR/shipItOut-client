@@ -228,7 +228,12 @@ export const TestForm = () => {
     damaged: false,
     inspection: false,
     overweight: false,
-    products: productList
+    commodity: "",
+    weight: 0,
+    fragile: false,
+    hazardous: false,
+    reefer: false,
+    productDamaged: false
   })
 
   const classes = useStyles()

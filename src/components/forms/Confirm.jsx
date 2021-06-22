@@ -1,8 +1,6 @@
 import React from "react"
 
 import { ThemeProvider } from "@material-ui/core/styles"
-import { AppBar } from "@material-ui/core"
-import { TextField } from "@material-ui/core"
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete'
 import { makeStyles } from '@material-ui/core/styles'
@@ -36,7 +34,6 @@ export const Confirm = ({ nextStep, backStep, handleChange, values }) => {
   return (
     <ThemeProvider>
       <div>
-        {/* <AppBar title="Enter User Details" /> */}
         <h1>Confirm</h1>
 
         <List>

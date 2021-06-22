@@ -12,9 +12,6 @@ import { agent, service, voyage, carrier, containerType, container, loadingPort,
 
 export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickupDateChange, handlePortCutDateChange, handleRailCutDateChange, handleSubmit, nextStep, prevStep, formValues }) => {
 
- console.log(" from test form data ")
- console.log(agent)
-
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,32 +48,38 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
  return (
   <ThemeProvider>
 
-   <div style={{ margin: "0 auto", width: "60%", backgroundColor: "red" }}>
-    <h1 style={{ margin: "0 auto", backgroundColor: "red", textAlign: "center" }}>Container</h1>
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ backgroundColor: '#cfe8fc', border: "black", width: "100%", margin: "0 auto" }}>
-     <Grid container spacing={4} style={{ background: "orange", width: "100%", margin: "0 auto " }}>
+   <div style={{ margin: "0 auto", width: "60%" }}>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>Container</h1>
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
+     <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
        <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
        <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
        <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
+        <Button 
+         variant="contained" 
+         color="secondary" 
+         label="cabcek" 
+         href="/bookings"
+         className={classes.button}
+        >
+          Cancel
+        </Button>
         <Button
          variant="contained"
          color="secondary"
          label="continue"
          className={classes.button}
-         startIcon={<DeleteIcon />}
          onClick={back}
         >
          Back
         </Button>
-        <Button></Button>
         <Button
          variant="contained"
          color="secondary"
          label="continue"
          className={classes.button}
-         startIcon={<DeleteIcon />}
          onClick={next}
         >
          Next
@@ -221,20 +224,23 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         <FormGroup>
 
          <FormControlLabel
-          id="damaged"
-          label="damaged"
-          control={<Checkbox checked={formValues.damaged} onChange={handleCheckBoxChange} name="damaged" />}
+          id="cntrDamaged"
+          name="cntrDamaged"
+          label="Damaged"
+          control={<Checkbox checked={formValues.cntrDamaged} onChange={handleCheckBoxChange} name="cntrDamaged" />}
          />
 
          <FormControlLabel
           id="inspection"
-          label="inspection"
+          name="inspection"
+          label="Needs Inspection"
           control={<Checkbox checked={formValues.inspection} onChange={handleCheckBoxChange} name="inspection" />}
          />
 
          <FormControlLabel
           id="overweight"
-          label="overweight"
+          name="overweight"
+          label="Overweight"
           control={<Checkbox checked={formValues.overweight} onChange={handleCheckBoxChange} name="overweight" />}
          />
         </FormGroup>
@@ -275,6 +281,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         defaultValue={formValues.address}
         style={{ width: "100%" }}
         onChange={handleInputChange}
+        disabled
        />
        <TextareaAutosize
         id="cntr_notes"

@@ -40,26 +40,42 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
   nextStep()
  }
 
+ const checkValues = () => {
+  console.log("checking values")
+  if([formValues.service, formValues.voyage, formValues.carrier, 
+   formValues.loadingPort, formValues.unloadingPort].every(e => e)) {
+   return true
+  }
+  return false
+ }
+
  return (
   <ThemeProvider>
 
-   <div style={{ margin: "0 auto", width: "60%", backgroundColor: "red" }}>
-    <h1 style={{ margin: "0 auto", backgroundColor: "red", textAlign: "center" }}>Booking</h1>
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ backgroundColor: '#cfe8fc', border: "black", width: "100%", margin: "0 auto" }}>
-     <Grid container spacing={4} style={{ background: "orange", width: "100%", margin: "0 auto " }}>
+   <div style={{ margin: "0 auto", width: "60%"}}>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>Booking</h1>
+    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
+     <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
        <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
        <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
        <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
-        <Button></Button>
+        <Button 
+         variant="contained" 
+         color="secondary" 
+         label="cabcek" 
+         href="/bookings"
+         className={classes.button}
+         >
+          Cancel
+        </Button>
         <Button></Button>
         <Button
          variant="contained"
          color="secondary"
          label="continue"
          className={classes.button}
-         startIcon={<DeleteIcon />}
          onClick={next}
         >
          Next
@@ -78,6 +94,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          name="service"
          value={formValues.service}
          onChange={handleInputChange}
+         fontWeight="fontWeightBold"
         >
          {
           service.map(s => <MenuItem key={s.id} id={s.id} value={s.id}>{s.name}</MenuItem>)
@@ -205,19 +222,22 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
 
          <FormControlLabel
           id="documents"
-          label="documents"
+          name="documents"
+          label="Documents"
           control={<Checkbox checked={formValues.documents} onChange={handleCheckBoxChange} name="documents" />}
          />
 
          <FormControlLabel
           id="dues"
-          label="dues"
+          name="dues"
+          label="Dues"
           control={<Checkbox checked={formValues.dues} onChange={handleCheckBoxChange} name="dues" />}
          />
 
          <FormControlLabel
           id="issues"
-          label="issues"
+          name="issues"
+          label="Issues"
           control={<Checkbox checked={formValues.issues} onChange={handleCheckBoxChange} name="issues" />}
          />
         </FormGroup>
