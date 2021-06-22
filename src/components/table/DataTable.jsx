@@ -28,7 +28,6 @@ export const DataTable = ({ endpoint, Icon }) => {
 
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
-  // const [ rows, setRows ] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectionModel, setSelectionModel] = useState([])
   const token = localStorage.getItem("user_token")
@@ -125,6 +124,7 @@ export const DataTable = ({ endpoint, Icon }) => {
                   color="primary"
                   className={classes.button}
                   startIcon={<AddIcon />}
+                  href="/bookings/create"
                 >New</Button>
             }
             <Button
@@ -133,7 +133,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               className={classes.button}
               startIcon={<VisibilityIcon />}
               component={Link}
-              to={`/${endpoint}/${selectionModel[0]}`}
+              to={`/${endpoint}/view/${selectionModel[0]}`}
             >View</Button>
             <Button
               variant="contained"

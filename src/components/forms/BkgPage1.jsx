@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import DeleteIcon from '@material-ui/icons/Delete'
 import { ThemeProvider } from "@material-ui/core/styles"
 
 import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
@@ -52,7 +51,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
  return (
   <ThemeProvider>
 
-   <div style={{ margin: "0 auto", width: "60%"}}>
+   <fieldset style={{ margin: "0 auto", width: "60%"}}>
     <h1 style={{ margin: "0 auto", textAlign: "center" }}>Booking</h1>
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
@@ -295,7 +294,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
       </Grid>
      </Grid>
     </form>
-   </div >
+   </fieldset >
   </ThemeProvider>
 
  )

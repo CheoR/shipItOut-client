@@ -4,10 +4,10 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core/styles"
 
-import { agent } from "./TestFormData"
+import { agent } from "../forms/TestFormData"
 
 
-export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit, nextStep, prevStep, formValues }) => {
+export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
 
 
  const useStyles = makeStyles((theme) => ({
@@ -52,8 +52,8 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
   <ThemeProvider>
 
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>Product</h1>
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View Product</h1>
+    <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
        <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
@@ -79,23 +79,15 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
          Back
         </Button>
 
-         <Button
-          variant="contained"
-          color="secondary"
-          label="continue"
-          className={classes.button}
-          onClick={create}
-         >
-          Create
-         </Button>
+        <></>
 
        </div>
 
       </Grid>
 
       <Grid item xs={4}>
-       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.commodity}  onChange={handleInputChange} style={{ width: "50%" }} />
-       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.weight}  onChange={handleInputChange} style={{ width: "50%" }}  InputLabelProps={{
+       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.commodity}  disabled style={{ width: "50%" }} />
+       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.weight} disabled  style={{ width: "50%" }}  InputLabelProps={{
             shrink: true,
             
           }} inputProps={{ min: 0}}/>
@@ -109,27 +101,31 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
           id="fragile"
           name="fragile"
           label="Fragile"
-          control={<Checkbox checked={formValues.fragile} onChange={handleCheckBoxChange} name="fragile" />}
+          control={<Checkbox checked={formValues.fragile} name="fragile" />}
+          disabled
          />
 
          <FormControlLabel
           id="hazardous"
           name="hazardous"
           label="Hazardous"
-          control={<Checkbox checked={formValues.hazardous} onChange={handleCheckBoxChange} name="hazardous" />}
+          control={<Checkbox checked={formValues.hazardous} name="hazardous" />}
+          disabled
          />
 
          <FormControlLabel
           id="reefer"
           name="reefer"
           label="Reefer"
-          control={<Checkbox checked={formValues.reefer} onChange={handleCheckBoxChange} name="reefer" />}
+          control={<Checkbox checked={formValues.reefer} name="reefer" />}
+          disabled
          />
          <FormControlLabel
           id="productDamaged"
           name="productDamaged"
           label="Damaged"
-          control={<Checkbox checked={formValues.productDamaged} onChange={handleCheckBoxChange} name="productDamaged" />}
+          control={<Checkbox checked={formValues.productDamaged} name="productDamaged" />}
+          disabled
          />
         </FormGroup>
 

@@ -1,16 +1,15 @@
 import React from "react"
 
-
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
 
-import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
+import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "../forms/TestFormData"
 
 
-export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickupDateChange, handlePortCutDateChange, handleRailCutDateChange, handleSubmit, nextStep, prevStep, formValues }) => {
+export const BookingView1 = ({ nextStep, formValues }) => {
 
 
  const useStyles = makeStyles((theme) => ({
@@ -40,17 +39,12 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
   nextStep()
  }
 
- const back = (e) => {
-    e.preventDefault()
-    prevStep()
-  }
-
  return (
   <ThemeProvider>
 
-   <fieldset style={{ margin: "0 auto", width: "60%" }} >
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>Container</h1>
-    <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
+   <fieldset style={{ margin: "0 auto", width: "60%"}}>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View Booking</h1>
+    <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
        <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
@@ -63,18 +57,10 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          label="cabcek" 
          href="/bookings"
          className={classes.button}
-        >
+         >
           Cancel
         </Button>
-        <Button
-         variant="contained"
-         color="secondary"
-         label="continue"
-         className={classes.button}
-         onClick={back}
-        >
-         Back
-        </Button>
+        <Button></Button>
         <Button
          variant="contained"
          color="secondary"
@@ -90,14 +76,15 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
       </Grid>
 
       <Grid item xs={4}>
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
         <InputLabel id="serviceSelect">Service</InputLabel>
         <Select
          labelId="serviceSelect"
          id="service"
          name="service"
          value={formValues.service}
-         onChange={handleInputChange}
+         
+         fontWeight="fontWeightBold"
         >
          {
           service.map(s => <MenuItem key={s.id} id={s.id} value={s.id}>{s.name}</MenuItem>)
@@ -113,7 +100,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          id="voyage"
          name="voyage"
          value={formValues.voyage}
-         onChange={handleInputChange}
+         
         >
          {
           voyage.map(v => <MenuItem key={v.id} id={v.id} value={v.id}>{v.voyage}</MenuItem>)
@@ -129,7 +116,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          id="carrier"
          name="carrier"
          value={formValues.carrier}
-         onChange={handleInputChange}
+         
         >
          {
           carrier.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)
@@ -138,14 +125,14 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }}>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
         <InputLabel id="cntrTypeSelect">Container Type</InputLabel>
         <Select
          labelId="cntrTypeSelect"
          id="cntrType"
          name="equipment_type"
          value={formValues.equipment_type}
-         onChange={handleInputChange}
+         
         >
          {
           containerType.map(c => <MenuItem key={c.id} value={c.id}>{c.equipment_type}</MenuItem>)
@@ -153,14 +140,14 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }}>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
         <InputLabel id="containerSelect">Container</InputLabel>
         <Select
          labelId="containerSelect"
          id="cntr"
          name="cntr"
          value={formValues.cntr}
-         onChange={handleInputChange}
+         
         >
          {
           container.map(s => <MenuItem key={s.id} value={s.id}>{s.container}</MenuItem>)
@@ -176,7 +163,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          id="loading_port"
          name="loading_port"
          value={formValues.loading_port}
-         onChange={handleInputChange}
+         
         >
          {
           loadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
@@ -186,14 +173,14 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
        </FormControl>
 
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
         <InputLabel id="unloadingPortSelect">Unloading Port</InputLabel>
         <Select
          labelId="unloadingPortSelect"
          id="unloading_port"
          name="unloading_port"
          value={formValues.unloading_port}
-         onChange={handleInputChange}
+         
         >
          {
           unloadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
@@ -202,14 +189,14 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
         <InputLabel id="statusSelect">Status</InputLabel>
         <Select
          labelId="statusSelect"
          id="status"
          name="status"
          value={formValues.status}
-         onChange={handleInputChange}
+         
         >
          {
           statuses.map(s => <MenuItem key={s.id} value={s.id}>{s.status}</MenuItem>)
@@ -219,29 +206,29 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
        </FormControl>
       </Grid>
       <Grid item xs={4}>
-       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Verify About Container</FormLabel>
+       <FormControl component="fieldset" className={classes.formControl} disabled>
+        <FormLabel component="legend">Verify About Booking</FormLabel>
         <FormGroup>
 
          <FormControlLabel
-          id="cntrDamaged"
-          name="cntrDamaged"
-          label="Damaged"
-          control={<Checkbox checked={formValues.cntrDamaged} onChange={handleCheckBoxChange} name="cntrDamaged" />}
+          id="documents"
+          name="documents"
+          label="Documents"
+          control={<Checkbox checked={formValues.documents}  name="documents" />}
          />
 
          <FormControlLabel
-          id="inspection"
-          name="inspection"
-          label="Needs Inspection"
-          control={<Checkbox checked={formValues.inspection} onChange={handleCheckBoxChange} name="inspection" />}
+          id="dues"
+          name="dues"
+          label="Dues"
+          control={<Checkbox checked={formValues.dues}  name="dues" />}
          />
 
          <FormControlLabel
-          id="overweight"
-          name="overweight"
-          label="Overweight"
-          control={<Checkbox checked={formValues.overweight} onChange={handleCheckBoxChange} name="overweight" />}
+          id="issues"
+          name="issues"
+          label="Issues"
+          control={<Checkbox checked={formValues.issues}  name="issues" />}
          />
         </FormGroup>
 
@@ -252,27 +239,30 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         style={{ width: '100%' }}
         value={formValues.pickup}
         disablePast
-        onChange={handlePickupDateChange}
+        
         label="Pick Up"
         showTodayButton
+        disabled
        />
 
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.port_cut}
         disablePast
-        onChange={handlePortCutDateChange}
+
         label="Port Cut"
         showTodayButton
+        disabled
        />
 
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.rail_cut}
         disablePast
-        onChange={handleRailCutDateChange}
+
         label="Rail Cut"
         showTodayButton
+        disabled
        />
        <TextField
         id="address"
@@ -280,18 +270,19 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         label="Pickup Address"
         defaultValue={formValues.address}
         style={{ width: "100%" }}
-        onChange={handleInputChange}
         disabled
+        
        />
        <TextareaAutosize
-        id="cntr_notes"
-        name="cntr_notes"
+        id="bkg_notes"
+        name="bkg_notes"
         aria-label="empty textarea"
-        placeholder="Container Notes"
-        value={formValues.cntr_notes}
+        placeholder="Booking Notes"
+        value={formValues.bkg_notes}
         style={{ width: "100%" }}
         rowsMin={5}
-        onChange={handleInputChange}
+        disabled
+        
        />
       </Grid>
      </Grid>
