@@ -11,7 +11,7 @@ export const Login = props => {
     const handleLogin = (e) => {
         e.preventDefault()
 
-        return fetch(`${process.env.REACT_APP_DOMAIN}/login`, {
+        return fetch(`${process.env.REACT_APP_API}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
