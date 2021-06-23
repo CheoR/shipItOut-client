@@ -32,21 +32,12 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
 
  const classes = useStyles();
 
- const next = (e) => {
-  e.preventDefault()
-  nextStep()
- }
 
  const back = (e) => {
     e.preventDefault()
     prevStep()
   }
 
-   const create = (e) => {
-    e.preventDefault()
-    console.table('all values')
-    console.table(formValues)
-  }
 
  return (
   <ThemeProvider>

@@ -163,6 +163,11 @@ export const BkgPage = () => {
    return (
     <>Back to Booking Page</>
    )
+  
+   default:
+     return (
+       <>Oops, you shouldn't be here</>
+     )
 
  } // swtich
 }

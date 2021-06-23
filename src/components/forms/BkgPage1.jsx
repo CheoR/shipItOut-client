@@ -38,14 +38,14 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
   nextStep()
  }
 
- const checkValues = () => {
-  console.log("checking values")
-  if([formValues.service, formValues.voyage, formValues.carrier, 
-   formValues.loadingPort, formValues.unloadingPort].every(e => e)) {
-   return true
-  }
-  return false
- }
+//  const checkValues = () => {
+//   console.log("checking values")
+//   if([formValues.service, formValues.voyage, formValues.carrier, 
+//    formValues.loadingPort, formValues.unloadingPort].every(e => e)) {
+//    return true
+//   }
+//   return false
+//  }
 
  return (
    <fieldset style={{ margin: "0 auto", width: "60%"}}>

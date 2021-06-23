@@ -40,5 +40,5 @@ Open the [Latest ShipItOut db diagram](https://dbdiagram.io/d/60be3bdfb29a09603d
 
 ## Wireframe
 
-<img src="./src/assets/images/ShipItOut_Drawio.jpg" alt="Wireframe for Ship It Out" />
+<img src="./src/assets/images/ShipItOut_DrawIo.jpg" alt="Wireframe for Ship It Out" />
 

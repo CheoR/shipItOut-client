@@ -11,7 +11,7 @@ export const Login = props => {
     const handleLogin = (e) => {
         e.preventDefault()
 
-        return fetch("http://127.0.0.1:8000/login", {
+        return fetch(`${process.env.REACT_APP_API}/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -25,7 +25,7 @@ export const Login = props => {
             .then(res => res.json())
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
-                    localStorage.setItem( "user_token", res.token )
+                    localStorage.setItem("user_token", res.token)
                     props.history.push("/bookings")
                 }
                 else {
@@ -46,14 +46,14 @@ export const Login = props => {
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputusername"> Username </label>
-                        <input ref={username} type="text" id="username" className="form-control"  placeholder="Username" required autoFocus />
+                        <input ref={username} type="text" id="username" className="form-control" placeholder="Username" required autoFocus />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword"> Password </label>
-                        <input ref={password} type="password" id="password" className="form-control"  placeholder="Password" required />
+                        <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
                     </fieldset>
                     <fieldset style={{
-                        textAlign:"center"
+                        textAlign: "center"
                     }}>
                         <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
                     </fieldset>
