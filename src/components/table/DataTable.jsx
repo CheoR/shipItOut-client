@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 
 import { DataGrid, gridCheckboxSelectionColDef, GridToolbar } from '@material-ui/data-grid'
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -16,6 +16,7 @@ import Icon from '@material-ui/core/Icon'
 import logo from "../../assets/images/pugTransport.svg"
 import { PageNotFound } from '../helpers/PageNotFound'
 import styles from "./Table.module.css"
+import { flattenBookingData, flattenContainerData, flattenProductData } from './FlattenData'
 
 
 // const rows = [
@@ -25,6 +26,8 @@ import styles from "./Table.module.css"
 
 
 export const DataTable = ({ endpoint, Icon }) => {
+
+  const location = useLocation()
 
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
@@ -54,8 +57,24 @@ export const DataTable = ({ endpoint, Icon }) => {
     })
       .then(res => res.json())
       .then(res => {
-        console.log("res is ")
-        console.table(res)
+
+        // TODO: move flattening to backend
+        switch(location.pathname) {
+          case '/bookings':
+            res = flattenBookingData([...res])
+            break
+          case '/containers':
+            res = flattenContainerData(res)
+            break
+          case '/products':
+            res = flattenProductData(res)
+            break
+          default:
+            throw 'Data Not Found'
+        }
+
+
+
         setData(res)
         const colHeaders = Object.keys(res[0])
 

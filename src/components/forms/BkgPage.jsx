@@ -8,11 +8,6 @@ import { BkPage4 } from "./BkgPage4"
 export const BkgPage = () => {
 
 
- const [pickupTime, setPickupTime] = useState(new Date())
- const [portCutTime, setPortCutTime] = useState(new Date())
- const [railCutTime, setRailCutTime] = useState(new Date())
-
-
  const [formValues, setFormValues] = useState({
   step: 1,
   service: 0,
@@ -26,9 +21,9 @@ export const BkgPage = () => {
   documents: false,
   dues: false,
   issues: false,
-  pickup: pickupTime,
-  port_cut: portCutTime,
-  rail_cut: railCutTime,
+  pickup: new Date(),
+  port_cut: new Date(),
+  rail_cut: new Date(),
   address: "",
   bkg_notes: "",
   cntr_notes: "",
@@ -37,7 +32,7 @@ export const BkgPage = () => {
   overweight: false,
   commodity: "",
   weight: 0,
-  fragile: false,
+  fragile: false, 
   hazardous: false,
   reefer: false,
   productDamaged: false
@@ -70,47 +65,28 @@ export const BkgPage = () => {
 
 
  const handlePickupDateChange = (e) => {
-  console.log("in handle pick up change")
-  console.log(`e.id: ${e.id} e.name: ${e.name} e.label: ${e.label} e.value: ${e.value}`)
-  setPickupTime(prevState => e)
-
   const name = 'pickup'
   setFormValues({
    ...formValues,
-   [name]: pickupTime,
+   [name]: e,
   })
-  console.log(`pickupTime is ${pickupTime}`)
-  console.log(`formValues.pickup is ${formValues.pickup}`)
  }
 
  const handlePortCutDateChange = (e) => {
-  console.log("in handle port cut change")
-  console.log(`e.id: ${e.id} e.name: ${e.name} e.label: ${e.label} e.value: ${e.value}`)
-  setPortCutTime(prevState => e)
-
   const name = 'port_cut'
   setFormValues({
    ...formValues,
-   [name]: portCutTime,
+   [name]: e,
   })
-  console.log(`portCutTime is ${portCutTime}`)
-  console.log(`formValues.port_cut is ${formValues.port_cut}`)
  }
 
 
  const handleRailCutDateChange = (e) => {
-  console.log("in handle rail cut change")
-  console.log(`e.id: ${e.id} e.name: ${e.name} e.label: ${e.label} e.value: ${e.value}`)
-  setRailCutTime(e)
-
-
   const name = 'rail_cut'
   setFormValues({
    ...formValues,
-   [name]: railCutTime,
+      [name]: e,
   })
-  console.log(`railCutTime is ${railCutTime}`)
-  console.log(`formValues.rail_cut is ${formValues.rail_cut}`)
  }
 
 
@@ -126,9 +102,6 @@ export const BkgPage = () => {
   });
  };
 
-
- // const { step, firstName, lastName, email, occupation, city, bio } = formValues;
- // const values = { firstName, lastName, email, occupation, city, bio }
 
  switch (formValues.step) {
   case 1:
