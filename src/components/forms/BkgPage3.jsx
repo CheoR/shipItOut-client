@@ -2,7 +2,6 @@ import React from "react"
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
-import { ThemeProvider } from "@material-ui/core/styles"
 
 import { agent } from "./TestFormData"
 
@@ -43,14 +42,12 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
   }
 
    const create = (e) => {
+     console.table('all values')
     e.preventDefault()
-    console.table('all values')
     console.table(formValues)
   }
 
  return (
-  <ThemeProvider>
-
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
     <h1 style={{ margin: "0 auto", textAlign: "center" }}>Product</h1>
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
@@ -141,7 +138,5 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
      </Grid>
     </form>
    </fieldset >
-  </ThemeProvider>
-
  )
 }

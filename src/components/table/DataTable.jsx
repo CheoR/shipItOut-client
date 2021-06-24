@@ -1,5 +1,4 @@
-import * as React from 'react'
-import { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link } from "react-router-dom"
 
 import { DataGrid } from '@material-ui/data-grid'
@@ -15,6 +14,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import logo from "../../assets/images/pugTransport.svg"
 import { PageNotFound } from '../helpers/PageNotFound'
 import styles from "./Table.module.css"
+import { filterBookingData, filterContainerData, filterProductData } from './FlattenData'
 
 
 // const rows = [
@@ -45,16 +45,31 @@ export const DataTable = ({ endpoint, Icon }) => {
   }));
   const classes = useStyles()
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    })
+  
+    useEffect(() => {
+      fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
       .then(res => res.json())
       .then(res => {
-        console.log("res is ")
-        console.table(res)
+
+        // TODO: move flattening to backend
+        switch(endpoint) {
+          case 'bookings':
+            res = filterBookingData([...res])
+            break
+          case 'containers':
+            res = filterContainerData(res)
+            break
+          case 'products':
+            res = filterProductData(res)
+            break
+          default:
+            throw 'Data Not Found'
+        }
+
         setData(res)
         const colHeaders = Object.keys(res[0])
 
@@ -131,7 +146,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               className={classes.button}
               startIcon={<VisibilityIcon />}
               component={Link}
-              to={`/${endpoint}/view/${selectionModel[0]}`}
+              to={`/${endpoint}/${selectionModel[0]}`}
             >View</Button>
             <Button
               variant="contained"

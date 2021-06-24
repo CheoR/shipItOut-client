@@ -18,22 +18,25 @@ import styles from "./ShipItOut.module.css"
 
 import { BkgPage } from "./forms/BkgPage"
 import { BookingView } from "./booking/BookingView"
+import { DataTableProvider } from "./table/DataTableProvider"
 
 export const ShipItOut = () => (
   <BrowserRouter>
     <main className={styles.shipItout}>
       <NavBar />
       <Switch>
-        <Route exact path="/products/:id(\d+)" component={ProductList} />
-        <Route exact path="/products" component={ProductList} />
+        <DataTableProvider>
+          <Route exact path="/products/:id(\d+)" component={ProductList} />
+          <Route exact path="/products" component={ProductList} />
 
-        <Route exact path="/containers/:id(\d+)" component={ContainerView} />
-        <Route exact path="/containers" component={ContainerList} />
+          <Route exact path="/containers/:id(\d+)" component={ContainerView} />
+          <Route exact path="/containers" component={ContainerList} />
 
-        <Route exact path="/bookings/update/:id(\d+)" component={BookingUpdate} />
-        <Route exact path="/bookings/view/:id(\d+)" component={BookingView} />
-        <Route exact path="/bookings/create" component={BkgPage} />
-        <Route exact path="/bookings" component={BookingList} />
+          <Route exact path="/bookings/update/:id(\d+)" component={BookingUpdate} />
+          <Route exact path="/bookings/:id(\d+)" component={BookingView} />
+          <Route exact path="/bookings/create" component={BkgPage} />
+          <Route exact path="/bookings" component={BookingList} />
+        </DataTableProvider>
 
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
