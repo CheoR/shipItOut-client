@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { useLocation, useParams } from "react-router-dom"
-import { filterBookingViewData } from "../table/FlattenData"
+import { useLocation } from "react-router-dom"
 import { BookingView1 } from "./BookingView1"
 import { BookingView2 } from "./BookingView2"
 import { BookingView3 } from "./BookingView3"
@@ -9,42 +8,41 @@ import { BookingView4 } from "./BookingView4"
 export const BookingView = () => {
 
 
- const [formValues, setFormValues] = useState({
-  step: 1,
-  service: 0,
-  voyage: 0,
-  carrier: 0,
-  equipment_type: 0,
-  cntr: 0,
-  loading_port: 0,
-  unloading_port: 0,
-  status: 1,
-  documents: false,
-  dues: false,
-  issues: false,
-  pickup: new Date(),
-  port_cut: new Date(),
-  rail_cut: new Date(),
-  address: "",
-  bkg_notes: "",
-  cntr_notes: "",
-  cntrDamaged: false,
-  inspection: false,
-  overweight: false,
-  commodity: "",
-  weight: 0,
-  fragile: false,
-  hazardous: false,
-  reefer: false,
-  productDamaged: false
- })
+//  const [formValues, setFormValues] = useState({
+//   step: 1,
+//   service: 0,
+//   voyage: 0,
+//   carrier: 0,
+//   equipment_type: 0,
+//   cntr: 0,
+//   loading_port: 0,
+//   unloading_port: 0,
+//   status: 1,
+//   documents: false,
+//   dues: false,
+//   issues: false,
+//   pickup: new Date(),
+//   port_cut: new Date(),
+//   rail_cut: new Date(),
+//   address: "",
+//   bkg_notes: "",
+//   cntr_notes: "",
+//   cntrDamaged: false,
+//   inspection: false,
+//   overweight: false,
+//   commodity: "",
+//   weight: 0,
+//   fragile: false,
+//   hazardous: false,
+//   reefer: false,
+//   productDamaged: false
+//  })
 
-const [ data, setData ] = useState([])
-const { id } = useParams()
+
+const [ formValues, setFormValues ] = useState([])
 const location = useLocation()
 const endpoint =  location.pathname.slice(1)
 const token = localStorage.getItem("user_token")
-console.log(`${id} - ${endpoint} - ${location.pathname}` ) 
 
 useEffect(() => {
   return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
@@ -54,12 +52,17 @@ useEffect(() => {
   })
   .then(res => res.json())
   .then(res => {
-    console.log(" in then ")
-    res = filterBookingViewData({...res})
-    setData(res)
-    console.log("new data")
-    console.table(res)
-  })
+        const addStep = { ...res }
+        addStep['step'] = 1
+        setFormValues(addStep)
+      })
+  // .then(res => {
+  //   console.log(" in then ")
+  //   res = filterBookingViewData({...res})
+  //   setData(res)
+  //   console.log("new data")
+  //   console.table(res)
+  // })
 
 }, []) // useEffect
 
@@ -163,7 +166,7 @@ useEffect(() => {
    )
   default:
    return (
-    <>This is BookingsView </>
+    <>Booking Loading . . </>
    )
 
  } // swtich

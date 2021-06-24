@@ -47,9 +47,9 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
     <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
-       <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+       <TextField id="name" name="name" label="Agent Name" defaultValue={formValues.full_name} disabled style={{ width: "50%" }} />
+       <TextField id="email" name="email" label="Agent Email" defaultValue={formValues.email} disabled style={{ width: "50%" }} />
+       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={formValues.phone} disabled style={{ width: "50%" }} />
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
@@ -77,8 +77,8 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
       </Grid>
 
       <Grid item xs={4}>
-       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.commodity}  disabled style={{ width: "50%" }} />
-       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.weight} disabled  style={{ width: "50%" }}  InputLabelProps={{
+       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.products[0].commodity}  disabled style={{ width: "50%" }} />
+       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.products[0].weight} disabled  style={{ width: "50%" }}  InputLabelProps={{
             shrink: true,
             
           }} inputProps={{ min: 0}}/>
@@ -89,18 +89,18 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
         <FormGroup>
 
          <FormControlLabel
-          id="fragile"
-          name="fragile"
+          id="product_fragile"
+          name="product_fragile"
           label="Fragile"
-          control={<Checkbox checked={formValues.fragile} name="fragile" />}
+          control={<Checkbox checked={formValues.products[0].product_fragile} name="product_fragile" />}
           disabled
          />
 
          <FormControlLabel
-          id="hazardous"
-          name="hazardous"
+          id="product_haz"
+          name="product_haz"
           label="Hazardous"
-          control={<Checkbox checked={formValues.hazardous} name="hazardous" />}
+          control={<Checkbox checked={formValues.products[0].product_haz} name="product_haz" />}
           disabled
          />
 
@@ -108,14 +108,14 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
           id="reefer"
           name="reefer"
           label="Reefer"
-          control={<Checkbox checked={formValues.reefer} name="reefer" />}
+          control={<Checkbox checked={formValues.products[0].reefer} name="reefer" />}
           disabled
          />
          <FormControlLabel
-          id="productDamaged"
-          name="productDamaged"
+          id="product_damaged"
+          name="product_damaged"
           label="Damaged"
-          control={<Checkbox checked={formValues.productDamaged} name="productDamaged" />}
+          control={<Checkbox checked={formValues.products[0].product_damaged} name="product_damaged" />}
           disabled
          />
         </FormGroup>

@@ -146,7 +146,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               className={classes.button}
               startIcon={<VisibilityIcon />}
               component={Link}
-              to={`/${endpoint}/view/${selectionModel[0]}`}
+              to={`/${endpoint}/${selectionModel[0]}`}
             >View</Button>
             <Button
               variant="contained"

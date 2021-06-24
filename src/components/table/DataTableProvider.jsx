@@ -11,9 +11,6 @@ export const DataTableProvider = ( props ) => {
     /*
       Generic data fetch.
     */
-
-      console.log(`calling: ${process.env.REACT_APP_API}/${endpoint}`)
-      console.log(`token: ${localStorage.getItem("user_token")}`)
   
     return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
       headers: {

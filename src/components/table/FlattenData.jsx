@@ -7,6 +7,17 @@ export const filterBookingData = ( data ) => {
  return data.map(obj => {
    delete obj.username
    delete obj.full_name
+  delete obj.longitude
+  delete obj.latitude
+  delete obj.phone
+  delete obj.full_name
+  delete obj.role
+  delete obj.company
+  delete obj.email
+
+  if (obj.products.length) {
+    obj["product_count"] = obj.products.length
+  }
    return obj
  })
 }
@@ -26,28 +37,13 @@ export const filterBookingViewData = ( data ) => {
   console.table(data)
   const cleanedData = {...data}
 
+  console.log("cleaned data hehe")
+  console.table(cleanedData)
+
   delete cleanedData.username
   delete cleanedData.longitude
   delete cleanedData.latitude
 
-
-  cleanedData['step'] = 1
-  cleanedData['cntr'] = data['container']
-  cleanedData['documents'] = data['documents_submitted']
-  cleanedData['dues'] = data['money_owed']
-  cleanedData['status'] = data['booking_status']
-  cleanedData['equipment_type'] = data['size']
-  cleanedData['loading_port'] = data['port']
-  cleanedData['unloading_port'] = ''
-  cleanedData['cntr_notes'] = data['container_notes']
-  cleanedData['bkg_notes'] = data['booking_notes']
-  cleanedData['pickup'] = data['pickup_appt']
-  cleanedData['port_cut'] = data['port_cutoff']
-  cleanedData['rail_cut'] = data['rail_cutoff']
-
-  console.log('clean data')
-  console.table(cleanedData)
-  // cleanedData['cntrDamaged'] = 
 
 
                 // data['id'] = booking.id
@@ -78,8 +74,8 @@ export const filterBookingViewData = ( data ) => {
                 // data['port'] = port.code
                 // data['port_name'] = port.name
                 // data['port_location'] = port.location
-                // data['port_cutoff'] = booking.port_cutoff
-                // data['rail_cutoff'] = booking.rail_cutoff
+                // data['port_cut'] = booking.port_cutoff
+                // data['rail_cut'] = booking.rail_cutoff
                 // data['document_submitted'] = document.are_docs_ready
                 // data['money_owed'] = money.are_dues_paid
                 // data['issues'] = booking.has_issue
@@ -126,3 +122,4 @@ export const filterBookingViewData = ( data ) => {
 //   reefer: false,
 //   productDamaged: false
 //  })
+

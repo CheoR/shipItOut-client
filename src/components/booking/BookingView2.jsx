@@ -7,8 +7,6 @@ import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
 
-import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "../forms/TestFormData"
-
 
 export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
 
@@ -49,13 +47,13 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
   <ThemeProvider>
 
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View Container</h1>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View {formValues.container}</h1>
     <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
-       <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+       <TextField id="name" name="name" label="Agent Name" defaultValue={formValues.full_name} disabled style={{ width: "50%" }} />
+       <TextField id="email" name="email" label="Agent Email" defaultValue={formValues.email} disabled style={{ width: "50%" }} />
+       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={formValues.phone} disabled style={{ width: "50%" }} />
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
@@ -90,19 +88,32 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
       </Grid>
 
       <Grid item xs={4}>
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+        <TextField id="service" name="service" label="Service" defaultValue={formValues.service} disabled style={{ width: "50%" }} />
+        <TextField id="voyage" name="voyage" label="Voyage" defaultValue={formValues.voyage} disabled style={{ width: "50%" }} />
+        <TextField id="carrier" name="carrier" label="Carrier" defaultValue={formValues.carrier} disabled style={{ width: "50%" }} />
+        <TextField id="size" name="size" label="Container Type" defaultValue={formValues.size} disabled style={{ width: "50%" }} />
+        <TextField id="container" name="container" label="Container" defaultValue={formValues.container} disabled style={{ width: "50%" }} />
+        <TextField id="port" name="port" label="Loading Port" defaultValue={formValues.port} disabled style={{ width: "50%" }} />
+        <TextField id="destination" name="destination" label="Unloading Port" defaultValue={formValues.destination} disabled style={{ width: "50%" }} />
+        <TextField id="booking_status" name="booking_status" label="Booking Status" defaultValue={formValues.booking_status} disabled style={{ width: "50%" }} />
+
+       {/* <FormControl className={classes.formControl} style={{ width: "60%" }}>
+
         <InputLabel id="serviceSelect">Service</InputLabel>
         <Select
          labelId="serviceSelect"
          id="service"
          name="service"
-         value={formValues.service}
+         value={ formValues.service }
+        //  displayEmpty={true}
+         label="cow"
+         placeholder="hola"
          
+         fontWeight="fontWeightBold"
         >
-         {
-          service.map(s => <MenuItem key={s.id} id={s.id} value={s.id}>{s.name}</MenuItem>)
-         }
-
+          <MenuItem value="" disabled>
+            { formValues.service }
+          </MenuItem>
         </Select>
        </FormControl>
 
@@ -115,10 +126,6 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
          value={formValues.voyage}
          
         >
-         {
-          voyage.map(v => <MenuItem key={v.id} id={v.id} value={v.id}>{v.voyage}</MenuItem>)
-         }
-
         </Select>
        </FormControl>
 
@@ -129,27 +136,18 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
          id="carrier"
          name="carrier"
          value={formValues.carrier}
-         
         >
-         {
-          carrier.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)
-         }
-
         </Select>
        </FormControl>
 
        <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="cntrTypeSelect">Container Type</InputLabel>
+        <InputLabel id="sizeSelect">Container Type</InputLabel>
         <Select
-         labelId="cntrTypeSelect"
-         id="cntrType"
-         name="equipment_type"
-         value={formValues.equipment_type}
-         
+         labelId="sizeSelect"
+         id="size"
+         name="size"
+         value={formValues.size}
         >
-         {
-          containerType.map(c => <MenuItem key={c.id} value={c.id}>{c.equipment_type}</MenuItem>)
-         }
         </Select>
        </FormControl>
 
@@ -157,66 +155,46 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
         <InputLabel id="containerSelect">Container</InputLabel>
         <Select
          labelId="containerSelect"
-         id="cntr"
-         name="cntr"
-         value={formValues.cntr}
-         
+         id="container"
+         name="container"
+         value={formValues.container}
         >
-         {
-          container.map(s => <MenuItem key={s.id} value={s.id}>{s.container}</MenuItem>)
-         }
-
         </Select>
        </FormControl>
 
        <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="loadingPortSelect" >Loading Port</InputLabel>
+        <InputLabel id="portSelect" >Loading Port</InputLabel>
         <Select
-         labelId="loadingPortSelect"
-         id="loading_port"
-         name="loading_port"
-         value={formValues.loading_port}
-         
+         labelId="portSelect"
+         id="port"
+         name="port"
+         value={formValues.port}
         >
-         {
-          loadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
-         }
-
         </Select>
        </FormControl>
 
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="unloadingPortSelect">Unloading Port</InputLabel>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
+        <InputLabel id="destinationSelect">Unloading Port</InputLabel>
         <Select
-         labelId="unloadingPortSelect"
-         id="unloading_port"
-         name="unloading_port"
-         value={formValues.unloading_port}
-         
+         labelId="destinationSelect"
+         id="destination"
+         name="destination"
+         value={formValues.destination}
         >
-         {
-          unloadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
-         }
-
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
         <InputLabel id="statusSelect">Status</InputLabel>
         <Select
          labelId="statusSelect"
          id="status"
          name="status"
          value={formValues.status}
-         
         >
-         {
-          statuses.map(s => <MenuItem key={s.id} value={s.id}>{s.status}</MenuItem>)
-         }
-
         </Select>
-       </FormControl>
+       </FormControl>  */}
       </Grid>
       <Grid item xs={4}>
        <FormControl component="fieldset" className={classes.formControl}>
@@ -224,18 +202,18 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
         <FormGroup>
 
          <FormControlLabel
-          id="cntrDamaged"
-          name="cntrDamaged"
+          id="container_damaged"
+          name="container_damaged"
           label="Damaged"
-          control={<Checkbox checked={formValues.cntrDamaged}  name="cntrDamaged" />}
+          control={<Checkbox checked={formValues.container_damaged}  name="container_damaged" />}
           disabled
          />
 
          <FormControlLabel
-          id="inspection"
-          name="inspection"
+          id="needs_inspection"
+          name="needs_inspection"
           label="Needs Inspection"
-          control={<Checkbox checked={formValues.inspection}  name="inspection" />}
+          control={<Checkbox checked={formValues.needs_inspection}  name="needs_inspection" />}
           disabled
          />
 
@@ -254,7 +232,6 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.pickup}
-        disablePast
 
         label="Pick Up"
         showTodayButton
@@ -264,7 +241,6 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.port_cut}
-        disablePast
 
         label="Port Cut"
         showTodayButton
@@ -274,7 +250,6 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.rail_cut}
-        disablePast
 
         label="Rail Cut"
         showTodayButton
@@ -290,11 +265,11 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
         disabled
        />
        <TextareaAutosize
-        id="cntr_notes"
-        name="cntr_notes"
+        id="container_notes"
+        name="container_notes"
         aria-label="empty textarea"
         placeholder="Container Notes"
-        value={formValues.cntr_notes}
+        value={formValues.container_notes}
         style={{ width: "100%" }}
         rowsMin={5}
         disabled
