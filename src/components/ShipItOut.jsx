@@ -20,6 +20,7 @@ import styles from "./ShipItOut.module.css"
 import { BkgPage } from "./forms/BkgPage"
 import { BookingView } from "./booking/BookingView"
 import { DataTableProvider } from "./table/DataTableProvider"
+import { ProductView } from "./product/ProductView"
 
 export const ShipItOut = () => (
   <BrowserRouter>
@@ -28,7 +29,7 @@ export const ShipItOut = () => (
       <NavBar />
       <Switch>
 
-          <Route exact path="/products/:id(\d+)" component={ProductList} />
+          <Route exact path="/products/:id(\d+)" component={ProductView} />
           <Route exact path="/products" component={ProductList} />
 
           <Route exact path="/containers/:id(\d+)" component={ContainerView} />

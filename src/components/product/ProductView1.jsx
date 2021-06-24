@@ -5,14 +5,10 @@ import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, C
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
-import { useEffect } from "react"
 
 
-export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
+export const ProductView1 = ({ nextStep, formValues }) => {
 
- useEffect(() => {
-   console.log(" ")
- }, [ nextStep])
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,16 +37,11 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
   nextStep()
  }
 
- const back = (e) => {
-    e.preventDefault()
-    prevStep()
-  }
-
  return (
   <ThemeProvider>
 
-   <fieldset style={{ margin: "0 auto", width: "60%" }} >
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>{formValues.step} View {formValues.container}</h1>
+   <fieldset style={{ margin: "0 auto", width: "60%"}}>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>{formValues.step} View {formValues.booking}</h1>
     <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
@@ -64,18 +55,10 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
          label="cabcek" 
          href="/bookings"
          className={classes.button}
-        >
+         >
           Cancel
         </Button>
-        <Button
-         variant="contained"
-         color="secondary"
-         label="continue"
-         className={classes.button}
-         onClick={back}
-        >
-         Back
-        </Button>
+        <Button></Button>
         <Button
          variant="contained"
          color="secondary"
@@ -101,33 +84,31 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
         <TextField id="booking_status" name="booking_status" label="Booking Status" defaultValue={formValues.booking_status} disabled style={{ width: "50%" }} />
 
       </Grid>
+
       <Grid item xs={4}>
-       <FormControl component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">Verify About Container</FormLabel>
+       <FormControl component="fieldset" className={classes.formControl} disabled>
+        <FormLabel component="legend">Verify About Booking</FormLabel>
         <FormGroup>
 
          <FormControlLabel
-          id="container_damaged"
-          name="container_damaged"
-          label="Damaged"
-          control={<Checkbox checked={formValues.container_damaged}  name="container_damaged" />}
-          disabled
+          id="document_submitted"
+          name="document_submitted"
+          label="Documents"
+          control={<Checkbox checked={formValues.document_submitted}  name="document_submitted" />}
          />
 
          <FormControlLabel
-          id="needs_inspection"
-          name="needs_inspection"
-          label="Needs Inspection"
-          control={<Checkbox checked={formValues.needs_inspection}  name="needs_inspection" />}
-          disabled
+          id="money_owed"
+          name="money_owed"
+          label="Dues"
+          control={<Checkbox checked={formValues.money_owed}  name="money_owed" />}
          />
 
          <FormControlLabel
-          id="overweight"
-          name="overweight"
-          label="Overweight"
-          control={<Checkbox checked={formValues.overweight}  name="overweight" />}
-          disabled
+          id="issues"
+          name="issues"
+          label="Issues"
+          control={<Checkbox checked={formValues.issues}  name="issues" />}
          />
         </FormGroup>
 
@@ -136,8 +117,8 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
        </FormControl>
        <DateTimePicker
         style={{ width: '100%' }}
-        value={formValues.pickup}
-
+        value={formValues.pickup_appt}
+        
         label="Pick Up"
         showTodayButton
         disabled
@@ -155,6 +136,7 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
        <DateTimePicker
         style={{ width: '100%' }}
         value={formValues.rail_cut}
+        disablePast
 
         label="Rail Cut"
         showTodayButton
@@ -166,15 +148,15 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
         label="Pickup Address"
         defaultValue={formValues.address}
         style={{ width: "100%" }}
-        
         disabled
+        
        />
        <TextareaAutosize
-        id="container_notes"
-        name="container_notes"
+        id="bkg_notes"
+        name="bkg_notes"
         aria-label="empty textarea"
-        placeholder="Container Notes"
-        value={formValues.container_notes}
+        placeholder="Booking Notes"
+        value={formValues.booking_notes}
         style={{ width: "100%" }}
         rowsMin={5}
         disabled

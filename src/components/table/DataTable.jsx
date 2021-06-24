@@ -44,7 +44,6 @@ export const DataTable = ({ endpoint, Icon }) => {
     },
   }));
   const classes = useStyles()
-
   
     useEffect(() => {
       fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
