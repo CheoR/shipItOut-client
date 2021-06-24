@@ -12,6 +12,7 @@ import { BookingList } from "./booking/BookingList"
 import { BookingUpdate } from "./booking/BookingUpdate"
 import { ContainerList } from "./container/ContainerList"
 import { ContainerView } from "./container/ContainerView"
+
 import { ProductList } from "./product/ProductList"
 
 import styles from "./ShipItOut.module.css"
@@ -22,10 +23,11 @@ import { DataTableProvider } from "./table/DataTableProvider"
 
 export const ShipItOut = () => (
   <BrowserRouter>
+        <DataTableProvider>
     <main className={styles.shipItout}>
       <NavBar />
       <Switch>
-        <DataTableProvider>
+
           <Route exact path="/products/:id(\d+)" component={ProductList} />
           <Route exact path="/products" component={ProductList} />
 
@@ -36,7 +38,6 @@ export const ShipItOut = () => (
           <Route exact path="/bookings/:id(\d+)" component={BookingView} />
           <Route exact path="/bookings/create" component={BkgPage} />
           <Route exact path="/bookings" component={BookingList} />
-        </DataTableProvider>
 
         <Route exact path="/register" component={Register} />
         <Route exact path="/login" component={Login} />
@@ -45,6 +46,7 @@ export const ShipItOut = () => (
       </Switch>
       <Footer />
     </main>
+        </DataTableProvider>
   </BrowserRouter>
 );
 
