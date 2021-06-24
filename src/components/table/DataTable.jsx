@@ -1,6 +1,5 @@
-import * as React from 'react'
-import { useEffect, useState } from 'react'
-import { Link, useLocation } from "react-router-dom"
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from "react-router-dom"
 
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -15,7 +14,7 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import logo from "../../assets/images/pugTransport.svg"
 import { PageNotFound } from '../helpers/PageNotFound'
 import styles from "./Table.module.css"
-import { flattenBookingData, flattenContainerData, flattenProductData } from './FlattenData'
+import { filterBookingData, filterContainerData, filterProductData } from './FlattenData'
 
 
 // const rows = [
@@ -25,8 +24,6 @@ import { flattenBookingData, flattenContainerData, flattenProductData } from './
 
 
 export const DataTable = ({ endpoint, Icon }) => {
-
-  const location = useLocation()
 
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
@@ -48,31 +45,30 @@ export const DataTable = ({ endpoint, Icon }) => {
   }));
   const classes = useStyles()
 
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    })
+  
+    useEffect(() => {
+      fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
+        headers: {
+          Authorization: `Token ${token}`
+        }
+      })
       .then(res => res.json())
       .then(res => {
 
         // TODO: move flattening to backend
-        switch(location.pathname) {
-          case '/bookings':
-            res = flattenBookingData([...res])
+        switch(endpoint) {
+          case 'bookings':
+            res = filterBookingData([...res])
             break
-          case '/containers':
-            res = flattenContainerData(res)
+          case 'containers':
+            res = filterContainerData(res)
             break
-          case '/products':
-            res = flattenProductData(res)
+          case 'products':
+            res = filterProductData(res)
             break
           default:
             throw 'Data Not Found'
         }
-
-
 
         setData(res)
         const colHeaders = Object.keys(res[0])

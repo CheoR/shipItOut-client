@@ -1,4 +1,6 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
+import { useLocation, useParams } from "react-router-dom"
+import { filterBookingViewData } from "../table/FlattenData"
 import { BookingView1 } from "./BookingView1"
 import { BookingView2 } from "./BookingView2"
 import { BookingView3 } from "./BookingView3"
@@ -37,6 +39,74 @@ export const BookingView = () => {
   productDamaged: false
  })
 
+const [ data, setData ] = useState([])
+const { id } = useParams()
+const location = useLocation()
+const endpoint =  location.pathname.slice(1)
+const token = localStorage.getItem("user_token")
+console.log(`${id} - ${endpoint} - ${location.pathname}` ) 
+
+useEffect(() => {
+  return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+  .then(res => res.json())
+  .then(res => {
+    console.log(" in then ")
+    res = filterBookingViewData({...res})
+    setData(res)
+    console.log("new data")
+    console.table(res)
+  })
+
+}, []) // useEffect
+
+//  useEffect(() => {
+      // fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
+      //   headers: {
+      //     Authorization: `Token ${token}`
+      //   }
+      // })
+//       .then(res => res.json())
+//       .then(res => {
+
+//         setData(res)
+//         const colHeaders = Object.keys(res[0])
+
+//         const headers = colHeaders.map((header) => {
+//           return {
+//             field: `${header}`,
+//             headerName: `${header}`,
+//             description: `${header}`,
+//             width: 140
+//           }
+//         })
+//         setColumns(headers)
+//         setIsLoading(false)
+//       })
+//       .catch(err => {
+//         const header = 'Data Not Found'
+//         setColumns([
+//           {
+//             field: `${header}`,
+//             headerName: `${header}`,
+//             description: `${header}`,
+//             flex: 1
+//           }
+//         ])
+//         setData([
+//           {
+//             id: 0,
+//             header: header
+//           }
+//         ])
+//         setIsLoading(false)
+//       })
+
+//   }, [])
+
 
 
  const nextStep = () => {
@@ -49,10 +119,6 @@ export const BookingView = () => {
   setFormValues({ ...formValues, step: step - 1 })
  }
 
-
-
- // const { step, firstName, lastName, email, occupation, city, bio } = formValues;
- // const values = { firstName, lastName, email, occupation, city, bio }
 
  switch (formValues.step) {
   case 1:

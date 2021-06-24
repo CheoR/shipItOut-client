@@ -12,7 +12,7 @@ export const NavBar = () => {
 
     useEffect(() => {
         // rerender navbar when user logs in/out
-        console.log(`current url: ${url}`)
+        // console.log(`current url: ${url}`)
     },  [ url ])
 
     return (
