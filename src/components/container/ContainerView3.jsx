@@ -1,11 +1,17 @@
-import React from "react"
+import React, { useEffect } from "react"
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core/styles"
 
 
-export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
+export const ContainerView3 = ({ prevStep, formValues }) => {
+
+console.log(formValues.container)
+
+ useEffect(() => {
+   console.log(" ")
+ }, [ prevStep])
 
 
  const useStyles = makeStyles((theme) => ({
@@ -36,12 +42,13 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
     prevStep()
   }
 
+// if(!formValues.length) return <>Loading .. </>
 
  return (
   <ThemeProvider>
 
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View Product</h1>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>{formValues.step} View Product</h1>
     <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
@@ -75,8 +82,8 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
       </Grid>
 
       <Grid item xs={4}>
-       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.products[0].commodity}  disabled style={{ width: "50%" }} />
-       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.products[0].weight} disabled  style={{ width: "50%" }}  InputLabelProps={{
+       <TextField id="commodity" name="commodity" label="Commodity" value={formValues.products[0].commodity || ""}  disabled style={{ width: "50%" }} />
+       <TextField id="weight" name="weight" type="number" label="Weight (in lbs)" value={formValues.products[0].weight || 0} disabled  style={{ width: "50%" }}  InputLabelProps={{
             shrink: true,
             
           }} inputProps={{ min: 0}}/>

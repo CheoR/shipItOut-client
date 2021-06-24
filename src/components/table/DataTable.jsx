@@ -137,7 +137,7 @@ export const DataTable = ({ endpoint, Icon }) => {
                   color="primary"
                   className={classes.button}
                   startIcon={<AddIcon />}
-                  href="/bookings/create"
+                  href="/${endpoint}/create"
                 >New</Button>
             }
             <Button
