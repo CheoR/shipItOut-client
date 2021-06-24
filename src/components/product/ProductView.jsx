@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useLocation, useParams } from "react-router-dom"
-import { ContainerView1 } from "./ContainerView1"
-import { ContainerView2 } from "./ContainerView2"
-import { ContainerView3 } from "./ContainerView3"
+import { ProductView1 } from "./ProductView1"
+import { ProductView2 } from "./ProductView2"
+import { ProductView3 } from "./ProductView3"
 
 
-export const ContainerView = () => {
+export const ProductView = () => {
 
 const [ isLoading, setIsLoading ] = useState(true)
-const [ formValues, setFormValues ] = useState([])
+const [ formValues, setFormValues ] = useState({})
 const location = useLocation()
 const endpoint =  location.pathname.slice(1)
 const token = localStorage.getItem("user_token")
@@ -27,9 +27,21 @@ useEffect(() => {
   })
   .then(res => res.json())
   .then(res => {
-    res = res.filter(r => parseInt(r.id) === parseInt(id))[0]
-    const addStep = { ...res }
-    addStep['step'] = 2
+
+   // get the container that the product belongs to
+
+    const container = res.find(obj => {
+      const prodIndex = obj.products.find(prod => parseInt(prod.product_id) === parseInt(id))
+
+      if(prodIndex !== undefined) {
+       return obj
+      }
+      return undefined;
+    })
+
+    const addStep = { ...container }
+    addStep['step'] = 3
+
     return addStep
   }).then(res => {
     setFormValues(res)
@@ -54,7 +66,7 @@ if(isLoading) return <>Loading .. </>
  switch (formValues.step) {
   case 1:
    return (
-    <ContainerView1
+    <ProductView1
      nextStep={nextStep}
      formValues={formValues}
     />
@@ -63,7 +75,7 @@ if(isLoading) return <>Loading .. </>
   case 2:
    return (
 
-    <ContainerView2
+    <ProductView2
      nextStep={nextStep}
      prevStep={prevStep}
      formValues={formValues}
@@ -73,7 +85,7 @@ if(isLoading) return <>Loading .. </>
   case 3:
    return (
 
-    <ContainerView3
+    <ProductView3
      nextStep={nextStep}
      prevStep={prevStep}
      formValues={formValues}
@@ -82,7 +94,7 @@ if(isLoading) return <>Loading .. </>
 
   default:
    return (
-    <>Container Loading . . </>
+    <>Product Loading . . </>
    )
 
  } // swtich

@@ -5,7 +5,7 @@ import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, C
 import { ThemeProvider } from "@material-ui/core/styles"
 
 
-export const ContainerView3 = ({ prevStep, formValues }) => {
+export const ProductView3 = ({ prevStep, formValues }) => {
 
  useEffect(() => {
    console.log(" ")

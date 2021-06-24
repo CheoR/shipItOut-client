@@ -8,7 +8,7 @@ import { ThemeProvider } from "@material-ui/core/styles"
 import { useEffect } from "react"
 
 
-export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
+export const ProductView2 = ({ nextStep, prevStep, formValues }) => {
 
  useEffect(() => {
    console.log(" ")

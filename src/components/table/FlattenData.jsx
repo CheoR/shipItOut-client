@@ -1,8 +1,8 @@
 // TODO: move flattening to backend
 
 export const filterBookingData = ( data ) => {
- console.log("made it filterBookingData")
- console.table(data)
+//  console.log("made it filterBookingData")
+//  console.table(data)
 
  return data.map(obj => {
    delete obj.username
@@ -23,22 +23,22 @@ export const filterBookingData = ( data ) => {
 }
 
 export const filterContainerData = ( data ) => {
-  console.log("made it filterContainerData")
+  // console.log("made it filterContainerData")
  return data
 }
 
 export const filterProductData = ( data ) => {
-  console.log("made it filterProductData")
+  // console.log("made it filterProductData")
  return data
 }
 
 export const filterBookingViewData = ( data ) => {
-  console.log("viewset fileter")
-  console.table(data)
+  // console.log("viewset fileter")
+  // console.table(data)
   const cleanedData = {...data}
 
-  console.log("cleaned data hehe")
-  console.table(cleanedData)
+  // console.log("cleaned data hehe")
+  // console.table(cleanedData)
 
   delete cleanedData.username
   delete cleanedData.longitude
