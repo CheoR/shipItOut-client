@@ -5,13 +5,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import { Link } from "react-router-dom"
+import { Link, useHistory, useLocation } from "react-router-dom"
 
 import { agent, service, voyage, vessel, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
 
 
 export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickupDateChange, handlePortCutDateChange, handleRailCutDateChange, handleSubmit, nextStep, prevStep, formValues }) => {
 
+  const location = useLocation()
+  const history = useHistory()
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,9 +53,17 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
-       <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+{
+  location.pathname.includes("create")
+  ?
+    <></>
+  :
+    <>
+      <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
+      <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
+      <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+    </>
+}
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
