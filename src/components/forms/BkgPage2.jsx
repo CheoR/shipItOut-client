@@ -5,12 +5,15 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+import { Link, useHistory, useLocation } from "react-router-dom"
 
-import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
+import { agent, service, voyage, vessel, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
 
 
 export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickupDateChange, handlePortCutDateChange, handleRailCutDateChange, handleSubmit, nextStep, prevStep, formValues }) => {
 
+  const location = useLocation()
+  const history = useHistory()
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -50,15 +53,24 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
-       <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+{
+  location.pathname.includes("create")
+  ?
+    <></>
+  :
+    <>
+      <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
+      <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
+      <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+    </>
+}
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+         component={Link}
+          to="/bookings"
          className={classes.button}
         >
           Cancel
@@ -119,6 +131,24 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
         </Select>
        </FormControl>
 
+
+      <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
+        <InputLabel id="vesselSelect">Vessel</InputLabel>
+        <Select
+         labelId="vesselSelect"
+         id="vessel"
+         name="vessel"
+         value={formValues.vessel}
+         onChange={handleInputChange}
+        >
+         {
+          vessel.map(v => <MenuItem key={v.id} id={v.id} value={v.vessel}>{v.vessel}</MenuItem>)
+         }
+
+        </Select>
+       </FormControl>
+
+
        <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
         <InputLabel id="carrierSelect">Carrier</InputLabel>
         <Select
@@ -145,7 +175,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          containerType.map(c => <MenuItem key={c.id} value={c.id}>{c.equipment_type}</MenuItem>)
+          containerType.map(c => <MenuItem key={c.id} value={c.equipment_type}>{c.equipment_type}</MenuItem>)
          }
         </Select>
        </FormControl>
@@ -160,7 +190,7 @@ export const BkgPage2 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          container.map(s => <MenuItem key={s.id} value={s.id}>{s.container}</MenuItem>)
+          container.map(s => <MenuItem key={s.id} value={s.container}>{s.container}</MenuItem>)
          }
 
         </Select>

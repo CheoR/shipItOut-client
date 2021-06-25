@@ -6,6 +6,7 @@ import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
 import { useEffect } from "react"
+import { Link } from "react-router-dom"
 
 
 export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
@@ -62,7 +63,8 @@ export const ContainerView2 = ({ nextStep, prevStep, formValues }) => {
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+         component={Link}
+                  to="/bookings"
          className={classes.button}
         >
           Cancel

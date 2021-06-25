@@ -3,6 +3,7 @@ import React, { useEffect } from "react"
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { ThemeProvider } from "@material-ui/core/styles"
+import { Link } from "react-router-dom"
 
 
 export const ContainerView3 = ({ prevStep, formValues }) => {
@@ -58,7 +59,8 @@ export const ContainerView3 = ({ prevStep, formValues }) => {
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+        component={Link}
+          to="/bookings"
          className={classes.button}
         >
           Cancel

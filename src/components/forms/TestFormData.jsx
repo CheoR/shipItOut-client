@@ -38,6 +38,25 @@ export const voyage = [
  }
 ]
 
+export const vessel = [
+ {
+  id: 1,
+  vessel: "ship1"
+ },{
+  id: 2,
+  vessel: "ship2"
+ },{
+  id: 3,
+  vessel: "ship3"
+ },{
+  id: 4,
+  vessel: "ship4"
+ },{
+  id: 5,
+  vessel: "ship5"
+ }
+]
+
 
 export const carrier = [
  {

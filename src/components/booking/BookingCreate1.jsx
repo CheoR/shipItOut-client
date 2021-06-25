@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
@@ -6,9 +6,85 @@ import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
 import { Link } from "react-router-dom"
+  const token = localStorage.getItem("user_token")
 
 
-export const BookingView1 = ({ nextStep, formValues }) => {
+export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
+  const [ isLoading, setIsLoading ] = useState(false)
+  const [ dropDowns, setDropdowns ] = useState({
+   services: ['WC', 'EC', 'NE', 'SE', 'GU'],
+   vessels: [
+     "Alopochen aegyptiacus",
+     "Alouatta seniculus",
+     "Bos frontalis",
+     "Canae Ipsum",
+     "Ceratotherium simum",
+     "Chelodina longicollis",
+     "Cordylus giganteus",
+     "Hystrix cristata",
+     "Laniarius ferrugineus",
+     "Mazama gouazoubira",
+     "Merops nubicus",
+     "Otaria flavescens",
+     "Pandon haliaetus",
+     "Parus atricapillus",
+     "Podargus strigoides",
+     "Porphyrio porphyrio",
+     "Tiliqua scincoides",
+     "Tragelaphus scriptus",
+     "Turtur chalcospilos"
+   ],
+   voyages: [
+     "ECWC6819",
+     "ECWC1096",
+     "WCWC6768",
+     "WCWC0017",
+     "WCWC1666",
+     "WCEC7061",
+     "WCWC2849",
+     "WCWC9742",
+     "WCEC3604",
+     "WCEC8090"
+   ],
+   containers: [
+     "WUSA2162",
+     "KFJL3381",
+     "TOTX0380",
+     "GNXI3314",
+     "BZAJ1118"
+   ],
+   carriers: [
+      "Adams-Armstrong",
+      "Hettinger and Sons",
+      "Kuvalis, Wilkinson and McClure",
+      "Olson, Kemmer and Wolff",
+      "Ortiz, Muller and Berge",
+      "Pollich Group",
+      "Rice Inc"
+   ],
+   ports: [
+     "USBLT",
+     "USBRV",
+     "USCHS",
+     "USCLA",
+     "USCLB",
+     "USGLV",
+     "USGRN",
+     "USHOU",
+     "USJCK",
+     "USMBL",
+     "USMIA",
+     "USNSH",
+     "USNWO",
+     "USNYC",
+     "USOAK",
+     "USPHL",
+     "USPTA",
+     "USSAV",
+     "USSEA",
+     "USSTK"
+   ]
+  })
 
 
  const useStyles = makeStyles((theme) => ({
@@ -38,17 +114,19 @@ export const BookingView1 = ({ nextStep, formValues }) => {
   nextStep()
  }
 
+ if(isLoading) return <>Loading . . .</>
+
  return (
   <ThemeProvider>
 
    <fieldset style={{ margin: "0 auto", width: "60%"}}>
-    <h1 style={{ margin: "0 auto", textAlign: "center" }}>View {formValues.booking}</h1>
+    <h1 style={{ margin: "0 auto", textAlign: "center" }}>Create Boooking</h1>
     <form className={classes.root} noValidate autoComplete="off" style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
        <TextField id="name" name="name" label="Agent Name" defaultValue={formValues.full_name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={formValues.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={formValues.phone} disabled style={{ width: "50%" }} />
+       <TextField id="email" name="email" label="Agent Email" defaultValue={formValues.email}  disabled style={{ width: "50%" }} />
+       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={formValues.phone}  disabled style={{ width: "50%" }} />
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
@@ -76,16 +154,16 @@ export const BookingView1 = ({ nextStep, formValues }) => {
       </Grid>
 
       <Grid item xs={4}>
-        <TextField id="service" name="service" label="Service" defaultValue={formValues.service} disabled style={{ width: "50%" }} />
-        <TextField id="voyage" name="voyage" label="Voyage" defaultValue={formValues.voyage} disabled style={{ width: "50%" }} />
-        <TextField id="carrier" name="carrier" label="Carrier" defaultValue={formValues.carrier} disabled style={{ width: "50%" }} />
-        <TextField id="size" name="size" label="Container Type" defaultValue={formValues.size} disabled style={{ width: "50%" }} />
-        <TextField id="container" name="container" label="Container" defaultValue={formValues.container} disabled style={{ width: "50%" }} />
-        <TextField id="port" name="port" label="Loading Port" defaultValue={formValues.port} disabled style={{ width: "50%" }} />
-        <TextField id="destination" name="destination" label="Unloading Port" defaultValue={formValues.destination} disabled style={{ width: "50%" }} />
-        <TextField id="booking_status" name="booking_status" label="Booking Status" defaultValue={formValues.booking_status} disabled style={{ width: "50%" }} />
+        {/* <TextField id="service" name="service" label="Service" defaultValue={formValues.service}  style={{ width: "50%" }} />
+        <TextField id="voyage" name="voyage" label="Voyage" defaultValue={formValues.voyage}  style={{ width: "50%" }} />
+        <TextField id="carrier" name="carrier" label="Carrier" defaultValue={formValues.carrier}  style={{ width: "50%" }} />
+        <TextField id="size" name="size" label="Container Type" defaultValue={formValues.size}  style={{ width: "50%" }} />
+        <TextField id="container" name="container" label="Container" defaultValue={formValues.container}  style={{ width: "50%" }} />
+        <TextField id="port" name="port" label="Loading Port" defaultValue={formValues.port}  style={{ width: "50%" }} />
+        <TextField id="destination" name="destination" label="Unloading Port" defaultValue={formValues.destination}  style={{ width: "50%" }} />
+        <TextField id="booking_status" name="booking_status" label="Booking Status" defaultValue={formValues.booking_status}  style={{ width: "50%" }} /> */}
 
-       {/* <FormControl className={classes.formControl} style={{ width: "60%" }}>
+       <FormControl className={classes.formControl} style={{ width: "60%" }}>
 
         <InputLabel id="serviceSelect">Service</InputLabel>
         <Select
@@ -93,19 +171,16 @@ export const BookingView1 = ({ nextStep, formValues }) => {
          id="service"
          name="service"
          value={ formValues.service }
-        //  displayEmpty={true}
-         label="cow"
-         placeholder="hola"
-         
+           // onChange={handleInputChange}
          fontWeight="fontWeightBold"
         >
-          <MenuItem value="" disabled>
-            { formValues.service }
-          </MenuItem>
+          {
+          dropDowns.services.map(s => <MenuItem key={s.id} id={s.id} value={s.id}>{s.name}</MenuItem>)
+         }
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} >
         <InputLabel id="voyageSelect">Voyage</InputLabel>
         <Select
          labelId="voyageSelect"
@@ -117,7 +192,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} >
         <InputLabel id="carrierSelect">Carrier</InputLabel>
         <Select
          labelId="carrierSelect"
@@ -128,7 +203,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} >
         <InputLabel id="sizeSelect">Container Type</InputLabel>
         <Select
          labelId="sizeSelect"
@@ -139,7 +214,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} >
         <InputLabel id="containerSelect">Container</InputLabel>
         <Select
          labelId="containerSelect"
@@ -150,7 +225,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
+       <FormControl className={classes.formControl} style={{ width: "60%" }} >
         <InputLabel id="portSelect" >Loading Port</InputLabel>
         <Select
          labelId="portSelect"
@@ -162,7 +237,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
        </FormControl>
 
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
+       <FormControl className={classes.formControl} style={{ width: "60%" }}  >
         <InputLabel id="destinationSelect">Unloading Port</InputLabel>
         <Select
          labelId="destinationSelect"
@@ -173,7 +248,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         </Select>
        </FormControl>
 
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
+       <FormControl className={classes.formControl} style={{ width: "60%" }}  >
         <InputLabel id="statusSelect">Status</InputLabel>
         <Select
          labelId="statusSelect"
@@ -182,11 +257,11 @@ export const BookingView1 = ({ nextStep, formValues }) => {
          value={formValues.status}
         >
         </Select>
-       </FormControl>  */}
+       </FormControl> 
       </Grid>
 
       <Grid item xs={4}>
-       <FormControl component="fieldset" className={classes.formControl} disabled>
+       <FormControl component="fieldset" className={classes.formControl} >
         <FormLabel component="legend">Verify About Booking</FormLabel>
         <FormGroup>
 
@@ -221,7 +296,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         
         label="Pick Up"
         showTodayButton
-        disabled
+        
        />
 
        <DateTimePicker
@@ -230,7 +305,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
 
         label="Port Cut"
         showTodayButton
-        disabled
+        
        />
 
        <DateTimePicker
@@ -240,7 +315,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
 
         label="Rail Cut"
         showTodayButton
-        disabled
+        
        />
        <TextField
         id="address"
@@ -248,7 +323,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         label="Pickup Address"
         defaultValue={formValues.address}
         style={{ width: "100%" }}
-        disabled
+        
         
        />
        <TextareaAutosize
@@ -259,7 +334,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
         value={formValues.booking_notes}
         style={{ width: "100%" }}
         rowsMin={5}
-        disabled
+        
         
        />
       </Grid>

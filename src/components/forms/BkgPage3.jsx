@@ -2,12 +2,16 @@ import React from "react"
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
+import { Link, Redirect, useHistory, useLocation } from "react-router-dom"
+import Alert from '@material-ui/lab/Alert';
 
 import { agent } from "./TestFormData"
 
 
 export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit, nextStep, prevStep, formValues }) => {
-
+const token = localStorage.getItem("user_token")
+const history = useHistory()
+const location = useLocation()
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +49,18 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
      console.table('all values')
     e.preventDefault()
     console.table(formValues)
-  }
+
+    return fetch(`${process.env.REACT_APP_API}/create`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formValues)
+    })
+    // .then(res => alert("Created"))
+  } // create
+
 
  return (
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
@@ -53,15 +68,24 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
     <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit} style={{ border: "black", width: "100%", margin: "0 auto" }}>
      <Grid container spacing={4} style={{ width: "100%", margin: "0 auto " }}>
       <Grid item xs={4} container direction="column">
-       <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
-       <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
-       <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+{
+  location.pathname.includes("create")
+  ?
+    <></>
+  :
+    <>
+      <TextField id="name" name="name" label="Agent Name" defaultValue={agent.name} disabled style={{ width: "50%" }} />
+      <TextField id="email" name="email" label="Agent Email" defaultValue={agent.email} disabled style={{ width: "50%" }} />
+      <TextField id="phone" name="phone" label="Agent Phone" defaultValue={agent.phone} disabled style={{ width: "50%" }} />
+    </>
+}
        <div style={{width: "100%", marginTop: "100%", display: "flex", justifyContent: "space-between"}}>
         <Button 
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+         component={Link}
+          to="/bookings"
          className={classes.button}
         >
           Cancel
@@ -76,7 +100,7 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
          Back
         </Button>
 
-         <Button
+         {/* <Button
           variant="contained"
           color="secondary"
           label="continue"
@@ -84,8 +108,34 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
           onClick={create}
          >
           Create
-         </Button>
+         </Button> */}
 
+{/* <Link to="/"> */}
+   <Button
+             variant="contained"
+          color="secondary"
+          label="continue"
+          className={classes.button}
+          onClick={(e) => {
+
+    e.preventDefault()
+    console.table(formValues)
+
+    return fetch(`${process.env.REACT_APP_API}/create`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formValues)
+    }).then(() => history.push("/bookings"))
+
+
+          }}
+   >
+     Create
+  </Button>
+  {/* </Link> */}
        </div>
 
       </Grid>

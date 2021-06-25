@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 
 import { DataGrid } from '@material-ui/data-grid'
 
@@ -24,11 +24,12 @@ import { filterBookingData, filterContainerData, filterProductData } from './Fla
 
 
 export const DataTable = ({ endpoint, Icon }) => {
-
+  const history = useHistory()
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectionModel, setSelectionModel] = useState([])
+  const [isRefreshed, setIsRefreshed] = useState(false)
   const token = localStorage.getItem("user_token")
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,25 @@ export const DataTable = ({ endpoint, Icon }) => {
     },
   }));
   const classes = useStyles()
+
+
+
   
+  const deleteSelected = (e) => {
+    e.preventDefault()
+    return fetch(`${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/json"
+      },
+    }).then(() => {
+      console.log("calling resset")
+      setIsRefreshed(prevState => !prevState)
+    })
+  }
+
+
     useEffect(() => {
       fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
         headers: {
@@ -102,7 +121,7 @@ export const DataTable = ({ endpoint, Icon }) => {
         setIsLoading(false)
       })
 
-  }, [])
+  }, [ isRefreshed ])
 
   if (isLoading) return <div><img src={logo} className={styles.logo} alt="Rotating compoany logo" /> Loading  . . </div>
 
@@ -136,7 +155,8 @@ export const DataTable = ({ endpoint, Icon }) => {
                   color="primary"
                   className={classes.button}
                   startIcon={<AddIcon />}
-                  href="/${endpoint}/create"
+                  component={Link}
+                  to={`/${endpoint}/create`}
                 >New</Button>
             }
             <Button
@@ -166,9 +186,27 @@ export const DataTable = ({ endpoint, Icon }) => {
                   color="primary"
                   className={classes.button}
                   startIcon={<DeleteIcon />}
+                  // onClick={deleteSelected}
+                  
+                  onClick={(e)=> {
+                    e.preventDefault()
+                        return fetch(`${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`, {
+                        method: "DELETE",
+                        headers: {
+                          Authorization: `Token ${token}`,
+                          "Content-Type": "application/json"
+                        },
+                      }).then(() => {
+
+                        setIsRefreshed(prevState => !prevState)
+                        // history.push(`/${endpoint}`)
+                      })
+                  }}
                 >Delete</Button>
+
             }
           </ButtonGroup>
+          <div>To Delete: {selectionModel[0]} </div>
         </div>
       </div>
       : <PageNotFound />
