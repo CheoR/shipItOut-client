@@ -2,12 +2,13 @@ import React from "react"
 
 import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
+import { Link, Redirect, useHistory } from "react-router-dom"
 
 import { agent } from "./TestFormData"
 
 
 export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit, nextStep, prevStep, formValues }) => {
-
+const token = localStorage.getItem("user_token")
 
  const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,7 +46,20 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
      console.table('all values')
     e.preventDefault()
     console.table(formValues)
-  }
+
+    return fetch(`${process.env.REACT_APP_API}/create`, {
+      method: "POST",
+      headers: {
+        Authorization: `Token ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(formValues)
+    })
+    .then(res => alert("Created"))
+  } // create
+
+  
+  
 
  return (
    <fieldset style={{ margin: "0 auto", width: "60%" }} >
@@ -61,7 +75,8 @@ export const BkgPage3 = ({ handleInputChange, handleCheckBoxChange, handleSubmit
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+         component={Link}
+          to="/bookings"
          className={classes.button}
         >
           Cancel

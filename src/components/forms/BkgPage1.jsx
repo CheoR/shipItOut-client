@@ -4,8 +4,9 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Grid, TextField, FormControl, InputLabel, Select, MenuItem, FormLabel, FormGroup, FormControlLabel, Checkbox, FormHelperText, Button } from "@material-ui/core"
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
+import { Link } from "react-router-dom"
 
-import { agent, service, voyage, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
+import { agent, service, voyage, vessel, carrier, containerType, container, loadingPort, unloadingPort, statuses } from "./TestFormData"
 
 
 export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickupDateChange, handlePortCutDateChange, handleRailCutDateChange, handleSubmit, nextStep, formValues }) => {
@@ -61,7 +62,8 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+        component={Link}
+          to="/bookings"
          className={classes.button}
          >
           Cancel
@@ -93,7 +95,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          fontWeight="fontWeightBold"
         >
          {
-          service.map(s => <MenuItem key={s.id} id={s.id} value={s.id}>{s.name}</MenuItem>)
+          service.map(s => <MenuItem key={s.id} id={s.id} value={s.name}>{s.name}</MenuItem>)
          }
 
         </Select>
@@ -109,7 +111,23 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          voyage.map(v => <MenuItem key={v.id} id={v.id} value={v.id}>{v.voyage}</MenuItem>)
+          voyage.map(v => <MenuItem key={v.id} id={v.id} value={v.voyage}>{v.voyage}</MenuItem>)
+         }
+
+        </Select>
+       </FormControl>
+
+      <FormControl className={classes.formControl} style={{ width: "60%" }}>
+        <InputLabel id="vesselSelect">Vessel</InputLabel>
+        <Select
+         labelId="vesselSelect"
+         id="vessel"
+         name="vessel"
+         value={formValues.vessel}
+         onChange={handleInputChange}
+        >
+         {
+          vessel.map(v => <MenuItem key={v.id} id={v.id} value={v.vessel}>{v.vessel}</MenuItem>)
          }
 
         </Select>
@@ -125,7 +143,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          carrier.map(c => <MenuItem key={c.id} value={c.id}>{c.name}</MenuItem>)
+          carrier.map(c => <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>)
          }
 
         </Select>
@@ -141,7 +159,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          containerType.map(c => <MenuItem key={c.id} value={c.id}>{c.equipment_type}</MenuItem>)
+          containerType.map(c => <MenuItem key={c.id} value={c.equipment_type}>{c.equipment_type}</MenuItem>)
          }
         </Select>
        </FormControl>
@@ -156,7 +174,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          container.map(s => <MenuItem key={s.id} value={s.id}>{s.container}</MenuItem>)
+          container.map(s => <MenuItem key={s.id} value={s.container}>{s.container}</MenuItem>)
          }
 
         </Select>
@@ -172,7 +190,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          loadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
+          loadingPort.map(p => <MenuItem key={p.id} value={p.name}>{p.name}</MenuItem>)
          }
 
         </Select>
@@ -189,7 +207,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          unloadingPort.map(p => <MenuItem key={p.id} value={p.id}>{p.name}</MenuItem>)
+          unloadingPort.map(p => <MenuItem key={p.id} value={p.name}>{p.name}</MenuItem>)
          }
 
         </Select>
@@ -205,7 +223,7 @@ export const BkgPage1 = ({ handleInputChange, handleCheckBoxChange, handlePickup
          onChange={handleInputChange}
         >
          {
-          statuses.map(s => <MenuItem key={s.id} value={s.id}>{s.status}</MenuItem>)
+          statuses.map(s => <MenuItem key={s.id} value={s.status}>{s.status}</MenuItem>)
          }
 
         </Select>

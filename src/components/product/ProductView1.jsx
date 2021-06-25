@@ -5,6 +5,7 @@ import { Grid, TextField, FormControl, FormLabel, FormGroup, FormControlLabel, C
 import { DateTimePicker } from "@material-ui/pickers"
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { ThemeProvider } from "@material-ui/core/styles"
+import { Link } from "react-router-dom"
 
 
 export const ProductView1 = ({ nextStep, formValues }) => {
@@ -53,7 +54,8 @@ export const ProductView1 = ({ nextStep, formValues }) => {
          variant="contained" 
          color="secondary" 
          label="cabcek" 
-         href="/bookings"
+         component={Link}
+        to="/bookings"
          className={classes.button}
          >
           Cancel

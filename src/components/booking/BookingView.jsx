@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom"
 import { BookingView1 } from "./BookingView1"
 import { BookingView2 } from "./BookingView2"
 import { BookingView3 } from "./BookingView3"
+import { Link } from "react-router-dom"
 
 export const BookingView = () => {
 

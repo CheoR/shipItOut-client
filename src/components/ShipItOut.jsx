@@ -21,6 +21,7 @@ import { BkgPage } from "./forms/BkgPage"
 import { BookingView } from "./booking/BookingView"
 import { DataTableProvider } from "./table/DataTableProvider"
 import { ProductView } from "./product/ProductView"
+import { BookingCreate } from "./booking/BookingCreate"
 
 export const ShipItOut = () => (
   <BrowserRouter>
