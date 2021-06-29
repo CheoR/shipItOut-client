@@ -2,9 +2,9 @@
 
 # Project
 
-ShipItOut is my full stack NSS C46 capstone project. It is related to my initial project, [PackItUp](https://github.com/CheoR/pack-it-up) - track what you pack, app.
+[ShipItOut](https://shipitout.herokuapp.com/) is my full stack NSS C46 capstone project. It is related to my initial project, [PackItUp](https://github.com/CheoR/pack-it-up) - track what you pack, app.They are both still works in progress.
 
-ShipItOut consist of React front-end and Django backend.
+ShipItOut consist of React front-end and Django/PostgreSQL backend.
 
 It is a dashboard-like app that tracks shipping containers where the shipper, container, port authorities can update the container status as it moves.
 
@@ -42,3 +42,8 @@ Open the [Latest ShipItOut db diagram](https://dbdiagram.io/d/60be3bdfb29a09603d
 
 <img src="./src/assets/images/ShipItOut_DrawIo.jpg" alt="Wireframe for Ship It Out" />
 
+## Demo
+
+Live site [ShipItOut](https://shipitout.herokuapp.com/)
+
+<img src="./src/assets/ShipItOut.gif" alt="Shit It Out Project demo" />

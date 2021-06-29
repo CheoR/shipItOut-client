@@ -252,7 +252,7 @@ sketch
 *.rst
 # *.jpg
 # *.png*
-*.gif
+.gif
 *.xap
 # *.jpeg
 project_notes.md
