@@ -1,20 +1,18 @@
-import React, { createContext, useState } from "react"
+import React, { createContext, useState } from 'react'
 
 export const DataTableContext = createContext()
 
-export const DataTableProvider = ( props ) => {
+export const DataTableProvider = (props) => {
+  const [data, setData] = useState([])
 
-  const [ data, setData ] = useState([])
-
-
-  const getDataTableFor = ( endpoint ) => {
+  const getDataTableFor = (endpoint) => {
     /*
       Generic data fetch.
     */
-  
+
     return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
       headers: {
-        Authorization: `Token ${localStorage.getItem("user_token")}`
+        Authorization: `Token ${localStorage.getItem('user_token')}`
       }
     })
       .then(res => res.json())
@@ -24,12 +22,13 @@ export const DataTableProvider = ( props ) => {
   } // getDataTableFor
 
   return (
-   <DataTableContext.Provider value={{
+    <DataTableContext.Provider value={{
       data,
       setData,
       getDataTableFor
-   }}>
-    { props.children }
-   </DataTableContext.Provider>
+    }}
+    >
+      {props.children}
+    </DataTableContext.Provider>
   )
 }

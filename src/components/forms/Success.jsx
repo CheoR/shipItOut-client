@@ -1,8 +1,7 @@
-import React from "react"
-
+import React from 'react'
 
 export const Success = () => {
- return (
-  <>Success YAY</>
- )
+  return (
+    <>Success YAY</>
+  )
 }

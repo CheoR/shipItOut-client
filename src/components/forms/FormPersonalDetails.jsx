@@ -1,20 +1,18 @@
-import React from "react"
+import React from 'react'
 
-import { ThemeProvider } from "@material-ui/core/styles"
-import { TextField } from "@material-ui/core"
+import { ThemeProvider, makeStyles } from '@material-ui/core/styles'
+import { TextField } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
-import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete'
 
 export const FormPersonalDetails = ({ nextStep, backStep, handleChange, values }) => {
-
   const useStyles = makeStyles((theme) => ({
     button: {
-      margin: theme.spacing(1),
-    },
-  }));
+      margin: theme.spacing(1)
+    }
+  }))
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const next = (e) => {
     e.preventDefault()
@@ -33,18 +31,18 @@ export const FormPersonalDetails = ({ nextStep, backStep, handleChange, values }
         <h1>Enter Personal details</h1>
 
         <TextField
-          id="occupation"
+          id='occupation'
           // hintText="Occupation"
           // floatingLabelText="Occupation Here"
-          label="Occupation"
+          label='Occupation'
           onChange={handleChange}
           defaultValue={values.occupation}
         />
         <br />
 
         <TextField
-          id="city"
-          label="City"
+          id='city'
+          label='City'
           // hintText="City"
           // floatingLabelText="City Here"
           onChange={handleChange}
@@ -53,8 +51,8 @@ export const FormPersonalDetails = ({ nextStep, backStep, handleChange, values }
         <br />
 
         <TextField
-          id="bio"
-          label="Bio"
+          id='bio'
+          label='Bio'
           // hintText="bio"
           // floatingLabelText="bio Here"
           onChange={handleChange}
@@ -63,9 +61,9 @@ export const FormPersonalDetails = ({ nextStep, backStep, handleChange, values }
         <br />
 
         <Button
-          variant="contained"
-          color="secondary"
-          label="continue"
+          variant='contained'
+          color='secondary'
+          label='continue'
           className={classes.button}
           startIcon={<DeleteIcon />}
           onClick={back}
@@ -73,11 +71,10 @@ export const FormPersonalDetails = ({ nextStep, backStep, handleChange, values }
           Back
         </Button>
 
-
         <Button
-          variant="contained"
-          color="secondary"
-          label="continue"
+          variant='contained'
+          color='secondary'
+          label='continue'
           className={classes.button}
           startIcon={<DeleteIcon />}
           onClick={next}

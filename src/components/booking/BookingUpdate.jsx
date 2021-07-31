@@ -1,96 +1,85 @@
-import React, { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { BookingUpdate1 } from "./BookingUpdate1"
-import { BookingUpdate2 } from "./BookingUpdate2"
-import { BookingUpdate3 } from "./BookingUpdate3"
-import { Link } from "react-router-dom"
-
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { BookingUpdate1 } from './BookingUpdate1'
+import { BookingUpdate2 } from './BookingUpdate2'
+import { BookingUpdate3 } from './BookingUpdate3'
 
 export const BookingUpdate = () => {
+  const [formValues, setFormValues] = useState([])
+  const location = useLocation()
+  const endpoint = location.pathname.slice(1)
+  const token = localStorage.getItem('user_token')
 
-const [ formValues, setFormValues ] = useState([])
-const location = useLocation()
-const endpoint =  location.pathname.slice(1)
-const token = localStorage.getItem("user_token")
-
-
-useEffect(() => {
-  return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
-    headers: {
-      Authorization: `Token ${token}`
-    }
-  })
-  .then(res => res.json())
-  .then(res => {
-        console.log("res type")
+  useEffect(() => {
+    return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+      .then(res => res.json())
+      .then(res => {
+        console.log('res type')
         console.log(Array.isArray(res))
         console.log(res)
-        res['step'] = 1
+        res.step = 1
         // const addStep = { ...res, ...{'step': 1 } }
         // addStep['step'] = 1
         // addStep.step = 1
-        console.log("addstep type")
+        console.log('addstep type')
         // console.log(Array.isArray(addStep))
         // setFormValues(addStep)
         setFormValues(res)
       })
+  }, []) // useEffect
 
-}, []) // useEffect
+  const nextStep = () => {
+    const { step } = formValues
+    setFormValues({ ...formValues, step: step + 1 })
+  }
 
+  const prevStep = () => {
+    const { step } = formValues
+    setFormValues({ ...formValues, step: step - 1 })
+  }
 
- const nextStep = () => {
-  const { step } = formValues
-  setFormValues({ ...formValues, step: step + 1 })
- }
+  switch (formValues.step) {
+    case 1:
+      return (
+        <BookingUpdate1
+          nextStep={nextStep}
+          formValues={formValues}
+          setFormValues={setFormValues}
+        />
+      )
 
- const prevStep = () => {
-  const { step } = formValues
-  setFormValues({ ...formValues, step: step - 1 })
- }
+    case 2:
+      return (
 
+        <BookingUpdate2
+          nextStep={nextStep}
+          prevStep={prevStep}
+          formValues={formValues}
+          setFormValues={setFormValues}
+        />
+      )
 
- switch (formValues.step) {
-  case 1:
-   return (
-    <BookingUpdate1
-     nextStep={nextStep}
-     formValues={formValues}
-     setFormValues={setFormValues}
-    />
-   )
+    case 3:
+      return (
 
-  case 2:
-   return (
+        <BookingUpdate3
+          nextStep={nextStep}
+          prevStep={prevStep}
+          formValues={formValues}
+          setFormValues={setFormValues}
+        />
+      )
 
-    <BookingUpdate2
-     nextStep={nextStep}
-     prevStep={prevStep}
-     formValues={formValues}
-     setFormValues={setFormValues}
-    />
-   )
-
-  case 3:
-   return (
-
-    <BookingUpdate3
-     nextStep={nextStep}
-     prevStep={prevStep}
-     formValues={formValues}
-     setFormValues={setFormValues}
-    />
-   )
-
-  default:
-   return (
-    <>Booking Create Loading . . </>
-   )
-
- } // swtich
+    default:
+      return (
+        <>Booking Create Loading . . </>
+      )
+  } // swtich
 }
-
-
-
 
 // import React from "react"
 
@@ -209,7 +198,7 @@ useEffect(() => {
 //         <label for="notes">Notes</label><br/>
 //         <textarea id="notes" name="notes" rows="4" cols="20" placeholder={`${bookingDetails.notes}`} disabled ><br />
 //         </textarea>
-//        </div>       
+//        </div>
 //        <Link className={styles.navLink} to='/bookings' >
 //           <button className={styles.navLinkBtn}>Back</button>
 //         </Link>
