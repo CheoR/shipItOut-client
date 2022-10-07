@@ -31,6 +31,7 @@
     "start": "env-cmd -f .env.prod react-scripts start",
     "start:local": "env-cmd -f .env.local react-scripts start",
     "build": "env-cmd -f .env.prod react-scripts build",
+    "prettier:format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -51,5 +52,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1"
   }
 }
