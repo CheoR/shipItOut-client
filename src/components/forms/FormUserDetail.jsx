@@ -1,20 +1,19 @@
-import React from "react"
+import React from 'react'
 
-import { ThemeProvider } from "@material-ui/core/styles"
-import { TextField } from "@material-ui/core"
+import { ThemeProvider } from '@material-ui/core/styles'
+import { TextField } from '@material-ui/core'
 import Button from '@material-ui/core/Button'
-import DeleteIcon from '@material-ui/icons/Delete';
-import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@material-ui/icons/Delete'
+import { makeStyles } from '@material-ui/core/styles'
 
 export const FormUserDetail = ({ nextStep, handleChange, values }) => {
-
   const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
     },
-  }));
+  }))
 
-  const classes = useStyles();
+  const classes = useStyles()
 
   const next = (e) => {
     e.preventDefault()
@@ -27,18 +26,18 @@ export const FormUserDetail = ({ nextStep, handleChange, values }) => {
         <h1>Enter user details</h1>
 
         <TextField
-          id="firstName"
+          id='firstName'
           // hintText="First Name"
           // floatingLabelText="First Name Here"
-          label="First Name"
+          label='First Name'
           onChange={handleChange}
           defaultValue={values.firstName}
         />
         <br />
 
         <TextField
-          id="lastName"
-          label="Last Name"
+          id='lastName'
+          label='Last Name'
           // hintText="Last Name"
           // floatingLabelText="Last Name Here"
           onChange={handleChange}
@@ -47,8 +46,8 @@ export const FormUserDetail = ({ nextStep, handleChange, values }) => {
         <br />
 
         <TextField
-          id="email"
-          label="Email"
+          id='email'
+          label='Email'
           // hintText="Email"
           // floatingLabelText="Email Here"
           onChange={handleChange}
@@ -57,9 +56,9 @@ export const FormUserDetail = ({ nextStep, handleChange, values }) => {
         <br />
 
         <Button
-          variant="contained"
-          color="secondary"
-          label="continue"
+          variant='contained'
+          color='secondary'
+          label='continue'
           className={classes.button}
           startIcon={<DeleteIcon />}
           onClick={next}

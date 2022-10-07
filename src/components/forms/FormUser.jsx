@@ -1,24 +1,20 @@
-import React, { useState } from "react"
-import { FaLevelUpAlt } from "react-icons/fa"
-import { Confirm } from "./Confirm"
-import { FormPersonalDetails } from "./FormPersonalDetails"
-import { FormUserDetail } from "./FormUserDetail"
-import { Success } from "./Success"
-
+import React, { useState } from 'react'
+import { FaLevelUpAlt } from 'react-icons/fa'
+import { Confirm } from './Confirm'
+import { FormPersonalDetails } from './FormPersonalDetails'
+import { FormUserDetail } from './FormUserDetail'
+import { Success } from './Success'
 
 export const FormUser = () => {
-
   const [formData, setFormData] = useState({
     step: 1,
-    firstName: "",
-    lastName: "",
-    email: "",
-    occupation: "",
-    city: "",
-    bio: ""
+    firstName: '',
+    lastName: '',
+    email: '',
+    occupation: '',
+    city: '',
+    bio: '',
   })
-
-
 
   const nextStep = () => {
     const { step } = formData
@@ -31,17 +27,13 @@ export const FormUser = () => {
   }
 
   const handleInputChange = (e) => {
-
     const newState = { ...formData }
     newState[e.target.id] = e.target.value
     setFormData(newState)
   }
 
-
-  const { step, firstName, lastName, email, occupation, city, bio } = formData;
+  const { step, firstName, lastName, email, occupation, city, bio } = formData
   const values = { firstName, lastName, email, occupation, city, bio }
-
-
 
   switch (step) {
     case 1:
@@ -73,10 +65,6 @@ export const FormUser = () => {
       )
 
     case 4:
-      return (
-        <Success />
-      )
-
-
+      return <Success />
   }
 }

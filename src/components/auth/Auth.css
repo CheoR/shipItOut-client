@@ -16,10 +16,10 @@ fieldset {
   text-align: left;
 }
 
-.form--login > fieldset > input[type="phone"],
-.form--login > fieldset > input[type="email"],
-.form--login > fieldset > input[type="text"],
-.form--login > fieldset > input[type="password"] {
+.form--login > fieldset > input[type='phone'],
+.form--login > fieldset > input[type='email'],
+.form--login > fieldset > input[type='text'],
+.form--login > fieldset > input[type='password'] {
   width: 25em;
 }
 
@@ -53,7 +53,7 @@ fieldset {
 .form--login {
   background-size: cover;
   background-position-x: center;
-  background-image: url("../../assets/images/pugTransport.svg");
+  background-image: url('../../assets/images/pugTransport.svg');
   z-index: 1;
   min-height: 25rem;
   min-width: 45rem;
