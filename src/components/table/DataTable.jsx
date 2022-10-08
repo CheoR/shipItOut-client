@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import { DataGrid } from '@material-ui/data-grid'
+import { DataGrid } from '@mui/x-data-grid';
 
 import { makeStyles } from '@material-ui/core/styles'
 import { ButtonGroup, Button, Typography } from '@material-ui/core'

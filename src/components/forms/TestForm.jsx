@@ -11,7 +11,7 @@ import FormGroup from '@material-ui/core/FormGroup'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-import { DateTimePicker } from '@material-ui/pickers'
+import DateTimePicker from '@mui/lab/DateTimePicker'
 
 import styles from './TestForm.module.css'
 

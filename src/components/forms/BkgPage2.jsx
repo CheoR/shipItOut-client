@@ -15,7 +15,7 @@ import {
   FormHelperText,
   Button,
 } from '@material-ui/core'
-import { DateTimePicker } from '@material-ui/pickers'
+import DateTimePicker from '@mui/lab/DateTimePicker'
 import TextareaAutosize from '@material-ui/core/TextareaAutosize'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 
