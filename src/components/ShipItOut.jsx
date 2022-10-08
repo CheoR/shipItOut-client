@@ -15,13 +15,11 @@ import { ProductList } from './product/ProductList'
 
 import { BkgPage } from './forms/BkgPage'
 import { BookingView } from './booking/BookingView'
-import { DataTableProvider } from './table/DataTableProvider'
 import { ProductView } from './product/ProductView'
 // import { BookingCreate } from './booking/BookingCreate'
 import Layout from './layout/Layout'
 
 export const ShipItOut = () => (
-  <DataTableProvider>
     <Layout>
       <Switch>
         <Route
@@ -85,5 +83,4 @@ export const ShipItOut = () => (
         <Route component={PageNotFound} />
       </Switch>
     </Layout>
-  </DataTableProvider>
 )

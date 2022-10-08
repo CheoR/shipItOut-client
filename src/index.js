@@ -1,19 +1,22 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-// import DateFnsUtils from '@date-io/date-fns'
-import { ShipItOut } from './components/ShipItOut'
-import './index.css'
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 
-import AdapterDateFns from '@mui/lab/AdapterDateFns'
-import LocalizationProvider from '@mui/lab/LocalizationProvider'
+import { ShipItOut } from './components/ShipItOut'
+import { DataTableProvider } from './components/table/DataTableProvider'
+
+import './index.css'
 
 ReactDOM.render(
   <React.StrictMode>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
-      <Router>
-        <ShipItOut />
-      </Router>
+      <DataTableProvider>
+        <Router>
+          <ShipItOut />
+        </Router>
+      </DataTableProvider>
     </LocalizationProvider>
   </React.StrictMode>,
   document.getElementById('root'),
