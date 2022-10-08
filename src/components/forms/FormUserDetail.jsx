@@ -3,7 +3,7 @@ import React from 'react'
 import { ThemeProvider } from '@mui/material/styles'
 import { TextField } from '@mui/material'
 import Button from '@mui/material/Button'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { makeStyles } from '@mui/material/styles'
 
 export const FormUserDetail = ({ nextStep, handleChange, values }) => {

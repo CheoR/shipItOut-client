@@ -1,7 +1,7 @@
 import React from 'react'
 
 import Button from '@mui/material/Button'
-import DeleteIcon from '@material-ui/icons/Delete'
+import DeleteIcon from '@mui/icons-material/Delete'
 import { makeStyles } from '@mui/material/styles'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'

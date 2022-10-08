@@ -6,11 +6,11 @@ import { DataGrid } from '@mui/x-data-grid';
 import { makeStyles } from '@mui/material/styles'
 import { ButtonGroup, Button, Typography } from '@mui/material'
 
-import DeleteIcon from '@material-ui/icons/Delete'
-import UpdateIcon from '@material-ui/icons/Update'
-import AddIcon from '@material-ui/icons/Add'
+import DeleteIcon from '@mui/icons-material/Delete'
+import UpdateIcon from '@mui/icons-material/Update'
+import AddIcon from '@mui/icons-material/Add';
 
-import VisibilityIcon from '@material-ui/icons/Visibility'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import logo from '../../assets/images/pugTransport.svg'
 import { PageNotFound } from '../helpers/PageNotFound'
 import styles from './Table.module.css'
