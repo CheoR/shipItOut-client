@@ -1,12 +1,31 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
-import './Auth.css'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  Input,
+  InputLabel,
+  Typography,
+} from '@mui/material'
 
 export const Login = (props) => {
   const username = React.createRef()
   const password = React.createRef()
-  const invalidDialog = React.createRef()
+  const [open, setOpen] = React.useState(false)
+
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -28,72 +47,99 @@ export const Login = (props) => {
           localStorage.setItem('user_token', res.token)
           props.history.push('/bookings')
         } else {
-          invalidDialog.current.showModal()
+          handleOpen()
         }
       })
   }
-
   return (
-    <main className='container--login'>
-      <dialog
-        className='dialog dialog--auth'
-        ref={invalidDialog}
+    <Box sx={{ height: '100%' }}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby='login-alert-dialog-title'
+        aria-describedby='login-alert-dialog-description'
       >
-        <div>username or password was not valid.</div>
-        <button
-          className='button--close'
-          onClick={(e) => invalidDialog.current.close()}
-        >
-          Close
-        </button>
-      </dialog>
-      <section>
-        <form
-          className='form--login'
-          onSubmit={handleLogin}
-        >
-          <h1>ShipItOut</h1>
-          <h2>Please sign in</h2>
-          <fieldset>
-            <label htmlFor='inputusername'> Username </label>
-            <input
-              ref={username}
-              type='text'
-              id='username'
-              className='form-control'
-              placeholder='Username'
-              required
-              autoFocus
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor='inputPassword'> Password </label>
-            <input
-              ref={password}
-              type='password'
-              id='password'
-              className='form-control'
-              placeholder='Password'
-              required
-            />
-          </fieldset>
-          <fieldset
-            style={{
-              textAlign: 'center',
-            }}
+        <DialogTitle id='login-alert-dialog-title'>
+          {'Invalid Username and/or Password'}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id='login-alert-dialog-description'>
+            Please verify username and/or password is correct.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            autoFocus
           >
-            <button
-              className='btn btn-1 btn-sep icon-send'
-              type='submit'
-            >
-              Sign In
-            </button>
-          </fieldset>
-        </form>
-      </section>
-      <section className='link--register'>
-        <Link to='/register'>Not a member yet?</Link>
-      </section>
-    </main>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Box
+        component='form'
+        onSubmit={handleLogin}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '50%',
+          height: '50%',
+          margin: '0 auto',
+        }}
+      >
+        <Typography
+          variant='h2'
+          sx={{ textAlign: 'center' }}
+        >
+          ShipItOut
+        </Typography>
+        <Typography
+          variant='h3'
+          sx={{ textAlign: 'center' }}
+        >
+          Please Login
+        </Typography>
+        <Box sx={{ flex: 1 }}>{''}</Box>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='username'>Username</InputLabel>
+          <Input
+            id='username'
+            inputRef={username}
+            type='text'
+            required
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='inputpassword'>Password</InputLabel>
+          <Input
+            id='inputpassword'
+            inputRef={password}
+            type='password'
+            required
+          />
+        </FormControl>
+        <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant='contained'
+            type='submit'
+            sx={{ width: 200 }}
+          >
+            Login
+          </Button>
+        </Box>
+      </Box>
+      <Typography
+        variant='body1'
+        sx={{ textAlign: 'center' }}
+      >
+        Not a member yet? {" "}
+        <Link
+          to='/register'
+          style={{ textDecoration: 'none' }}
+        >
+          Register
+        </Link>
+      </Typography>
+    </Box>
   )
 }
