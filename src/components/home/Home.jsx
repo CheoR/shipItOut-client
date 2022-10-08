@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import logo from '../../assets/images/pugTransport.svg'
 import styles from './Home.module.css'
 
-export const Home = (props) => {
+export const Home = () => {
   return (
     <>
       <main className={styles.main}>

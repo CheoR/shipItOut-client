@@ -1,3 +1,4 @@
+import { Box } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 
@@ -15,7 +16,12 @@ export const NavBar = () => {
   }, [url])
 
   return (
-    <div className={styles.navbar}>
+    <Box sx={{
+      display: "flex",
+      justifyContent: "space-between",
+      background: "red",
+      border: "2px solid black",}}>
+     {/* <div className={styles.navbar}> */}
       <div className={styles.imgContainer}>
         <img
           src={logo}
@@ -95,6 +101,8 @@ export const NavBar = () => {
           </>
         )}
       </ul>
-    </div>
+    {/* </div> */}
+        </Box>
+
   )
 }

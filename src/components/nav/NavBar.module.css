@@ -1,6 +1,8 @@
 .navbar {
   display: flex;
   justify-content: space-between;
+  background: "red";
+  border: "2px solid black";
 }
 
 .imgContainer {
