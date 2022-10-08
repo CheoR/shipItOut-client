@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -11,7 +11,7 @@ import {
   Checkbox,
   FormHelperText,
   Button,
-} from '@material-ui/core'
+} from '@mui/material'
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
 import Alert from '@material-ui/lab/Alert'
 

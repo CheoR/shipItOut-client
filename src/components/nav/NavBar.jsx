@@ -1,4 +1,4 @@
-import { Box } from '@material-ui/core'
+import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 

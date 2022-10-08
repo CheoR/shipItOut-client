@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -11,10 +11,10 @@ import {
   Checkbox,
   FormHelperText,
   Button,
-} from '@material-ui/core'
+} from '@mui/material'
 import DateTimePicker from '@mui/lab/DateTimePicker'
-import TextareaAutosize from '@material-ui/core/TextareaAutosize'
-import { ThemeProvider } from '@material-ui/core/styles'
+import TextareaAutosize from '@mui/material/TextareaAutosize'
+import { ThemeProvider } from '@mui/material/styles'
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 

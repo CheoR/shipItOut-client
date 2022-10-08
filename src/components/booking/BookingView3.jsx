@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -11,8 +11,8 @@ import {
   Checkbox,
   FormHelperText,
   Button,
-} from '@material-ui/core'
-import { ThemeProvider } from '@material-ui/core/styles'
+} from '@mui/material'
+import { ThemeProvider } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
 
 export const BookingView3 = ({ nextStep, prevStep, formValues }) => {

@@ -3,8 +3,8 @@ import { Link, useHistory } from 'react-router-dom'
 
 import { DataGrid } from '@mui/x-data-grid';
 
-import { makeStyles } from '@material-ui/core/styles'
-import { ButtonGroup, Button, Typography } from '@material-ui/core'
+import { makeStyles } from '@mui/material/styles'
+import { ButtonGroup, Button, Typography } from '@mui/material'
 
 import DeleteIcon from '@material-ui/icons/Delete'
 import UpdateIcon from '@material-ui/icons/Update'
