@@ -1,6 +1,18 @@
 import React from 'react'
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  Input,
+  InputLabel,
+  Typography,
+} from '@mui/material'
 import { Link } from 'react-router-dom'
-import './Auth.css'
 
 export const Register = (props) => {
   const username = React.createRef()
@@ -13,21 +25,27 @@ export const Register = (props) => {
   const role = React.createRef()
   const phone = React.createRef()
 
-  const passwordDialog = React.createRef()
-  const invalidDialog = React.createRef()
-  const blankFieldsDialog = React.createRef()
+  const [openPasswordDialog, setOpenPasswordDialog] = React.useState(false)
+  const [openErrorDialog, setOpenErrorDialog] = React.useState(false)
 
-  // redundant check if all fields are filled
-  const isBlank = (e) => e.length === 0
+  const handleOpen = (type) => {
+    if (type === 'password') {
+      setOpenPasswordDialog(true)
+    } else {
+      setOpenErrorDialog(true)
+    }
+  }
 
-  const fields = [firstName, lastName]
+  const handleClose = (type) => {
+    if (type === 'password') {
+      setOpenPasswordDialog(false)
+    } else {
+      setOpenErrorDialog(false)
+    }
+  }
 
   const handleRegister = (e) => {
     e.preventDefault()
-
-    if (fields.some(isBlank)) {
-      blankFieldsDialog.current.showModal()
-    }
 
     if (password.current.value === verifyPassword.current.value) {
       const newUser = {
@@ -55,180 +73,204 @@ export const Register = (props) => {
             localStorage.setItem('user_token', res.token)
             props.history.push('/bookings')
           } else {
-            console.log(res)
-            console.log(invalidDialog.current)
-            invalidDialog.current.showModal()
+            handleOpen('error')
           }
         })
     } else {
-      passwordDialog.current.showModal()
+      handleOpen('password')
     }
   }
 
+  //   <dialog
+  //     className='dialog dialog--auth'
+  //     ref={invalidDialog}
+  //   >
+  //     <div>Could Not Register</div>
+  //     <button
+  //       className='button--close'
+  //       onClick={(e) => invalidDialog.current.close()}
+  //     >
+  //       Close
+  //     </button>
+  //   </dialog>
+
   return (
-    <main style={{ textAlign: 'center' }}>
-      <dialog
-        className='dialog dialog--auth'
-        ref={blankFieldsDialog}
+    <Box sx={{ height: '100%' }}>
+      <Dialog
+        open={openPasswordDialog}
+        onClose={() => handleClose('password')}
+        aria-labelledby='password-alert-dialog-title'
+        aria-describedby='password-alert-dialog-description'
       >
-        <div>Fields Cannot be blank</div>
-        <button
-          className='button--close'
-          onClick={(e) => blankFieldsDialog.current.close()}
-        >
-          Close
-        </button>
-      </dialog>
-
-      <dialog
-        className='dialog dialog--auth'
-        ref={invalidDialog}
+        <DialogTitle>{'Passwords do not match.'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {'Please verify passwords match.'}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => handleClose('password')}
+            autoFocus
+          >
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={openErrorDialog}
+        onClose={() => handleClose('error')}
+        aria-labelledby='error-alert-dialog-title'
+        aria-describedby='error-alert-dialog-description'
       >
-        <div>Could Not Register</div>
-        <button
-          className='button--close'
-          onClick={(e) => invalidDialog.current.close()}
-        >
-          Close
-        </button>
-      </dialog>
-
-      <dialog
-        className='dialog dialog--password'
-        ref={passwordDialog}
-      >
-        <div>Passwords do not match</div>
-        <button
-          className='button--close'
-          onClick={(e) => passwordDialog.current.close()}
-        >
-          Close
-        </button>
-      </dialog>
-
-      <form
-        className='form--login'
+        <DialogTitle>{"Something's Wrong"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>{'Could not create user.'}</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => handleClose('error')}
+            autoFocus
+          >
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Box
+        component='form'
         onSubmit={handleRegister}
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          width: '50%',
+          height: '100%',
+          margin: '0 auto',
+        }}
       >
-        <h1 className='h3 mb-3 font-weight-normal'>Register an account</h1>
-        <fieldset>
-          <label htmlFor='userName'> Username </label>
-          <input
-            ref={username}
-            type='text'
-            name='username'
-            className='form-control'
-            placeholder='Username'
-            required
-            autoFocus
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='firstName'> First Name </label>
-          <input
-            ref={firstName}
-            type='text'
-            name='firstName'
-            className='form-control'
-            placeholder='First name'
-            required
-            autoFocus
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='lastName'> Last Name </label>
-          <input
-            ref={lastName}
-            type='text'
-            name='lastName'
-            className='form-control'
-            placeholder='Last name'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='inputEmail'> Email address </label>
-          <input
-            ref={email}
-            type='email'
-            name='email'
-            className='form-control'
-            placeholder='Email address'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='inputCompnay'> Company </label>
-          <input
-            ref={company}
-            type='text'
-            name='company'
-            className='form-control'
-            placeholder='Company'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='inputRole'> Role </label>
-          <input
-            ref={role}
-            type='text'
-            name='role'
-            className='form-control'
-            placeholder='Role'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='inputPhone'> Phone </label>
-          <input
-            ref={phone}
-            type='phone'
-            name='phone'
-            className='form-control'
-            placeholder='615-123-4567'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='inputPassword'> Password </label>
-          <input
-            ref={password}
-            type='password'
-            name='password'
-            className='form-control'
-            placeholder='Password'
-            required
-          />
-        </fieldset>
-        <fieldset>
-          <label htmlFor='verifyPassword'> Verify Password </label>
-          <input
-            ref={verifyPassword}
-            type='password'
-            name='verifyPassword'
-            className='form-control'
-            placeholder='Verify password'
-            required
-          />
-        </fieldset>
-
-        <fieldset
-          style={{
-            textAlign: 'center',
-          }}
+        <Typography
+          variant='h2'
+          sx={{ textAlign: 'center' }}
         >
-          <button
-            className='btn btn-1 btn-sep icon-send'
+          ShipItOut
+        </Typography>
+        <Typography
+          variant='h3'
+          sx={{ textAlign: 'center' }}
+        >
+          Register account
+        </Typography>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='username'>Username</InputLabel>
+          <Input
+            id='username'
+            inputRef={username}
+            type='text'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='firstName'>First Name</InputLabel>
+          <Input
+            id='firstName'
+            inputRef={firstName}
+            type='text'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='lastName'>Last Name</InputLabel>
+          <Input
+            id='lastName'
+            inputRef={lastName}
+            type='text'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='email'>Email</InputLabel>
+          <Input
+            id='email'
+            inputRef={email}
+            type='email'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='company'>Company</InputLabel>
+          <Input
+            id='company'
+            inputRef={company}
+            type='text'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='role'>Role</InputLabel>
+          <Input
+            id='role'
+            inputRef={role}
+            type='text'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='phone'>Phone</InputLabel>
+          <Input
+            id='phone'
+            inputRef={phone}
+            type='phone'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='password'>Password</InputLabel>
+          <Input
+            id='password'
+            inputRef={password}
+            type='password'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <FormControl variant='standard'>
+          <InputLabel htmlFor='verifyPassword'>Verify Password</InputLabel>
+          <Input
+            id='verifyPassword'
+            inputRef={verifyPassword}
+            type='password'
+            required
+            autoFocus
+          />
+        </FormControl>
+        <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
+          <Button
+            variant='contained'
             type='submit'
+            sx={{ width: 200 }}
           >
             Register
-          </button>
-        </fieldset>
-      </form>
-      <section className='link--register'>
-        Already registered? <Link to='/login'>Login</Link>
-      </section>
-    </main>
+          </Button>
+        </Box>
+        <Typography
+          variant='body1'
+          sx={{ textAlign: 'center' }}
+        >
+          Already registered?{' '}
+          <Link
+            to='/login'
+            style={{ textDecoration: 'none' }}
+          >
+            Login
+          </Link>
+        </Typography>
+      </Box>
+    </Box>
   )
 }
