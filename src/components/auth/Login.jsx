@@ -132,7 +132,7 @@ export const Login = (props) => {
         variant='body1'
         sx={{ textAlign: 'center' }}
       >
-        Not a member yet? {" "}
+        Not a member yet?{' '}
         <Link
           to='/register'
           style={{ textDecoration: 'none' }}

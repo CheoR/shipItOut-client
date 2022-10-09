@@ -224,11 +224,11 @@ export const NavBar = () => {
             {token
               ? loggedInPages.map((page) => (
                   <Link
+                    key={page.page}
                     component={RouterLink}
                     to={`/${page.link}`}
                   >
                     <Button
-                      key={page.page}
                       onClick={handleCloseNavMenu}
                       sx={{ my: 2, color: 'white', display: 'block' }}
                     >
@@ -238,11 +238,11 @@ export const NavBar = () => {
                 ))
               : loggedOutPages.map((page) => (
                   <Link
+                    key={page.page}
                     component={RouterLink}
                     to={`/${page.link}`}
                   >
                     <Button
-                      key={page.page}
                       onClick={handleCloseNavMenu}
                       sx={{ my: 2, color: 'white', display: 'block' }}
                     >

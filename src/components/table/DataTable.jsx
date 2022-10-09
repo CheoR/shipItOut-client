@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
-import { DataGrid } from '@mui/x-data-grid';
+import { DataGrid } from '@mui/x-data-grid'
 
 import { makeStyles } from '@mui/material/styles'
 import { ButtonGroup, Button, Typography } from '@mui/material'
 
 import DeleteIcon from '@mui/icons-material/Delete'
 import UpdateIcon from '@mui/icons-material/Update'
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from '@mui/icons-material/Add'
 
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import logo from '../../assets/images/pugTransport.svg'
