@@ -1,11 +1,44 @@
-import { Box } from '@mui/material'
 import React, { useEffect } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link as RouterLink, Redirect, useLocation } from 'react-router-dom'
+
+import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import { Link } from '@mui/material'
 
 import logo from '../../assets/images/pugTransport.svg'
-import styles from './NavBar.module.css'
+
+const loggedOutPages = [
+  { page: 'Home', link: '' },
+  { page: 'Login', link: 'login' },
+  { page: 'Register', link: 'register' },
+]
+const loggedInPages = [
+  { page: 'Home', link: '' },
+  { page: 'Bookings', link: 'bookings' },
+  { page: 'Containers', link: 'containers' },
+  { page: 'Products', link: 'products' },
+]
+
+const settings = [
+  { setting: 'Profile', link: 'profile' },
+  { setting: 'Account', link: 'account' },
+  { setting: 'Dashboard', link: 'dashboard' },
+]
 
 export const NavBar = () => {
+  const [anchorElNav, setAnchorElNav] = React.useState(null)
+  const [anchorElUser, setAnchorElUser] = React.useState(null)
+
   const location = useLocation()
   const url = location.pathname
   let token = localStorage.getItem('user_token')
@@ -15,94 +48,279 @@ export const NavBar = () => {
     // console.log(`current url: ${url}`)
   }, [url])
 
-  return (
-    <Box sx={{
-      display: "flex",
-      justifyContent: "space-between",
-      background: "red",
-      border: "2px solid black",}}>
-     {/* <div className={styles.navbar}> */}
-      <div className={styles.imgContainer}>
-        <img
-          src={logo}
-          className={styles.img}
-          alt='Pug TransportLogo'
-        />
-      </div>
-      <ul className={styles.ulList}>
-        <li className={styles.navBarItem}>
-          <Link
-            className={styles.navLink}
-            to={`${token ? '/bookings' : '/'}`}
-          >
-            <button className={styles.navLinkBtn}>Home</button>
-          </Link>
-        </li>
-        {token ? (
-          <>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/bookings'
-              >
-                <button className={styles.navLinkBtn}>Bookings</button>
-              </Link>
-            </li>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/containers'
-              >
-                <button className={styles.navLinkBtn}>Containers</button>
-              </Link>
-            </li>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/products'
-              >
-                <button className={styles.navLinkBtn}>Products</button>
-              </Link>
-            </li>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/'
-              >
-                <button
-                  className={styles.navLinkBtn}
-                  onClick={() => {
-                    localStorage.removeItem('user_token')
-                  }}
-                >
-                  Logout
-                </button>
-              </Link>
-            </li>
-          </>
-        ) : (
-          <>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/login'
-              >
-                <button className={styles.navLinkBtn}>Login</button>
-              </Link>
-            </li>
-            <li className={styles.navBarItem}>
-              <Link
-                className={styles.navLink}
-                to='/register'
-              >
-                <button className={styles.navLinkBtn}>Register</button>
-              </Link>
-            </li>
-          </>
-        )}
-      </ul>
-    {/* </div> */}
-        </Box>
+  const handleOpenNavMenu = (event) => {
+    setAnchorElNav(event.currentTarget)
+  }
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget)
+  }
 
+  const handleCloseNavMenu = () => {
+    setAnchorElNav(null)
+  }
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null)
+  }
+
+  const logoutUser = () => {
+    localStorage.removeItem('user_token')
+    handleCloseNavMenu()
+    Redirect('/')
+  }
+
+  return (
+    <AppBar position='static'>
+      <Container maxWidth='xl'>
+        <Toolbar disableGutters>
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}>
+            <img
+              src={logo}
+              alt='Pug TransportLogo'
+              style={{ height: 30, width: 30 }}
+            />
+          </Box>
+          <Typography
+            variant='h6'
+            noWrap
+            component='a'
+            href='/'
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            ShipItOut
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size='large'
+              aria-label='account of current user'
+              aria-controls='menu-appbar'
+              aria-haspopup='true'
+              onClick={handleOpenNavMenu}
+              color='inherit'
+            >
+              <MenuIcon />
+            </IconButton>
+
+            {/* below for smaller screens */}
+            <Menu
+              id='menu-appbar'
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+              {token
+                ? loggedInPages.map((page) => (
+                    <MenuItem
+                      key={page.page}
+                      onClick={handleCloseNavMenu}
+                      sx={[
+                        {
+                          '&:hover': {
+                            backgroundColor: 'gray',
+                          },
+                        },
+                      ]}
+                    >
+                      <Link
+                        component={RouterLink}
+                        to={`/${page.link}`}
+                        underline='none'
+                      >
+                        <Typography
+                          textAlign='center'
+                          sx={{
+                            color: 'black',
+                          }}
+                        >
+                          {page.page}
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  ))
+                : loggedOutPages.map((page) => (
+                    <MenuItem
+                      key={page.page}
+                      onClick={handleCloseNavMenu}
+                      sx={[
+                        {
+                          '&:hover': {
+                            backgroundColor: 'gray',
+                          },
+                        },
+                      ]}
+                    >
+                      <Link
+                        component={RouterLink}
+                        to={`/${page.link}`}
+                        underline='none'
+                      >
+                        <Typography
+                          textAlign='center'
+                          sx={{
+                            color: 'black',
+                          }}
+                        >
+                          {page.page}
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  ))}
+            </Menu>
+          </Box>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }}>
+            <img
+              src={logo}
+              alt='Pug TransportLogo'
+              style={{ height: 30, width: 30 }}
+            />
+          </Box>
+          <Typography
+            variant='h5'
+            noWrap
+            component='a'
+            href=''
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            ShipItOut
+          </Typography>
+          {/* for larger screens */}
+          <Box
+            sx={{
+              flexGrow: 1,
+              display: { xs: 'none', md: 'flex' },
+              justifyContent: 'flex-end',
+            }}
+          >
+            {token
+              ? loggedInPages.map((page) => (
+                  <Link
+                    component={RouterLink}
+                    to={`/${page.link}`}
+                  >
+                    <Button
+                      key={page.page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      {page.page}
+                    </Button>
+                  </Link>
+                ))
+              : loggedOutPages.map((page) => (
+                  <Link
+                    component={RouterLink}
+                    to={`/${page.link}`}
+                  >
+                    <Button
+                      key={page.page}
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: 'white', display: 'block' }}
+                    >
+                      {page.page}
+                    </Button>
+                  </Link>
+                ))}
+          </Box>
+
+          {token && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title='Open settings'>
+                <IconButton
+                  onClick={handleOpenUserMenu}
+                  sx={{ p: 0 }}
+                >
+                  <Avatar
+                    alt='ShipItOut'
+                    src='/static/images/avatar/2.jpg'
+                  />
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: '45px' }}
+                id='menu-appbar'
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting.setting}
+                    onClick={handleCloseUserMenu}
+                  >
+                    <Link
+                      component={RouterLink}
+                      to={`/${setting.link}`}
+                      underline='none'
+                    >
+                      <Button
+                        key={setting.setting}
+                        onClick={handleCloseNavMenu}
+                        sx={[
+                          { my: 2, color: 'black', display: 'block' },
+                          { '&:hover': { background: 'blue' } },
+                        ]}
+                      >
+                        <Typography textAlign='center'>
+                          {setting.setting}
+                        </Typography>{' '}
+                      </Button>
+                    </Link>
+                  </MenuItem>
+                ))}
+                <Button
+                  key='logout'
+                  onClick={logoutUser}
+                  sx={[
+                    { my: 2, color: 'black', display: 'block', width: '100%' },
+                    { '&:hover': { background: 'red' } },
+                  ]}
+                >
+                  <Typography>Logout</Typography>{' '}
+                </Button>
+              </Menu>
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
+    </AppBar>
   )
 }
