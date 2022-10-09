@@ -1,4 +1,5 @@
 import React from 'react'
+import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 
 import {
   FaGithubSquare,
@@ -8,45 +9,69 @@ import {
 } from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
 
-import styles from './Footer.module.css'
-
 export const Footer = () => {
   return (
-    <>
-      <footer className={styles.footie}>
-        <ul className={styles.iconList}>
-          <a href='https://cheor.github.io/portfolio/'>
-            {' '}
-            <button className={styles.btn}>
-              <CgProfile className={styles.icon} />
-            </button>
-          </a>
-          <a href='https://github.com/CheoR'>
-            {' '}
-            <button className={styles.btn}>
-              <FaGithubSquare className={styles.icon} />
-            </button>
-          </a>
-          <a href='https://www.linkedin.com/'>
-            {' '}
-            <button className={styles.btn}>
-              <FaLinkedin className={styles.icon} />
-            </button>
-          </a>
-          <a href='https://www.freecodecamp.org/cheor'>
-            {' '}
-            <button className={styles.btn}>
-              <FaFreeCodeCamp className={styles.icon} />
-            </button>
-          </a>
-          <a href='https://codepen.io/CheoR/full/QzPJbQ'>
-            <button className={styles.btn}>
-              <FaCodepen className={styles.icon} />
-            </button>
-          </a>
-        </ul>
-        <aside className={styles.copy}>&copy; CheoR 2001</aside>
-      </footer>
-    </>
+    <Box
+      component='footer'
+      sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+    >
+      <ButtonGroup
+        variant='outlined'
+        aria-label='outlined button group'
+        sx={{ gap: 1 }}
+      >
+        <a
+          href='https://cheor.github.io/'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button>
+            <CgProfile />
+          </Button>
+        </a>
+        <a
+          href='https://github.com/CheoR'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button>
+            <FaGithubSquare />
+          </Button>
+        </a>
+        <a
+          href='https://www.linkedin.com/'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button>
+            <FaLinkedin />
+          </Button>
+        </a>
+        <a
+          href='https://www.freecodecamp.org/cheor'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button>
+            <FaFreeCodeCamp />
+          </Button>
+        </a>
+        <a
+          href='https://codepen.io/CheoR/full/QzPJbQ'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
+          <Button>
+            <FaCodepen />
+          </Button>
+        </a>
+      </ButtonGroup>
+      <Typography
+        variant='subtitle1'
+        sx={{ textAlign: 'center' }}
+      >
+        &copy; CheoR 2020
+      </Typography>
+    </Box>
   )
 }
