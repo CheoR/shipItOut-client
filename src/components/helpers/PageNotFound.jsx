@@ -4,16 +4,22 @@ import { Link as RouterLink } from 'react-router-dom'
 
 export const PageNotFound = () => (
   <Box>
-    <Typography variant="h1" textAlign="center">
+    <Typography
+      variant='h1'
+      textAlign='center'
+    >
       Page Not Found
     </Typography>
-    <Box sx={{display: "flex", justifyContent: "center"}}>
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Link
         component={RouterLink}
         to={'/'}
-        underline="none"
+        underline='none'
       >
-        <Typography variant="button" textAlign="center">
+        <Typography
+          variant='button'
+          textAlign='center'
+        >
           Home
         </Typography>
       </Link>

@@ -16,9 +16,7 @@ const Layout = ({ children }) => {
       container
       sx={sxContainer}
     >
-      <Grid
-        item
-      >
+      <Grid item>
         <NavBar />
       </Grid>
 
