@@ -15,7 +15,7 @@ export const BkgPage = () => {
     cntr: '',
     loading_port: '',
     unloading_port: '',
-    status: 1,
+    status: '',
     documents: false,
     dues: false,
     issues: false,

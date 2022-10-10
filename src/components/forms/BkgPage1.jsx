@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -12,12 +10,14 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   Button,
+  Box,
+  TextareaAutosize,
+  Typography,
+  ButtonGroup,
 } from '@mui/material'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
-import { Link, useLocation } from 'react-router-dom'
+import { DateTimePicker } from '@mui/x-date-pickers'
+import { Link as RouterLink } from 'react-router-dom'
 
 import {
   agent,
@@ -42,133 +42,44 @@ export const BkgPage1 = ({
   nextStep,
   formValues,
 }) => {
-  const location = useLocation()
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
+  // const location = useLocation()
 
   const next = (e) => {
     e.preventDefault()
     nextStep()
   }
 
-  //  const checkValues = () => {
-  //   console.log("checking values")
-  //   if([formValues.service, formValues.voyage, formValues.carrier,
-  //    formValues.loadingPort, formValues.unloadingPort].every(e => e)) {
-  //    return true
-  //   }
-  //   return false
-  //  }
-
   return (
-    <fieldset style={{ margin: '0 auto', width: '60%' }}>
-      <h1 style={{ margin: '0 auto', textAlign: 'center' }}>Booking</h1>
-      <form
-        className={classes.root}
+    <Box
+      sx={{
+        height: '100%',
+        width: '60%',
+        margin: '0 auto',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        Booking
+      </Typography>
+      <Grid
+        component='form'
+        container
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
-        style={{ border: 'black', width: '100%', margin: '0 auto' }}
       >
         <Grid
           container
-          spacing={4}
-          style={{ width: '100%', margin: '0 auto ' }}
+          sx={{ display: 'flex' }}
+          gap={2}
         >
           <Grid
             item
-            xs={4}
-            container
-            direction='column'
+            sx={{ flex: 1 }}
           >
-            {location.pathname.includes('create') ? (
-              <></>
-            ) : (
-              <>
-                <TextField
-                  id='name'
-                  name='name'
-                  label='Agent Name'
-                  defaultValue={agent.name}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='email'
-                  name='email'
-                  label='Agent Email'
-                  defaultValue={agent.email}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='phone'
-                  name='phone'
-                  label='Agent Phone'
-                  defaultValue={agent.phone}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-              </>
-            )}
-            <div
-              style={{
-                width: '100%',
-                marginTop: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Button
-                variant='contained'
-                color='secondary'
-                label='cabcek'
-                component={Link}
-                to='/bookings'
-                className={classes.button}
-              >
-                Cancel
-              </Button>
-              <Button></Button>
-              <Button
-                variant='contained'
-                color='secondary'
-                label='continue'
-                className={classes.button}
-                onClick={next}
-              >
-                Next
-              </Button>
-            </div>
-          </Grid>
-
-          <Grid
-            item
-            xs={4}
-          >
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='serviceSelect'>Service</InputLabel>
               <Select
                 labelId='serviceSelect'
@@ -190,10 +101,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='voyageSelect'>Voyage</InputLabel>
               <Select
                 labelId='voyageSelect'
@@ -214,10 +122,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='vesselSelect'>Vessel</InputLabel>
               <Select
                 labelId='vesselSelect'
@@ -238,10 +143,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='carrierSelect'>Carrier</InputLabel>
               <Select
                 labelId='carrierSelect'
@@ -262,8 +164,7 @@ export const BkgPage1 = ({
             </FormControl>
 
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
+              sx={{ width: '100%' }}
               disabled
             >
               <InputLabel id='cntrTypeSelect'>Container Type</InputLabel>
@@ -286,8 +187,7 @@ export const BkgPage1 = ({
             </FormControl>
 
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
+              sx={{ width: '100%' }}
               disabled
             >
               <InputLabel id='containerSelect'>Container</InputLabel>
@@ -309,10 +209,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='loadingPortSelect'>Loading Port</InputLabel>
               <Select
                 labelId='loadingPortSelect'
@@ -332,10 +229,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='unloadingPortSelect'>Unloading Port</InputLabel>
               <Select
                 labelId='unloadingPortSelect'
@@ -355,10 +249,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='statusSelect'>Status</InputLabel>
               <Select
                 labelId='statusSelect'
@@ -380,91 +271,94 @@ export const BkgPage1 = ({
           </Grid>
           <Grid
             item
-            xs={4}
+            sx={{ flex: 1 }}
           >
-            <FormControl
-              component='fieldset'
-              className={classes.formControl}
+            <FormLabel component='legend'>Verify About Booking</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                id='documents'
+                name='documents'
+                label='Documents'
+                control={
+                  <Checkbox
+                    checked={formValues.documents}
+                    onChange={handleCheckBoxChange}
+                    name='documents'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='dues'
+                name='dues'
+                label='Dues'
+                control={
+                  <Checkbox
+                    checked={formValues.dues}
+                    onChange={handleCheckBoxChange}
+                    name='dues'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='issues'
+                name='issues'
+                label='Issues'
+                control={
+                  <Checkbox
+                    checked={formValues.issues}
+                    onChange={handleCheckBoxChange}
+                    name='issues'
+                  />
+                }
+              />
+            </FormGroup>
+
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column' }}
+              gap={2}
             >
-              <FormLabel component='legend'>Verify About Booking</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  id='documents'
-                  name='documents'
-                  label='Documents'
-                  control={
-                    <Checkbox
-                      checked={formValues.documents}
-                      onChange={handleCheckBoxChange}
-                      name='documents'
-                    />
-                  }
-                />
+              <DateTimePicker
+                sx={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.pickup}
+                disablePast
+                onChange={handlePickupDateChange}
+                label='Pick Up'
+                showTodayButton
+                disabled
+              />
 
-                <FormControlLabel
-                  id='dues'
-                  name='dues'
-                  label='Dues'
-                  control={
-                    <Checkbox
-                      checked={formValues.dues}
-                      onChange={handleCheckBoxChange}
-                      name='dues'
-                    />
-                  }
-                />
+              <DateTimePicker
+                sx={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.port_cut}
+                disablePast
+                onChange={handlePortCutDateChange}
+                label='Port Cut'
+                showTodayButton
+                disabled
+              />
 
-                <FormControlLabel
-                  id='issues'
-                  name='issues'
-                  label='Issues'
-                  control={
-                    <Checkbox
-                      checked={formValues.issues}
-                      onChange={handleCheckBoxChange}
-                      name='issues'
-                    />
-                  }
-                />
-              </FormGroup>
+              <DateTimePicker
+                sx={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.rail_cut}
+                disablePast
+                onChange={handleRailCutDateChange}
+                label='Rail Cut'
+                showTodayButton
+                disabled
+              />
+            </Box>
 
-              <FormHelperText>Safety First</FormHelperText>
-            </FormControl>
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.pickup}
-              disablePast
-              onChange={handlePickupDateChange}
-              label='Pick Up'
-              showTodayButton
-              disabled
-            />
-
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.port_cut}
-              disablePast
-              onChange={handlePortCutDateChange}
-              label='Port Cut'
-              showTodayButton
-              disabled
-            />
-
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.rail_cut}
-              disablePast
-              onChange={handleRailCutDateChange}
-              label='Rail Cut'
-              showTodayButton
-              disabled
-            />
             <TextField
               id='address'
               name='address'
               label='Pickup Address'
               defaultValue={formValues.address}
-              style={{ width: '100%' }}
+              sx={{ width: '100%' }}
               onChange={handleInputChange}
             />
             <TextareaAutosize
@@ -473,13 +367,62 @@ export const BkgPage1 = ({
               aria-label='empty textarea'
               placeholder='Booking Notes'
               value={formValues.bkg_notes}
-              style={{ width: '100%' }}
-              rowsMin={5}
+              style={{ width: 350 }}
+              minRows={7}
               onChange={handleInputChange}
             />
           </Grid>
         </Grid>
-      </form>
-    </fieldset>
+        <ButtonGroup sx={{ margin: '0 auto' }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button></Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={next}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Grid>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column' }}
+        gap={2}
+      >
+        <TextField
+          id='name'
+          name='name'
+          label='Agent Name'
+          defaultValue={agent.name}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='email'
+          name='email'
+          label='Agent Email'
+          defaultValue={agent.email}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='phone'
+          name='phone'
+          label='Agent Phone'
+          defaultValue={agent.phone}
+          disabled
+          sx={{ width: '100%' }}
+        />
+      </Box>
+    </Box>
   )
 }
