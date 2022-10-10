@@ -2,51 +2,34 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 
 import { DataGrid } from '@mui/x-data-grid'
-
-import { makeStyles } from '@mui/material/styles'
-import { ButtonGroup, Button, Typography } from '@mui/material'
-
+import AddIcon from '@mui/icons-material/Add'
 import DeleteIcon from '@mui/icons-material/Delete'
 import UpdateIcon from '@mui/icons-material/Update'
-import AddIcon from '@mui/icons-material/Add'
-
 import VisibilityIcon from '@mui/icons-material/Visibility'
-import logo from '../../assets/images/pugTransport.svg'
+import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
+
 import { PageNotFound } from '../helpers/PageNotFound'
-import styles from './Table.module.css'
+import { Loading } from '../helpers/Loading'
+
 import {
   filterBookingData,
   filterContainerData,
   filterProductData,
 } from './FlattenData'
 
-// const rows = [
-//   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-//   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-// ];
+const TEST_DATA = [
+  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
+  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
+]
 
 export const DataTable = ({ endpoint, Icon }) => {
-  const history = useHistory()
+  // const history = useHistory()
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectionModel, setSelectionModel] = useState([])
   const [isRefreshed, setIsRefreshed] = useState(false)
   const token = localStorage.getItem('user_token')
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      '& > *': {
-        margin: theme.spacing(1),
-      },
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-  const classes = useStyles()
 
   const deleteSelected = (e) => {
     e.preventDefault()
@@ -85,9 +68,11 @@ export const DataTable = ({ endpoint, Icon }) => {
             res = filterProductData(res)
             break
           default:
-            throw 'Data Not Found'
+            throw new Error('Data Not Found')
         }
 
+        console.log('`res is : ', res)
+        if (!res.lenght) res = TEST_DATA
         setData(res)
         const colHeaders = Object.keys(res[0])
 
@@ -122,114 +107,116 @@ export const DataTable = ({ endpoint, Icon }) => {
       })
   }, [isRefreshed])
 
-  if (isLoading)
-    return (
-      <div>
-        <img
-          src={logo}
-          className={styles.logo}
-          alt='Rotating compoany logo'
-        />{' '}
-        Loading . .{' '}
-      </div>
-    )
+  if (isLoading) return <Loading />
 
-  return data ? (
-    <div style={{ height: '80%', width: '90%', margin: '0 auto' }}>
-      <Typography
-        variant='h2'
-        component='h2'
-        gutterBottom
-      >
-        <Icon /> {endpoint}
-      </Typography>
-      <DataGrid
-        rows={data}
-        columns={columns}
-        pageSize={25}
-        checkboxSelection
-        disableSelectionOnClick
-        onSelectionModelChange={(newSelection) => {
-          setSelectionModel(newSelection.selectionModel)
-        }}
-        selectionModel={selectionModel}
-      />
+  const sxContainer = {
+    display: 'flex',
+    flexDirection: 'column',
+    height: '100%',
+  }
 
-      <div className={classes.root}>
-        <ButtonGroup
-          color='primary'
-          aria-label='outlined primary button group'
+  return (
+    <Grid
+      container
+      sx={sxContainer}
+    >
+      <Grid item>
+        <Typography
+          variant='h2'
+          component='h2'
         >
-          {endpoint === 'containers' ? (
-            <></>
-          ) : (
+          <Icon /> {endpoint.toUpperCase()}
+        </Typography>
+      </Grid>
+      <Grid
+        item
+        sx={{ flex: 1 }}
+      >
+        <DataGrid
+          rows={data}
+          columns={columns}
+          pageSize={25}
+          checkboxSelection
+          disableSelectionOnClick
+          onSelectionModelChange={(newSelection) => {
+            console.log('user selected: ', newSelection)
+            console.log('user selected.model: ', newSelection[0])
+            setSelectionModel((prevState) => [...prevState, newSelection[0]])
+          }}
+          // selectionModel={selectionModel}
+        />
+      </Grid>
+      <Grid item>
+        <Box>
+          <ButtonGroup
+            color='primary'
+            aria-label='outlined primary button group'
+          >
+            {endpoint === 'containers' ? (
+              <></>
+            ) : (
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<AddIcon />}
+                component={Link}
+                to={`/${endpoint}/create`}
+              >
+                New
+              </Button>
+            )}
             <Button
               variant='contained'
               color='primary'
-              className={classes.button}
-              startIcon={<AddIcon />}
+              startIcon={<VisibilityIcon />}
               component={Link}
-              to={`/${endpoint}/create`}
+              to={`/${endpoint}/${selectionModel[0]}`}
             >
-              New
+              View
             </Button>
-          )}
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            startIcon={<VisibilityIcon />}
-            component={Link}
-            to={`/${endpoint}/${selectionModel[0]}`}
-          >
-            View
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            className={classes.button}
-            startIcon={<UpdateIcon />}
-            component={Link}
-            to={`/${endpoint}/update/${selectionModel[0]}`}
-          >
-            Update
-          </Button>
-
-          {endpoint === 'containers' ? (
-            <></>
-          ) : (
             <Button
               variant='contained'
               color='primary'
-              className={classes.button}
-              startIcon={<DeleteIcon />}
-              // onClick={deleteSelected}
-
-              onClick={(e) => {
-                e.preventDefault()
-                return fetch(
-                  `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
-                  {
-                    method: 'DELETE',
-                    headers: {
-                      Authorization: `Token ${token}`,
-                      'Content-Type': 'application/json',
-                    },
-                  },
-                ).then(() => {
-                  setIsRefreshed((prevState) => !prevState)
-                  // history.push(`/${endpoint}`)
-                })
-              }}
+              startIcon={<UpdateIcon />}
+              component={Link}
+              to={`/${endpoint}/update/${selectionModel[0]}`}
             >
-              Delete
+              Update
             </Button>
-          )}
-        </ButtonGroup>
-        <div>To Delete: {selectionModel[0]} </div>
-      </div>
-    </div>
-  ) : (
-    <PageNotFound />
+
+            {endpoint === 'containers' ? (
+              <></>
+            ) : (
+              <Button
+                variant='contained'
+                color='primary'
+                startIcon={<DeleteIcon />}
+                // onClick={deleteSelected}
+
+                onClick={(e) => {
+                  e.preventDefault()
+                  return fetch(
+                    `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
+                    {
+                      method: 'DELETE',
+                      headers: {
+                        Authorization: `Token ${token}`,
+                        'Content-Type': 'application/json',
+                      },
+                    },
+                  ).then(() => {
+                    setIsRefreshed((prevState) => !prevState)
+                    // history.push(`/${endpoint}`)
+                  })
+                }}
+              >
+                Delete
+              </Button>
+            )}
+          </ButtonGroup>
+        </Box>
+        <Box>To Delete: {selectionModel} </Box>
+      </Grid>
+    </Grid>
   )
 }
