@@ -1,13 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-
-import styles from './PageNotFound.module.css'
+import { Box, Link, Typography } from '@mui/material'
+import { Link as RouterLink } from 'react-router-dom'
 
 export const PageNotFound = () => (
-  <div className={styles.box}>
-    <h1 className={styles.warn}>PageNotFound</h1>
-    <Link to='/'>
-      <button>Home</button>
-    </Link>
-  </div>
+  <Box>
+    <Typography variant="h1" textAlign="center">
+      Page Not Found
+    </Typography>
+    <Box sx={{display: "flex", justifyContent: "center"}}>
+      <Link
+        component={RouterLink}
+        to={'/'}
+        underline="none"
+      >
+        <Typography variant="button" textAlign="center">
+          Home
+        </Typography>
+      </Link>
+    </Box>
+  </Box>
 )
