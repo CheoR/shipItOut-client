@@ -19,6 +19,7 @@ import DateTimePicker from '@mui/lab/DateTimePicker'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import { ThemeProvider } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
+import { Loading } from '../helpers/Loading'
 const token = localStorage.getItem('user_token')
 
 export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
@@ -118,7 +119,7 @@ export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
     nextStep()
   }
 
-  if (isLoading) return <>Loading . . .</>
+  if (isLoading) return <Loading />
 
   return (
     <ThemeProvider>

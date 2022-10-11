@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom'
 import { BookingView1 } from './BookingView1'
 import { BookingView2 } from './BookingView2'
 import { BookingView3 } from './BookingView3'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
+import { Loading } from '../helpers/Loading'
 
 export const BookingView = () => {
   const [formValues, setFormValues] = useState([])
@@ -63,6 +64,6 @@ export const BookingView = () => {
       )
 
     default:
-      return <>Booking Loading . . </>
+      return <Loading text={`${endpoint}`} />
   } // swtich
 }

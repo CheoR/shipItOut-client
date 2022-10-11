@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
+import { Loading } from '../helpers/Loading'
 import { BookingCreate1 } from './BookingCreate1'
 import { BookingCreate2 } from './BookingCreate2'
 import { BookingCreate3 } from './BookingCreate3'
@@ -120,7 +121,7 @@ export const BookingCreate = () => {
       )
 
     default:
-      return <>Booking Create Loading . . </>
+      return <Loading text="booking creation" />
   } // swtich
 }
 

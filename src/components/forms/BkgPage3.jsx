@@ -83,7 +83,7 @@ export const BkgPage3 = ({
             item
             sx={{ flex: 1 }}
           >
-            column1
+            {" "}
           </Grid>
           <Grid
             item

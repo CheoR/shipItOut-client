@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import logo from '../../assets/images/pugTransport.svg'
 
-export const Loading = () => (
+export const Loading = ({text = ""}) => (
   <Box>
     <Box
       sx={{
@@ -19,7 +19,7 @@ export const Loading = () => (
       variant='body1'
       textAlign='center'
     >
-      Loading . . .
+      Loading {text}. . .
     </Typography>
   </Box>
 )

@@ -107,7 +107,7 @@ export const DataTable = ({ endpoint, Icon }) => {
       })
   }, [isRefreshed])
 
-  if (isLoading) return <Loading />
+  if (isLoading) return <Loading text="table"/>
 
   const sxContainer = {
     display: 'flex',
