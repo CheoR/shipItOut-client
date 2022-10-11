@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import { DataGrid } from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add'
@@ -71,8 +71,7 @@ export const DataTable = ({ endpoint, Icon }) => {
             throw new Error('Data Not Found')
         }
 
-        console.log('`res is : ', res)
-        if (!res.lenght) res = TEST_DATA
+        if (res.lenght === 0) res = TEST_DATA
         setData(res)
         const colHeaders = Object.keys(res[0])
 
@@ -159,7 +158,7 @@ export const DataTable = ({ endpoint, Icon }) => {
                 variant='contained'
                 color='primary'
                 startIcon={<AddIcon />}
-                component={Link}
+                component={RouterLink}
                 to={`/${endpoint}/create`}
               >
                 New
@@ -169,7 +168,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               variant='contained'
               color='primary'
               startIcon={<VisibilityIcon />}
-              component={Link}
+              component={RouterLink}
               to={`/${endpoint}/${selectionModel[0]}`}
             >
               View
@@ -178,7 +177,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               variant='contained'
               color='primary'
               startIcon={<UpdateIcon />}
-              component={Link}
+              component={RouterLink}
               to={`/${endpoint}/update/${selectionModel[0]}`}
             >
               Update
