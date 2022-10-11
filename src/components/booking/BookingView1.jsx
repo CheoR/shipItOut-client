@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -12,384 +10,405 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   Button,
+  Box,
+  TextareaAutosize,
+  Typography,
+  ButtonGroup,
 } from '@mui/material'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
-import { ThemeProvider } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+import { DateTimePicker } from '@mui/x-date-pickers'
+import { Link as RouterLink } from 'react-router-dom'
+import {
+   agent,
+  service,
+  voyage,
+  vessel,
+  carrier,
+  containerType,
+  container,
+  loadingPort,
+  unloadingPort,
+  statuses,} from '../forms/TestFormData'
+
 
 export const BookingView1 = ({ nextStep, formValues }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
-
   const next = (e) => {
     e.preventDefault()
     nextStep()
   }
 
   return (
-    <ThemeProvider>
-      <fieldset style={{ margin: '0 auto', width: '60%' }}>
-        <h1 style={{ margin: '0 auto', textAlign: 'center' }}>
-          View {formValues.booking}
-        </h1>
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete='off'
-          style={{ border: 'black', width: '100%', margin: '0 auto' }}
+    <Box
+      sx={{
+        height: '100%',
+        width: '60%',
+        margin: '0 auto',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        View {formValues.booking.toUpperCase()}
+      </Typography>
+      <Grid
+        component='form'
+        container
+        noValidate
+        autoComplete='off'
+      >
+        <Grid
+          container
+          sx={{ display: 'flex' }}
+          gap={2}
         >
           <Grid
-            container
-            spacing={4}
-            style={{ width: '100%', margin: '0 auto ' }}
+            item
+            sx={{ flex: 1 }}
           >
-            <Grid
-              item
-              xs={4}
-              container
-              direction='column'
-            >
-              <TextField
-                id='name'
-                name='name'
-                label='Agent Name'
-                defaultValue={formValues.full_name}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='email'
-                name='email'
-                label='Agent Email'
-                defaultValue={formValues.email}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='phone'
-                name='phone'
-                label='Agent Phone'
-                defaultValue={formValues.phone}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <div
-                style={{
-                  width: '100%',
-                  marginTop: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='cabcek'
-                  component={Link}
-                  to='/bookings'
-                  className={classes.button}
-                >
-                  Cancel
-                </Button>
-                <Button></Button>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='continue'
-                  className={classes.button}
-                  onClick={next}
-                >
-                  Next
-                </Button>
-              </div>
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <TextField
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='serviceSelect'>Service</InputLabel>
+              <Select
+                labelId='serviceSelect'
                 id='service'
                 name='service'
-                label='Service'
-                defaultValue={formValues.service}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='voyage'
-                name='voyage'
-                label='Voyage'
-                defaultValue={formValues.voyage}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='carrier'
-                name='carrier'
-                label='Carrier'
-                defaultValue={formValues.carrier}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='size'
-                name='size'
-                label='Container Type'
-                defaultValue={formValues.size}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='container'
-                name='container'
-                label='Container'
-                defaultValue={formValues.container}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='port'
-                name='port'
-                label='Loading Port'
-                defaultValue={formValues.port}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='destination'
-                name='destination'
-                label='Unloading Port'
-                defaultValue={formValues.destination}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='booking_status'
-                name='booking_status'
-                label='Booking Status'
-                defaultValue={formValues.booking_status}
-                disabled
-                style={{ width: '50%' }}
-              />
-
-              {/* <FormControl className={classes.formControl} style={{ width: "60%" }}>
-
-        <InputLabel id="serviceSelect">Service</InputLabel>
-        <Select
-         labelId="serviceSelect"
-         id="service"
-         name="service"
-         value={ formValues.service }
-        //  displayEmpty={true}
-         label="cow"
-         placeholder="hola"
-         
-         fontWeight="fontWeightBold"
-        >
-          <MenuItem value="" disabled>
-            { formValues.service }
-          </MenuItem>
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="voyageSelect">Voyage</InputLabel>
-        <Select
-         labelId="voyageSelect"
-         id="voyage"
-         name="voyage"
-         value={formValues.voyage}
-         
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="carrierSelect">Carrier</InputLabel>
-        <Select
-         labelId="carrierSelect"
-         id="carrier"
-         name="carrier"
-         value={formValues.carrier}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="sizeSelect">Container Type</InputLabel>
-        <Select
-         labelId="sizeSelect"
-         id="size"
-         name="size"
-         value={formValues.size}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="containerSelect">Container</InputLabel>
-        <Select
-         labelId="containerSelect"
-         id="container"
-         name="container"
-         value={formValues.container}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="portSelect" >Loading Port</InputLabel>
-        <Select
-         labelId="portSelect"
-         id="port"
-         name="port"
-         value={formValues.port}
-        >
-        </Select>
-       </FormControl>
-
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
-        <InputLabel id="destinationSelect">Unloading Port</InputLabel>
-        <Select
-         labelId="destinationSelect"
-         id="destination"
-         name="destination"
-         value={formValues.destination}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
-        <InputLabel id="statusSelect">Status</InputLabel>
-        <Select
-         labelId="statusSelect"
-         id="status"
-         name="status"
-         value={formValues.status}
-        >
-        </Select>
-       </FormControl>  */}
-            </Grid>
-
-            <Grid
-              item
-              xs={4}
-            >
-              <FormControl
-                component='fieldset'
-                className={classes.formControl}
+                defaultValue={formValues.voyage_reference.vessel.service.id}
+                value={formValues.voyage_reference.vessel.service.name}
+                fontWeight='fontWeightBold'
                 disabled
               >
-                <FormLabel component='legend'>Verify About Booking</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    id='document_submitted'
+                {service.map((s) => (
+                  <MenuItem
+                    key={s.id}
+                    id={s.id}
+                    value={s.id}
+                  >
+                    {s.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='voyageSelect'>Voyage</InputLabel>
+              <Select
+                labelId='voyageSelect'
+                id='voyage'
+                name='voyage'
+                defaultValue={formValues.voyage_reference.voyage}
+                value={formValues.voyage_reference.voyage}
+                disabled
+              >
+                {voyage.map((v) => (
+                  <MenuItem
+                    key={v.id}
+                    id={v.id}
+                    value={v.id}
+                  >
+                    {v.voyage}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='vesselSelect'>Vessel</InputLabel>
+              <Select
+                labelId='vesselSelect'
+                id='vessel'
+                name='vessel'
+                defaultValue={formValues.voyage_reference.vessel.id}
+                value={formValues.voyage_reference.vessel.name}
+                disabled
+              >
+                {vessel.map((v) => (
+                  <MenuItem
+                    key={v.id}
+                    id={v.id}
+                    value={v.id}
+                  >
+                    {v.vessel}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='carrierSelect'>Carrier</InputLabel>
+              <Select
+                labelId='carrierSelect'
+                id='carrier'
+                name='carrier'
+                defaultValue={formValues.carrier}
+                value={formValues.carrier}
+                disabled
+              >
+                {carrier.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl
+              sx={{ width: '100%' }}
+              disabled
+            >
+              <InputLabel id='cntrTypeSelect'>Equipment Type</InputLabel>
+              <Select
+                labelId='cntrTypeSelect'
+                id='cntrType'
+                name='equipment_type'
+                defaultValue={formValues.container.id}
+                value={formValues.container.container}
+                disabled
+              >
+                {containerType.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.equipment_type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl
+              sx={{ width: '100%' }}
+              disabled
+            >
+              <InputLabel id='containerSelect'>Container</InputLabel>
+              <Select
+                labelId='containerSelect'
+                id='cntr'
+                name='cntr'
+                defaultValue={formValues.container.id}
+                value={formValues.container.container}
+                disabled
+              >
+                {container.map((s) => (
+                  <MenuItem
+                    key={s.id}
+                    id={s.id}
+                    value={s.id}
+                  >
+                    {s.container}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='loadingPortSelect'>Loading Port</InputLabel>
+              <Select
+                labelId='loadingPortSelect'
+                id='loading_port'
+                name='loading_port'
+                defaultValue={formValues.port.id}
+                value={formValues.port.location}
+                disabled
+              >
+                {loadingPort.map((p) => (
+                  <MenuItem
+                    key={p.id}
+                    id={p.id}
+                    value={p.id}
+                  >
+                    {p.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='unloadingPortSelect'>Unloading Port</InputLabel>
+              <Select
+                labelId='unloadingPortSelect'
+                id='unloading_port'
+                name='unloading_port'
+                defaultValue={formValues.unloading_destination}
+                value={formValues.unloading_destination}
+                disabled
+              >
+                {unloadingPort.map((p) => (
+                  <MenuItem
+                    key={p.id}
+                    id={p.id}
+                    value={p.id}
+                  >
+                    {p.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='statusSelect'>Booking Status</InputLabel>
+              <Select
+                labelId='statusSelect'
+                id='status'
+                name='status'
+                defaultValue={formValues.booking_status.id}
+                value={formValues.booking_status.status}
+                disabled
+              >
+                {statuses.map((s) => (
+                  <MenuItem
+                    key={s.id}
+                    id={s.id}
+                    value={s.id}
+                  >
+                    {s.status}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <FormLabel component='legend'>Verify About Booking</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                id='document_submitted'
+                name='document_submitted'
+                label='Documents'
+                control={
+                  <Checkbox
+                    checked={formValues.document.are_docs_ready}
                     name='document_submitted'
-                    label='Documents'
-                    control={
-                      <Checkbox
-                        checked={formValues.document_submitted}
-                        name='document_submitted'
-                      />
-                    }
                   />
+                }
+              />
 
-                  <FormControlLabel
-                    id='money_owed'
+              <FormControlLabel
+                id='money_owed'
+                name='money_owed'
+                label='Dues'
+                control={
+                  <Checkbox
+                    checked={formValues.due.are_dues_paid}
                     name='money_owed'
-                    label='Dues'
-                    control={
-                      <Checkbox
-                        checked={formValues.money_owed}
-                        name='money_owed'
-                      />
-                    }
                   />
+                }
+              />
 
-                  <FormControlLabel
-                    id='issues'
+              <FormControlLabel
+                id='issues'
+                name='issues'
+                label='Issues'
+                control={
+                  <Checkbox
+                    checked={formValues.has_issue}
                     name='issues'
-                    label='Issues'
-                    control={
-                      <Checkbox
-                        checked={formValues.issues}
-                        name='issues'
-                      />
-                    }
                   />
-                </FormGroup>
-
-                <FormHelperText>Safety First</FormHelperText>
-              </FormControl>
+                }
+              />
+            </FormGroup>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column' }}
+              gap={2}
+            >
               <DateTimePicker
-                style={{ width: '100%' }}
+                sx={{ width: '100%' }}
                 value={formValues.pickup_appt}
+                renderInput={(props) => <TextField {...props} />}
                 label='Pick Up'
                 showTodayButton
                 disabled
               />
 
               <DateTimePicker
-                style={{ width: '100%' }}
-                value={formValues.port_cut}
+                sx={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.port_cutoff}
                 label='Port Cut'
                 showTodayButton
                 disabled
               />
 
               <DateTimePicker
-                style={{ width: '100%' }}
-                value={formValues.rail_cut}
+                sx={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.rail_cutoff}
                 disablePast
                 label='Rail Cut'
                 showTodayButton
                 disabled
               />
-              <TextField
-                id='address'
-                name='address'
-                label='Pickup Address'
-                defaultValue={formValues.address}
-                style={{ width: '100%' }}
-                disabled
-              />
-              <TextareaAutosize
-                id='bkg_notes'
-                name='bkg_notes'
-                aria-label='empty textarea'
-                placeholder='Booking Notes'
-                value={formValues.booking_notes}
-                style={{ width: '100%' }}
-                rowsMin={5}
-                disabled
-              />
-            </Grid>
+            </Box>
+            <TextField
+              id='address'
+              name='address'
+              label='Pickup Address'
+              defaultValue={formValues.address}
+              sx={{ width: '100%' }}
+              disabled
+            />
+            <TextareaAutosize
+              id='bkg_notes'
+              name='bkg_notes'
+              aria-label='empty textarea'
+              placeholder='Booking Notes'
+              value={formValues.notes}
+              style={{ width: 350 }}
+              minRows={7}
+              disabled
+            />
           </Grid>
-        </form>
-      </fieldset>
-    </ThemeProvider>
+        </Grid>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={next}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Grid>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column' }}
+        gap={2}
+      >
+        <TextField
+          id='name'
+          name='name'
+          label='Agent Name'
+          defaultValue={agent.name}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='email'
+          name='email'
+          label='Agent Email'
+          defaultValue={agent.email}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='phone'
+          name='phone'
+          label='Agent Phone'
+          defaultValue={agent.phone}
+          disabled
+          sx={{ width: '100%' }}
+        />
+      </Box>
+    </Box>
   )
 }

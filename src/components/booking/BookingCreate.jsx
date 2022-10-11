@@ -121,7 +121,7 @@ export const BookingCreate = () => {
       )
 
     default:
-      return <Loading text="booking creation" />
+      return <Loading text='booking creation' />
   } // swtich
 }
 
