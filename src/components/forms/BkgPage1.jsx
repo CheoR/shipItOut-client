@@ -143,6 +143,7 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
 
+{/* TODO: move disabled to FormControl instead of Select component */}
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id='carrierSelect'>Carrier</InputLabel>
               <Select
@@ -275,6 +276,8 @@ export const BkgPage1 = ({
               </Select>
             </FormControl>
           </Grid>
+
+          {/* moo */}
           <Grid
             item
             sx={{ flex: 1 }}

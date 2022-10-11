@@ -2,7 +2,7 @@ import React from 'react'
 import { Box, Typography } from '@mui/material'
 import logo from '../../assets/images/pugTransport.svg'
 
-export const Loading = ({text = ""}) => (
+export const Loading = ({ text = '' }) => (
   <Box>
     <Box
       sx={{

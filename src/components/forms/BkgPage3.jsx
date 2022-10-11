@@ -13,7 +13,7 @@ import {
   ButtonGroup,
   TextareaAutosize,
 } from '@mui/material'
-import { Link as RouterLink, useHistory} from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import { agent } from './TestFormData'
 
@@ -49,8 +49,7 @@ export const BkgPage3 = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formValues),
-    })
-    .then(() => history.push('/bookings'))
+    }).then(() => history.push('/bookings'))
   } // create
 
   return (
@@ -83,7 +82,7 @@ export const BkgPage3 = ({
             item
             sx={{ flex: 1 }}
           >
-            {" "}
+            {' '}
           </Grid>
           <Grid
             item
