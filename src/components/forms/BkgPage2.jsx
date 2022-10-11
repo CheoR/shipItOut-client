@@ -1,6 +1,4 @@
 import React from 'react'
-
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
@@ -14,10 +12,13 @@ import {
   Checkbox,
   FormHelperText,
   Button,
+  Box,
+  Typography,
+  ButtonGroup,
 } from '@mui/material'
-import DateTimePicker from '@mui/lab/DateTimePicker'
+import { DateTimePicker } from '@mui/x-date-pickers'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import {
   agent,
@@ -46,27 +47,6 @@ export const BkgPage2 = ({
   const location = useLocation()
   const history = useHistory()
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
-
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -78,103 +58,39 @@ export const BkgPage2 = ({
   }
 
   return (
-    <fieldset style={{ margin: '0 auto', width: '60%' }}>
-      <h1 style={{ margin: '0 auto', textAlign: 'center' }}>Container</h1>
-      <form
-        className={classes.root}
+    <Box
+      sx={{
+        height: '100%',
+        width: '60%',
+        margin: '0 auto',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        Container
+      </Typography>
+      <Grid
+        component='form'
+        container
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
-        style={{ border: 'black', width: '100%', margin: '0 auto' }}
       >
         <Grid
           container
-          spacing={4}
-          style={{ width: '100%', margin: '0 auto ' }}
+          sx={{ display: 'flex' }}
+          // oink
+          gap={2}
         >
           <Grid
             item
-            xs={4}
-            container
-            direction='column'
-          >
-            {location.pathname.includes('create') ? (
-              <></>
-            ) : (
-              <>
-                <TextField
-                  id='name'
-                  name='name'
-                  label='Agent Name'
-                  defaultValue={agent.name}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='email'
-                  name='email'
-                  label='Agent Email'
-                  defaultValue={agent.email}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='phone'
-                  name='phone'
-                  label='Agent Phone'
-                  defaultValue={agent.phone}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-              </>
-            )}
-            <div
-              style={{
-                width: '100%',
-                marginTop: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
-            >
-              <Button
-                variant='contained'
-                color='secondary'
-                label='cabcek'
-                component={Link}
-                to='/bookings'
-                className={classes.button}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant='contained'
-                color='secondary'
-                label='continue'
-                className={classes.button}
-                onClick={back}
-              >
-                Back
-              </Button>
-              <Button
-                variant='contained'
-                color='secondary'
-                label='continue'
-                className={classes.button}
-                onClick={next}
-              >
-                Next
-              </Button>
-            </div>
-          </Grid>
-
-          <Grid
-            item
-            xs={4}
+            sx={{ flex: 1 }}
           >
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='serviceSelect'>Service</InputLabel>
               <Select
@@ -183,6 +99,7 @@ export const BkgPage2 = ({
                 name='service'
                 value={formValues.service}
                 onChange={handleInputChange}
+                fontWeight='fontWeightBold'
               >
                 {service.map((s) => (
                   <MenuItem
@@ -195,11 +112,9 @@ export const BkgPage2 = ({
                 ))}
               </Select>
             </FormControl>
-
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='voyageSelect'>Voyage</InputLabel>
               <Select
@@ -220,11 +135,9 @@ export const BkgPage2 = ({
                 ))}
               </Select>
             </FormControl>
-
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='vesselSelect'>Vessel</InputLabel>
               <Select
@@ -238,18 +151,16 @@ export const BkgPage2 = ({
                   <MenuItem
                     key={v.id}
                     id={v.id}
-                    value={v.vessel}
+                    value={v.id}
                   >
                     {v.vessel}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='carrierSelect'>Carrier</InputLabel>
               <Select
@@ -262,6 +173,7 @@ export const BkgPage2 = ({
                 {carrier.map((c) => (
                   <MenuItem
                     key={c.id}
+                    id={c.id}
                     value={c.id}
                   >
                     {c.name}
@@ -270,10 +182,7 @@ export const BkgPage2 = ({
               </Select>
             </FormControl>
 
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='cntrTypeSelect'>Container Type</InputLabel>
               <Select
                 labelId='cntrTypeSelect'
@@ -285,18 +194,15 @@ export const BkgPage2 = ({
                 {containerType.map((c) => (
                   <MenuItem
                     key={c.id}
-                    value={c.equipment_type}
+                    id={c.id}
+                    value={c.id}
                   >
                     {c.equipment_type}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-
-            <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
-            >
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='containerSelect'>Container</InputLabel>
               <Select
                 labelId='containerSelect'
@@ -308,18 +214,17 @@ export const BkgPage2 = ({
                 {container.map((s) => (
                   <MenuItem
                     key={s.id}
-                    value={s.container}
+                    id={s.id}
+                    value={s.id}
                   >
                     {s.container}
                   </MenuItem>
                 ))}
               </Select>
             </FormControl>
-
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='loadingPortSelect'>Loading Port</InputLabel>
               <Select
@@ -332,6 +237,7 @@ export const BkgPage2 = ({
                 {loadingPort.map((p) => (
                   <MenuItem
                     key={p.id}
+                    id={p.id}
                     value={p.id}
                   >
                     {p.name}
@@ -341,9 +247,8 @@ export const BkgPage2 = ({
             </FormControl>
 
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='unloadingPortSelect'>Unloading Port</InputLabel>
               <Select
@@ -356,6 +261,7 @@ export const BkgPage2 = ({
                 {unloadingPort.map((p) => (
                   <MenuItem
                     key={p.id}
+                    id={p.id}
                     value={p.id}
                   >
                     {p.name}
@@ -363,11 +269,9 @@ export const BkgPage2 = ({
                 ))}
               </Select>
             </FormControl>
-
             <FormControl
-              className={classes.formControl}
-              style={{ width: '60%' }}
               disabled
+              sx={{ width: '100%' }}
             >
               <InputLabel id='statusSelect'>Status</InputLabel>
               <Select
@@ -380,6 +284,7 @@ export const BkgPage2 = ({
                 {statuses.map((s) => (
                   <MenuItem
                     key={s.id}
+                    id={s.id}
                     value={s.id}
                   >
                     {s.status}
@@ -390,82 +295,84 @@ export const BkgPage2 = ({
           </Grid>
           <Grid
             item
-            xs={4}
+            sx={{ flex: 1 }}
           >
-            <FormControl
-              component='fieldset'
-              className={classes.formControl}
+            {/* moo */}
+            <FormLabel component='legend'>Verify About Container</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                id='cntrDamaged'
+                name='cntrDamaged'
+                label='Damaged'
+                control={
+                  <Checkbox
+                    checked={formValues.cntrDamaged}
+                    onChange={handleCheckBoxChange}
+                    name='cntrDamaged'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='inspection'
+                name='inspection'
+                label='Needs Inspection'
+                control={
+                  <Checkbox
+                    checked={formValues.inspection}
+                    onChange={handleCheckBoxChange}
+                    name='inspection'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='overweight'
+                name='overweight'
+                label='Overweight'
+                control={
+                  <Checkbox
+                    checked={formValues.overweight}
+                    onChange={handleCheckBoxChange}
+                    name='overweight'
+                  />
+                }
+              />
+            </FormGroup>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column' }}
+              gap={2}
             >
-              <FormLabel component='legend'>Verify About Container</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  id='cntrDamaged'
-                  name='cntrDamaged'
-                  label='Damaged'
-                  control={
-                    <Checkbox
-                      checked={formValues.cntrDamaged}
-                      onChange={handleCheckBoxChange}
-                      name='cntrDamaged'
-                    />
-                  }
-                />
+              <DateTimePicker
+                style={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.pickup}
+                disablePast
+                onChange={handlePickupDateChange}
+                label='Pick Up'
+                showTodayButton
+              />
 
-                <FormControlLabel
-                  id='inspection'
-                  name='inspection'
-                  label='Needs Inspection'
-                  control={
-                    <Checkbox
-                      checked={formValues.inspection}
-                      onChange={handleCheckBoxChange}
-                      name='inspection'
-                    />
-                  }
-                />
+              <DateTimePicker
+                style={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.port_cut}
+                disablePast
+                onChange={handlePortCutDateChange}
+                label='Port Cut'
+                showTodayButton
+              />
 
-                <FormControlLabel
-                  id='overweight'
-                  name='overweight'
-                  label='Overweight'
-                  control={
-                    <Checkbox
-                      checked={formValues.overweight}
-                      onChange={handleCheckBoxChange}
-                      name='overweight'
-                    />
-                  }
-                />
-              </FormGroup>
-
-              <FormHelperText>Safety First</FormHelperText>
-            </FormControl>
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.pickup}
-              disablePast
-              onChange={handlePickupDateChange}
-              label='Pick Up'
-              showTodayButton
-            />
-
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.port_cut}
-              disablePast
-              onChange={handlePortCutDateChange}
-              label='Port Cut'
-              showTodayButton
-            />
-
-            <DateTimePicker
-              style={{ width: '100%' }}
-              value={formValues.rail_cut}
-              disablePast
-              onChange={handleRailCutDateChange}
-              label='Rail Cut'
-              showTodayButton
-            />
+              <DateTimePicker
+                style={{ width: '100%' }}
+                renderInput={(props) => <TextField {...props} />}
+                value={formValues.rail_cut}
+                disablePast
+                onChange={handleRailCutDateChange}
+                label='Rail Cut'
+                showTodayButton
+              />
+            </Box>
             <TextField
               id='address'
               name='address'
@@ -481,13 +388,69 @@ export const BkgPage2 = ({
               aria-label='empty textarea'
               placeholder='Container Notes'
               value={formValues.cntr_notes}
-              style={{ width: '100%' }}
-              rowsMin={5}
+              style={{ width: 350 }}
+              minRows={7}
               onChange={handleInputChange}
             />
           </Grid>
         </Grid>
-      </form>
-    </fieldset>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={back}
+          >
+            Back
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={next}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Grid>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column' }}
+        gap={2}
+      >
+        <TextField
+          id='name'
+          name='name'
+          label='Agent Name'
+          defaultValue={agent.name}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='email'
+          name='email'
+          label='Agent Email'
+          defaultValue={agent.email}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='phone'
+          name='phone'
+          label='Agent Phone'
+          defaultValue={agent.phone}
+          disabled
+          sx={{ width: '100%' }}
+        />
+      </Box>
+    </Box>
   )
 }

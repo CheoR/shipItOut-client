@@ -93,7 +93,7 @@ export const BkgPage1 = ({
                   <MenuItem
                     key={s.id}
                     id={s.id}
-                    value={s.name}
+                    value={s.id}
                   >
                     {s.name}
                   </MenuItem>
@@ -114,7 +114,7 @@ export const BkgPage1 = ({
                   <MenuItem
                     key={v.id}
                     id={v.id}
-                    value={v.voyage}
+                    value={v.id}
                   >
                     {v.voyage}
                   </MenuItem>
@@ -135,7 +135,7 @@ export const BkgPage1 = ({
                   <MenuItem
                     key={v.id}
                     id={v.id}
-                    value={v.vessel}
+                    value={v.id}
                   >
                     {v.vessel}
                   </MenuItem>
@@ -155,7 +155,8 @@ export const BkgPage1 = ({
                 {carrier.map((c) => (
                   <MenuItem
                     key={c.id}
-                    value={c.name}
+                    id={c.id}
+                    value={c.id}
                   >
                     {c.name}
                   </MenuItem>
@@ -178,7 +179,8 @@ export const BkgPage1 = ({
                 {containerType.map((c) => (
                   <MenuItem
                     key={c.id}
-                    value={c.equipment_type}
+                    id={c.id}
+                    value={c.id}
                   >
                     {c.equipment_type}
                   </MenuItem>
@@ -201,7 +203,8 @@ export const BkgPage1 = ({
                 {container.map((s) => (
                   <MenuItem
                     key={s.id}
-                    value={s.container}
+                    id={s.id}
+                    value={s.id}
                   >
                     {s.container}
                   </MenuItem>
@@ -221,7 +224,8 @@ export const BkgPage1 = ({
                 {loadingPort.map((p) => (
                   <MenuItem
                     key={p.id}
-                    value={p.name}
+                    id={p.id}
+                    value={p.id}
                   >
                     {p.name}
                   </MenuItem>
@@ -241,7 +245,8 @@ export const BkgPage1 = ({
                 {unloadingPort.map((p) => (
                   <MenuItem
                     key={p.id}
-                    value={p.name}
+                    id={p.id}
+                    value={p.id}
                   >
                     {p.name}
                   </MenuItem>
@@ -261,7 +266,8 @@ export const BkgPage1 = ({
                 {statuses.map((s) => (
                   <MenuItem
                     key={s.id}
-                    value={s.status}
+                    id={s.id}
+                    value={s.id}
                   >
                     {s.status}
                   </MenuItem>
@@ -373,7 +379,7 @@ export const BkgPage1 = ({
             />
           </Grid>
         </Grid>
-        <ButtonGroup sx={{ margin: '0 auto' }}>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
           <Button
             variant='contained'
             color='primary'
@@ -383,7 +389,6 @@ export const BkgPage1 = ({
           >
             Cancel
           </Button>
-          <Button></Button>
           <Button
             variant='contained'
             color='primary'
