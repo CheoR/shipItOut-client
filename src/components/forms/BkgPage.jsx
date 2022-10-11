@@ -25,6 +25,7 @@ export const BkgPage = () => {
     address: '',
     bkg_notes: '',
     cntr_notes: '',
+    product_notes: '',
     cntrDamaged: false,
     inspection: false,
     overweight: false,

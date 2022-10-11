@@ -81,7 +81,6 @@ export const BkgPage2 = ({
         <Grid
           container
           sx={{ display: 'flex' }}
-          // oink
           gap={2}
         >
           <Grid
@@ -297,7 +296,6 @@ export const BkgPage2 = ({
             item
             sx={{ flex: 1 }}
           >
-            {/* moo */}
             <FormLabel component='legend'>Verify About Container</FormLabel>
             <FormGroup>
               <FormControlLabel

@@ -1,19 +1,19 @@
 import React from 'react'
 
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
-  FormControl,
   FormLabel,
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   Button,
+  Box,
+  Typography,
+  ButtonGroup,
+  TextareaAutosize,
 } from '@mui/material'
-import { Link, Redirect, useHistory, useLocation } from 'react-router-dom'
-// import Alert from '@material-ui/lab/Alert'
+import { Link as RouterLink, useHistory} from 'react-router-dom'
 
 import { agent } from './TestFormData'
 
@@ -27,29 +27,6 @@ export const BkgPage3 = ({
 }) => {
   const token = localStorage.getItem('user_token')
   const history = useHistory()
-  const location = useLocation()
-
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
-
   //  const next = (e) => {
   //   e.preventDefault()
   //   nextStep()
@@ -73,217 +50,195 @@ export const BkgPage3 = ({
       },
       body: JSON.stringify(formValues),
     })
-    // .then(res => alert("Created"))
+    .then(() => history.push('/bookings'))
   } // create
 
   return (
-    <fieldset style={{ margin: '0 auto', width: '60%' }}>
-      <h1 style={{ margin: '0 auto', textAlign: 'center' }}>Product</h1>
-      <form
-        className={classes.root}
+    <Box
+      sx={{
+        height: '100%',
+        width: '60%',
+        margin: '0 auto',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        Product
+      </Typography>
+      <Grid
+        component='form'
+        container
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
-        style={{ border: 'black', width: '100%', margin: '0 auto' }}
       >
         <Grid
           container
-          spacing={4}
-          style={{ width: '100%', margin: '0 auto ' }}
+          sx={{ display: 'flex' }}
+          gap={2}
         >
           <Grid
             item
-            xs={4}
-            container
-            direction='column'
+            sx={{ flex: 1 }}
           >
-            {location.pathname.includes('create') ? (
-              <></>
-            ) : (
-              <>
-                <TextField
-                  id='name'
-                  name='name'
-                  label='Agent Name'
-                  defaultValue={agent.name}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='email'
-                  name='email'
-                  label='Agent Email'
-                  defaultValue={agent.email}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-                <TextField
-                  id='phone'
-                  name='phone'
-                  label='Agent Phone'
-                  defaultValue={agent.phone}
-                  disabled
-                  style={{ width: '50%' }}
-                />
-              </>
-            )}
-            <div
-              style={{
-                width: '100%',
-                marginTop: '100%',
-                display: 'flex',
-                justifyContent: 'space-between',
-              }}
+            column1
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <FormLabel component='legend'>Verify About Product</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                id='fragile'
+                name='fragile'
+                label='Fragile'
+                control={
+                  <Checkbox
+                    checked={formValues.fragile}
+                    onChange={handleCheckBoxChange}
+                    name='fragile'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='hazardous'
+                name='hazardous'
+                label='Hazardous'
+                control={
+                  <Checkbox
+                    checked={formValues.hazardous}
+                    onChange={handleCheckBoxChange}
+                    name='hazardous'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='reefer'
+                name='reefer'
+                label='Reefer'
+                control={
+                  <Checkbox
+                    checked={formValues.reefer}
+                    onChange={handleCheckBoxChange}
+                    name='reefer'
+                  />
+                }
+              />
+              <FormControlLabel
+                id='productDamaged'
+                name='productDamaged'
+                label='Damaged'
+                control={
+                  <Checkbox
+                    checked={formValues.productDamaged}
+                    onChange={handleCheckBoxChange}
+                    name='productDamaged'
+                  />
+                }
+              />
+            </FormGroup>
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column' }}
+              gap={2}
             >
-              <Button
-                variant='contained'
-                color='secondary'
-                label='cabcek'
-                component={Link}
-                to='/bookings'
-                className={classes.button}
-              >
-                Cancel
-              </Button>
-              <Button
-                variant='contained'
-                color='secondary'
-                label='continue'
-                className={classes.button}
-                onClick={back}
-              >
-                Back
-              </Button>
-
-              {/* <Button
-          variant="contained"
-          color="secondary"
-          label="continue"
-          className={classes.button}
-          onClick={create}
-         >
-          Create
-         </Button> */}
-
-              {/* <Link to="/"> */}
-              <Button
-                variant='contained'
-                color='secondary'
-                label='continue'
-                className={classes.button}
-                onClick={(e) => {
-                  e.preventDefault()
-                  console.table(formValues)
-
-                  return fetch(`${process.env.REACT_APP_API}/create`, {
-                    method: 'POST',
-                    headers: {
-                      Authorization: `Token ${token}`,
-                      'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formValues),
-                  }).then(() => history.push('/bookings'))
+              <TextField
+                id='commodity'
+                name='commodity'
+                label='Commodity'
+                defaultValue={formValues.commodity}
+                value={formValues.commodity}
+                onChange={handleInputChange}
+                style={{ width: '100%' }}
+              />
+              <TextField
+                id='weight'
+                name='weight'
+                type='number'
+                label='Weight (in lbs)'
+                defaultValue={formValues.weight}
+                value={formValues.weight}
+                onChange={handleInputChange}
+                style={{ width: '100%' }}
+                InputLabelProps={{
+                  shrink: true,
                 }}
-              >
-                Create
-              </Button>
-              {/* </Link> */}
-            </div>
-          </Grid>
-
-          <Grid
-            item
-            xs={4}
-          >
-            <TextField
-              id='commodity'
-              name='commodity'
-              label='Commodity'
-              value={formValues.commodity}
+                inputProps={{ min: 0 }}
+              />
+            </Box>
+            <TextareaAutosize
+              id='product_notes'
+              name='product_notes'
+              aria-label='empty textarea'
+              placeholder='Product Notes'
+              value={formValues.product_notes}
+              style={{ width: 350 }}
+              minRows={7}
               onChange={handleInputChange}
-              style={{ width: '50%' }}
             />
-            <TextField
-              id='weight'
-              name='weight'
-              type='number'
-              label='Weight (in lbs)'
-              value={formValues.weight}
-              onChange={handleInputChange}
-              style={{ width: '50%' }}
-              InputLabelProps={{
-                shrink: true,
-              }}
-              inputProps={{ min: 0 }}
-            />
-          </Grid>
-          <Grid
-            item
-            xs={4}
-          >
-            <FormControl
-              component='fieldset'
-              className={classes.formControl}
-            >
-              <FormLabel component='legend'>Verify About Product</FormLabel>
-              <FormGroup>
-                <FormControlLabel
-                  id='fragile'
-                  name='fragile'
-                  label='Fragile'
-                  control={
-                    <Checkbox
-                      checked={formValues.fragile}
-                      onChange={handleCheckBoxChange}
-                      name='fragile'
-                    />
-                  }
-                />
-
-                <FormControlLabel
-                  id='hazardous'
-                  name='hazardous'
-                  label='Hazardous'
-                  control={
-                    <Checkbox
-                      checked={formValues.hazardous}
-                      onChange={handleCheckBoxChange}
-                      name='hazardous'
-                    />
-                  }
-                />
-
-                <FormControlLabel
-                  id='reefer'
-                  name='reefer'
-                  label='Reefer'
-                  control={
-                    <Checkbox
-                      checked={formValues.reefer}
-                      onChange={handleCheckBoxChange}
-                      name='reefer'
-                    />
-                  }
-                />
-                <FormControlLabel
-                  id='productDamaged'
-                  name='productDamaged'
-                  label='Damaged'
-                  control={
-                    <Checkbox
-                      checked={formValues.productDamaged}
-                      onChange={handleCheckBoxChange}
-                      name='productDamaged'
-                    />
-                  }
-                />
-              </FormGroup>
-
-              <FormHelperText>Safety First</FormHelperText>
-            </FormControl>
           </Grid>
         </Grid>
-      </form>
-    </fieldset>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={back}
+          >
+            Back
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={create}
+          >
+            Create
+          </Button>
+        </ButtonGroup>
+      </Grid>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column' }}
+        gap={2}
+      >
+        <TextField
+          id='name'
+          name='name'
+          label='Agent Name'
+          defaultValue={agent.name}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='email'
+          name='email'
+          label='Agent Email'
+          defaultValue={agent.email}
+          disabled
+          sx={{ width: '100%' }}
+        />
+        <TextField
+          id='phone'
+          name='phone'
+          label='Agent Phone'
+          defaultValue={agent.phone}
+          disabled
+          sx={{ width: '100%' }}
+        />
+      </Box>
+    </Box>
   )
 }
