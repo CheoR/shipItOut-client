@@ -19,7 +19,10 @@ import { ProductView } from './product/ProductView'
 // import { BookingCreate } from './booking/BookingCreate'
 import Layout from './layout/Layout'
 
-export const ShipItOut = () => (
+export const ShipItOut = () => {
+  let token = localStorage.getItem('user_token')
+
+  return (
   <Layout>
     <Switch>
       <Route
@@ -78,9 +81,9 @@ export const ShipItOut = () => (
       <Route
         exact
         path='/'
-        component={Home}
+        component={token ? BookingList : Home}
       />
       <Route component={PageNotFound} />
     </Switch>
   </Layout>
-)
+)}
