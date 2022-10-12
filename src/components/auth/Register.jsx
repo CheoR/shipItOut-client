@@ -10,10 +10,38 @@ import {
   FormControl,
   Input,
   InputLabel,
+  MenuItem,
+  Select,
   Typography,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
 
+const ACCOUNT_TYPE = [
+  {
+    type: "default",
+    key: 0,
+  },
+    {
+    type: "shipper",
+    key: 1,
+  },
+    {
+    type: "broker",
+    key: 2,
+  },
+    {
+    type: "warehouse",
+    key: 3,
+  },
+    {
+    type: "carrier",
+    key: 4,
+  },
+    {
+    type: "portops",
+    key: 5,
+  },
+]
 export const Register = (props) => {
   const username = React.createRef()
   const firstName = React.createRef()
@@ -24,6 +52,7 @@ export const Register = (props) => {
   const company = React.createRef()
   const role = React.createRef()
   const phone = React.createRef()
+  const accountType = React.createRef()
 
   const [openPasswordDialog, setOpenPasswordDialog] = React.useState(false)
   const [openErrorDialog, setOpenErrorDialog] = React.useState(false)
@@ -57,6 +86,7 @@ export const Register = (props) => {
         company: company.current.value,
         role: role.current.value,
         phone: phone.current.value,
+        account_type: parseInt(accountType.current.value),
       }
 
       return fetch(`${process.env.REACT_APP_API}/register`, {
@@ -69,12 +99,16 @@ export const Register = (props) => {
       })
         .then((res) => res.json())
         .then((res) => {
-          if ('token' in res) {
+          if (res.valid) {
             localStorage.setItem('user_token', res.token)
             props.history.push('/bookings')
           } else {
-            handleOpen('error')
+            // TODO: return error reason from server to display in popup
+            handleOpen(res.reason)
           }
+        })
+        .catch((err) => {
+          console.error(err)
         })
     } else {
       handleOpen('password')
@@ -125,6 +159,7 @@ export const Register = (props) => {
       >
         <DialogTitle>{"Something's Wrong"}</DialogTitle>
         <DialogContent>
+          {/* TODO: pass validation error to popup */}
           <DialogContentText>{'Could not create user.'}</DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -249,6 +284,29 @@ export const Register = (props) => {
             autoFocus
           />
         </FormControl>
+        <FormControl
+              sx={{ width: '100%' }}
+            >
+              <InputLabel id='accountType'>Account Type</InputLabel>
+              <Select
+                labelId='accountType'
+                id='accountType'
+                name='account_type'
+                // defaultValue={ACCOUNT_TYPE[0]}
+                value={accountType.value}
+                inputRef={accountType}
+              >
+                {ACCOUNT_TYPE.map((role) => (
+                  <MenuItem
+                    key={role.key}
+                    id={role.key}
+                    value={role.key}
+                  >
+                    {role.type.toUpperCase()}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
         <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
           <Button
             variant='contained'
