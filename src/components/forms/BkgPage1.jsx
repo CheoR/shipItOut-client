@@ -1,4 +1,6 @@
 import React from 'react'
+import { DateTimePicker } from '@mui/x-date-pickers'
+import { Link as RouterLink } from 'react-router-dom'
 import {
   Grid,
   TextField,
@@ -16,33 +18,23 @@ import {
   Typography,
   ButtonGroup,
 } from '@mui/material'
-import { DateTimePicker } from '@mui/x-date-pickers'
-import { Link as RouterLink } from 'react-router-dom'
 
 import {
   agent,
-  service,
   voyage,
-  vessel,
   carrier,
-  containerType,
-  container,
   loadingPort,
   unloadingPort,
-  statuses,
 } from './TestFormData'
 
 export const BkgPage1 = ({
-  handleInputChange,
+  handleDatePickerChange,
   handleCheckBoxChange,
-  handlePickupDateChange,
-  handlePortCutDateChange,
-  handleRailCutDateChange,
+  handleInputChange,
   handleSubmit,
   nextStep,
   formValues,
 }) => {
-  // const location = useLocation()
 
   const next = (e) => {
     e.preventDefault()
@@ -53,8 +45,6 @@ export const BkgPage1 = ({
     <Box
       sx={{
         height: '100%',
-        width: '60%',
-        margin: '0 auto',
       }}
     >
       <Typography
@@ -77,334 +67,42 @@ export const BkgPage1 = ({
         >
           <Grid
             item
-            sx={{ flex: 1 }}
+            sx={{ flex: 1}}
           >
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='serviceSelect'>Service</InputLabel>
-              <Select
-                labelId='serviceSelect'
-                id='service'
-                name='service'
-                value={formValues.service}
-                onChange={handleInputChange}
-                fontWeight='fontWeightBold'
-              >
-                {service.map((s) => (
-                  <MenuItem
-                    key={s.id}
-                    id={s.id}
-                    value={s.id}
-                  >
-                    {s.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='voyageSelect'>Voyage</InputLabel>
-              <Select
-                labelId='voyageSelect'
-                id='voyage'
-                name='voyage'
-                value={formValues.voyage}
-                onChange={handleInputChange}
-              >
-                {voyage.map((v) => (
-                  <MenuItem
-                    key={v.id}
-                    id={v.id}
-                    value={v.id}
-                  >
-                    {v.voyage}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='vesselSelect'>Vessel</InputLabel>
-              <Select
-                labelId='vesselSelect'
-                id='vessel'
-                name='vessel'
-                value={formValues.vessel}
-                onChange={handleInputChange}
-              >
-                {vessel.map((v) => (
-                  <MenuItem
-                    key={v.id}
-                    id={v.id}
-                    value={v.id}
-                  >
-                    {v.vessel}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-{/* TODO: move disabled to FormControl instead of Select component */}
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='carrierSelect'>Carrier</InputLabel>
-              <Select
-                labelId='carrierSelect'
-                id='carrier'
-                name='carrier'
-                value={formValues.carrier}
-                onChange={handleInputChange}
-              >
-                {carrier.map((c) => (
-                  <MenuItem
-                    key={c.id}
-                    id={c.id}
-                    value={c.id}
-                  >
-                    {c.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{ width: '100%' }}
-              disabled
-            >
-              <InputLabel id='cntrTypeSelect'>Container Type</InputLabel>
-              <Select
-                labelId='cntrTypeSelect'
-                id='cntrType'
-                name='equipment_type'
-                value={formValues.equipment_type}
-                onChange={handleInputChange}
-              >
-                {containerType.map((c) => (
-                  <MenuItem
-                    key={c.id}
-                    id={c.id}
-                    value={c.id}
-                  >
-                    {c.equipment_type}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl
-              sx={{ width: '100%' }}
-              disabled
-            >
-              <InputLabel id='containerSelect'>Container</InputLabel>
-              <Select
-                labelId='containerSelect'
-                id='cntr'
-                name='cntr'
-                value={formValues.cntr}
-                onChange={handleInputChange}
-              >
-                {container.map((s) => (
-                  <MenuItem
-                    key={s.id}
-                    id={s.id}
-                    value={s.id}
-                  >
-                    {s.container}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='loadingPortSelect'>Loading Port</InputLabel>
-              <Select
-                labelId='loadingPortSelect'
-                id='loading_port'
-                name='loading_port'
-                value={formValues.loading_port}
-                onChange={handleInputChange}
-              >
-                {loadingPort.map((p) => (
-                  <MenuItem
-                    key={p.id}
-                    id={p.id}
-                    value={p.id}
-                  >
-                    {p.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='unloadingPortSelect'>Unloading Port</InputLabel>
-              <Select
-                labelId='unloadingPortSelect'
-                id='unloading_port'
-                name='unloading_port'
-                value={formValues.unloading_port}
-                onChange={handleInputChange}
-              >
-                {unloadingPort.map((p) => (
-                  <MenuItem
-                    key={p.id}
-                    id={p.id}
-                    value={p.id}
-                  >
-                    {p.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-
-            <FormControl sx={{ width: '100%' }}>
-              <InputLabel id='statusSelect'>Status</InputLabel>
-              <Select
-                labelId='statusSelect'
-                id='status'
-                name='status'
-                value={formValues.status}
-                onChange={handleInputChange}
-              >
-                {statuses.map((s) => (
-                  <MenuItem
-                    key={s.id}
-                    id={s.id}
-                    value={s.id}
-                  >
-                    {s.status}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-
-          {/* moo */}
-          <Grid
-            item
-            sx={{ flex: 1 }}
-          >
-            <FormLabel component='legend'>Verify About Booking</FormLabel>
-            <FormGroup>
-              <FormControlLabel
-                id='documents'
-                name='documents'
-                label='Documents'
-                control={
-                  <Checkbox
-                    checked={formValues.documents}
-                    onChange={handleCheckBoxChange}
-                    name='documents'
-                  />
-                }
-              />
-
-              <FormControlLabel
-                id='dues'
-                name='dues'
-                label='Dues'
-                control={
-                  <Checkbox
-                    checked={formValues.dues}
-                    onChange={handleCheckBoxChange}
-                    name='dues'
-                  />
-                }
-              />
-
-              <FormControlLabel
-                id='issues'
-                name='issues'
-                label='Issues'
-                control={
-                  <Checkbox
-                    checked={formValues.issues}
-                    onChange={handleCheckBoxChange}
-                    name='issues'
-                  />
-                }
-              />
-            </FormGroup>
-
-            <Box
-              sx={{ display: 'flex', flexDirection: 'column' }}
-              gap={2}
-            >
-              <DateTimePicker
-                sx={{ width: '100%' }}
-                renderInput={(props) => <TextField {...props} />}
-                value={formValues.pickup}
-                disablePast
-                onChange={handlePickupDateChange}
-                label='Pick Up'
-                showTodayButton
-                disabled
-              />
-
-              <DateTimePicker
-                sx={{ width: '100%' }}
-                renderInput={(props) => <TextField {...props} />}
-                value={formValues.port_cut}
-                disablePast
-                onChange={handlePortCutDateChange}
-                label='Port Cut'
-                showTodayButton
-                disabled
-              />
-
-              <DateTimePicker
-                sx={{ width: '100%' }}
-                renderInput={(props) => <TextField {...props} />}
-                value={formValues.rail_cut}
-                disablePast
-                onChange={handleRailCutDateChange}
-                label='Rail Cut'
-                showTodayButton
-                disabled
-              />
-            </Box>
-
             <TextField
-              id='address'
-              name='address'
+              id='pickup_address'
+              name='pickup_address'
               label='Pickup Address'
-              defaultValue={formValues.address}
+              defaultValue={formValues.pickup_address}
               sx={{ width: '100%' }}
               onChange={handleInputChange}
             />
-            <TextareaAutosize
-              id='booking_notes'
-              name='booking_notes'
-              aria-label='empty textarea'
-              placeholder='Booking Notes'
-              value={formValues.booking_notes}
-              style={{ width: 350 }}
-              minRows={7}
+            <TextField
+              id='loading_origin_address'
+              name='loading_origin_address'
+              label='Loading Address'
+              defaultValue={formValues.loading_origin_address}
+              sx={{ width: '100%' }}
               onChange={handleInputChange}
             />
-          </Grid>
-        </Grid>
-        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
-          <Button
-            variant='contained'
-            color='primary'
-            label='cancel'
-            component={RouterLink}
-            to='/bookings'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={next}
-          >
-            Next
-          </Button>
-        </ButtonGroup>
-      </Grid>
-      <Box
+            <TextField
+              id='unloading_destination_address'
+              name='unloading_destination_address'
+              label='Unloading Address'
+              defaultValue={formValues.unloading_destination_address}
+              sx={{ width: '100%' }}
+              onChange={handleInputChange}
+            />
+            <TextField
+              id='delivery_address'
+              name='delivery_address'
+              label='Delivery Address'
+              defaultValue={formValues.delivery_address}
+              sx={{ width: '100%' }}
+              onChange={handleInputChange}
+            />
+                <Box
         sx={{ display: 'flex', flexDirection: 'column' }}
-        gap={2}
       >
         <TextField
           id='name'
@@ -431,6 +129,204 @@ export const BkgPage1 = ({
           sx={{ width: '100%' }}
         />
       </Box>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1}}
+          >
+            
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.pickup_appt}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, "pickup_appt")}
+              label='Pickup Appt'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.port_cutoff}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, "port_cutoff")}
+              label='Port Cutoff'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.rail_cutoff}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, "rail_cutoff")}
+              label='Rail Cutoff'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.delivery_appt}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, "delivery_appt")}
+              label='Delivery Appt'
+              showTodayButton
+            />
+                        <FormLabel component='legend'>Verify About Booking</FormLabel>
+            <FormGroup>
+              <FormControlLabel
+                id='are_documents_ready'
+                name='are_documents_ready'
+                label='Documents'
+                control={
+                  <Checkbox
+                    checked={formValues.are_documents_ready}
+                    onChange={handleCheckBoxChange}
+                    name='are_documents_ready'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='are_dues_paid'
+                name='are_dues_paid'
+                label='Dues'
+                control={
+                  <Checkbox
+                    checked={formValues.are_dues_paid}
+                    onChange={handleCheckBoxChange}
+                    name='are_dues_paid'
+                  />
+                }
+              />
+
+              <FormControlLabel
+                id='has_issue'
+                name='has_issue'
+                label='Issues'
+                control={
+                  <Checkbox
+                    checked={formValues.has_issue}
+                    onChange={handleCheckBoxChange}
+                    name='has_issue'
+                  />
+                }
+              />
+            </FormGroup>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1}}
+          >
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='carrier'>Carrier</InputLabel>
+              <Select
+                labelId='carrier'
+                id='carrier'
+                name='carrier'
+                value={formValues.carrier}
+                onChange={handleInputChange}
+              >
+                {carrier.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='voyage'>Voyage</InputLabel>
+              <Select
+                labelId='voyage'
+                id='voyage'
+                name='voyage'
+                value={formValues.voyage}
+                onChange={handleInputChange}
+              >
+                {voyage.map((v) => (
+                  <MenuItem
+                    key={v.id}
+                    id={v.id}
+                    value={v.id}
+                  >
+                    {v.voyage}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='loading_port'>Loading Port</InputLabel>
+              <Select
+                labelId='loading_port'
+                id='loading_port'
+                name='loading_port'
+                value={formValues.loading_port}
+                onChange={handleInputChange}
+              >
+                {loadingPort.map((p) => (
+                  <MenuItem
+                    key={p.id}
+                    id={p.id}
+                    value={p.id}
+                  >
+                    {p.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='unloading_port'>Unloading Port</InputLabel>
+              <Select
+                labelId='unloading_port'
+                id='unloading_port'
+                name='unloading_port'
+                value={formValues.unloading_port}
+                onChange={handleInputChange}
+              >
+                {unloadingPort.map((p) => (
+                  <MenuItem
+                    key={p.id}
+                    id={p.id}
+                    value={p.id}
+                  >
+                    {p.name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <TextareaAutosize
+              id='booking_notes'
+              name='booking_notes'
+              aria-label='empty textarea'
+              placeholder='Booking Notes'
+              value={formValues.booking_notes}
+              style={{ width: 400 }}
+              minRows={10}
+              onChange={handleInputChange}
+            />
+          </Grid>
+        </Grid>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={next}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Grid>
     </Box>
   )
 }
