@@ -299,14 +299,14 @@ export const BkgPage2 = ({
             <FormLabel component='legend'>Verify About Container</FormLabel>
             <FormGroup>
               <FormControlLabel
-                id='cntrDamaged'
-                name='cntrDamaged'
+                id='isContainerDamaged'
+                name='isContainerDamaged'
                 label='Damaged'
                 control={
                   <Checkbox
-                    checked={formValues.cntrDamaged}
+                    checked={formValues.isContainerDamaged}
                     onChange={handleCheckBoxChange}
-                    name='cntrDamaged'
+                    name='isContainerDamaged'
                   />
                 }
               />
@@ -381,11 +381,11 @@ export const BkgPage2 = ({
               disabled
             />
             <TextareaAutosize
-              id='cntr_notes'
-              name='cntr_notes'
+              id='container_notes'
+              name='container_notes'
               aria-label='empty textarea'
               placeholder='Container Notes'
-              value={formValues.cntr_notes}
+              value={formValues.container_notes}
               style={{ width: 350 }}
               minRows={7}
               onChange={handleInputChange}

@@ -371,11 +371,11 @@ export const BkgPage1 = ({
               onChange={handleInputChange}
             />
             <TextareaAutosize
-              id='bkg_notes'
-              name='bkg_notes'
+              id='booking_notes'
+              name='booking_notes'
               aria-label='empty textarea'
               placeholder='Booking Notes'
-              value={formValues.bkg_notes}
+              value={formValues.booking_notes}
               style={{ width: 350 }}
               minRows={7}
               onChange={handleInputChange}

@@ -187,7 +187,7 @@ export const TestForm = () => {
     port_cut: '08-28-2020 1200',
     rail_cut: '',
     address: '123 fake street',
-    bkg_notes: 'afadfdafafafd',
+    booking_notes: 'afadfdafafafd',
   }
 
   const [productList, setProductList] = useState([])
@@ -212,8 +212,8 @@ export const TestForm = () => {
     port_cut: portCutTime,
     rail_cut: railCutTime,
     address: '',
-    bkg_notes: '',
-    cntr_notes: '',
+    booking_notes: '',
+    container_notes: '',
     damaged: false,
     inspection: false,
     overweight: false,
@@ -627,11 +627,11 @@ export const TestForm = () => {
               onChange={handleInputChange}
             />
             <TextareaAutosize
-              id='bkg_notes'
-              name='bkg_notes'
+              id='booking_notes'
+              name='booking_notes'
               aria-label='empty textarea'
               placeholder='Booking Notes'
-              value={formValues.bkg_notes}
+              value={formValues.booking_notes}
               style={{ width: '100%' }}
               rowsMin={5}
               onChange={handleInputChange}

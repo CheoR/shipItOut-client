@@ -41,8 +41,9 @@ export const BkgPage3 = ({
     console.table('all values')
     e.preventDefault()
     console.table(formValues)
+    console.log('--- token is ', token)
 
-    return fetch(`${process.env.REACT_APP_API}/create`, {
+    return fetch(`${process.env.REACT_APP_API}/bookings`, {
       method: 'POST',
       headers: {
         Authorization: `Token ${token}`,

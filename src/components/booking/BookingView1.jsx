@@ -349,8 +349,8 @@ export const BookingView1 = ({ nextStep, formValues }) => {
               disabled
             />
             <TextareaAutosize
-              id='bkg_notes'
-              name='bkg_notes'
+              id='booking_notes'
+              name='booking_notes'
               aria-label='empty textarea'
               placeholder='Booking Notes'
               value={formValues.notes}

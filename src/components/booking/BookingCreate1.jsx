@@ -407,8 +407,8 @@ export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
                 style={{ width: '100%' }}
               />
               <TextareaAutosize
-                id='bkg_notes'
-                name='bkg_notes'
+                id='booking_notes'
+                name='booking_notes'
                 aria-label='empty textarea'
                 placeholder='Booking Notes'
                 value={formValues.booking_notes}
