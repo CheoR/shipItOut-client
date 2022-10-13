@@ -6,35 +6,41 @@ import { BkPage4 } from './BkgPage4'
 
 export const BkgPage = () => {
   const [formValues, setFormValues] = useState({
+    // pages
     step: 1,
-    service: '',
-    vessel: '',
-    voyage: '',
-    carrier: '',
-    equipment_type: '',
-    container: '',
-    loading_port: '',
-    unloading_port: '',
-    status: '',
-    documents: false,
-    dues: false,
-    issues: false,
-    pickup: new Date(),
-    port_cut: new Date(),
-    rail_cut: new Date(),
-    address: '',
+    // booking
+    unloading_destination_address: '',
+    loading_origin_address: '',
+    pickup_address: "",
+    pickup_appt: new Date(),
+    port_cutoff: new Date(),
+    rail_cutoff: new Date(),
+    delivery_address: "",
+    delivery_appt: new Date(),
+    booking_status: 0,
+    are_documents_ready: false,
+    are_dues_paid: false,
+    has_issue: false,
     booking_notes: '',
+    carrier: 0,
+    voyage: 0,
+    loading_port: 0,
+    unloading_port: 0,
+    // container
+    container: 0,
     container_notes: '',
-    product_notes: '',
-    isContainerDamaged: false,
-    inspection: false,
-    overweight: false,
-    commodity: '',
+    equipment_location: 0,
+    is_container_damaged: false,
+    is_needs_inspection: false,
+    is_overweight: false,
+    // product
+    product: '',
     weight: 0,
-    fragile: false,
-    hazardous: false,
-    reefer: false,
-    productDamaged: false,
+    product_notes: '',
+    is_product_damaged: false,
+    is_hazardous: false,
+    is_fragile: false,
+    is_reefer: false,
   })
 
   const nextStep = () => {
@@ -47,36 +53,14 @@ export const BkgPage = () => {
     setFormValues({ ...formValues, step: step - 1 })
   }
 
-  // const handleInputChange = (e) => {
-
-  //  const newState = { ...formValues }
-  //  newState[e.target.id] = e.target.value
-  //  setFormValues(newState)
-  // }
-
   const handleSubmit = (e) => {
+    // TODO: REMOVE funciton if id doesn't do anything
+    // figure out why it's needed if at all
     e.preventDefault()
     console.log(formValues)
   }
-
-  const handlePickupDateChange = (e) => {
-    const name = 'pickup'
-    setFormValues({
-      ...formValues,
-      [name]: e,
-    })
-  }
-
-  const handlePortCutDateChange = (e) => {
-    const name = 'port_cut'
-    setFormValues({
-      ...formValues,
-      [name]: e,
-    })
-  }
-
-  const handleRailCutDateChange = (e) => {
-    const name = 'rail_cut'
+  
+  const handleDatePickerChange = (e, name) => {
     setFormValues({
       ...formValues,
       [name]: e,
@@ -84,7 +68,11 @@ export const BkgPage = () => {
   }
 
   const handleCheckBoxChange = (e) => {
-    setFormValues({ ...formValues, [e.target.name]: e.target.checked })
+    const { name, checked } = e.target
+    setFormValues({
+      ...formValues,
+      [name]: checked
+    })
   }
 
   const handleInputChange = (e) => {
@@ -99,11 +87,9 @@ export const BkgPage = () => {
     case 1:
       return (
         <BkgPage1
-          handleInputChange={handleInputChange}
+          handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
-          handlePickupDateChange={handlePickupDateChange}
-          handlePortCutDateChange={handlePortCutDateChange}
-          handleRailCutDateChange={handleRailCutDateChange}
+          handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           nextStep={nextStep}
           formValues={formValues}
@@ -113,14 +99,12 @@ export const BkgPage = () => {
     case 2:
       return (
         <BkgPage2
-          handleInputChange={handleInputChange}
+          handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
-          handlePickupDateChange={handlePickupDateChange}
-          handlePortCutDateChange={handlePortCutDateChange}
-          handleRailCutDateChange={handleRailCutDateChange}
+          handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
-          nextStep={nextStep}
           prevStep={prevStep}
+          nextStep={nextStep}
           formValues={formValues}
         />
       )
@@ -128,14 +112,12 @@ export const BkgPage = () => {
     case 3:
       return (
         <BkgPage3
-          handleInputChange={handleInputChange}
+          handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
-          handlePickupDateChange={handlePickupDateChange}
-          handlePortCutDateChange={handlePortCutDateChange}
-          handleRailCutDateChange={handleRailCutDateChange}
+          handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
-          nextStep={nextStep}
           prevStep={prevStep}
+          nextStep={nextStep}
           formValues={formValues}
         />
       )
@@ -143,9 +125,9 @@ export const BkgPage = () => {
     case 4:
       return (
         <BkPage4
+          handleChange={handleInputChange}
           nextStep={nextStep}
           backStep={prevStep}
-          handleChange={handleInputChange}
           formValues={formValues}
         />
       )
@@ -154,5 +136,5 @@ export const BkgPage = () => {
 
     default:
       return <>Oops, you shouldn't be here</>
-  } // swtich
+  }
 }
