@@ -33,6 +33,7 @@ const settings = [
   { setting: 'Profile', link: 'profile' },
   { setting: 'Account', link: 'account' },
   { setting: 'Dashboard', link: 'dashboard' },
+  { setting: 'Logout', link: '' },
 ]
 
 export const NavBar = () => {
@@ -46,7 +47,7 @@ export const NavBar = () => {
   useEffect(() => {
     // rerender navbar when user logs in/out
     // console.log(`current url: ${url}`)
-  }, [url])
+  }, [url, token])
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
@@ -55,8 +56,14 @@ export const NavBar = () => {
     setAnchorElUser(event.currentTarget)
   }
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null)
+  const handleCloseNavMenu = (e) => {
+    if(e.target.textContent.toLowerCase() === "logout") {
+      logoutUser()
+      setAnchorElNav(null)
+      Redirect("")
+    } else {
+      setAnchorElNav(null)
+    }
   }
 
   const handleCloseUserMenu = () => {
@@ -64,9 +71,7 @@ export const NavBar = () => {
   }
 
   const logoutUser = () => {
-    localStorage.removeItem('user_token')
-    handleCloseNavMenu()
-    Redirect('/')
+    localStorage.removeItem('user_token');
   }
 
   return (
@@ -306,7 +311,7 @@ export const NavBar = () => {
                     </Link>
                   </MenuItem>
                 ))}
-                <Button
+                {/* <Button
                   key='logout'
                   onClick={logoutUser}
                   sx={[
@@ -315,7 +320,7 @@ export const NavBar = () => {
                   ]}
                 >
                   <Typography>Logout</Typography>{' '}
-                </Button>
+                </Button> */}
               </Menu>
             </Box>
           )}

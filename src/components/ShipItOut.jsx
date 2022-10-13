@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect} from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import { Login } from './auth/Login'
@@ -21,7 +21,10 @@ import Layout from './layout/Layout'
 
 export const ShipItOut = () => {
   let token = localStorage.getItem('user_token')
-
+  useEffect(() => {
+    // refresh
+  }, [token])
+  
   return (
     <Layout>
       <Switch>
