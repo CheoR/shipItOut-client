@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { DataGrid } from '@mui/x-data-grid'
 import AddIcon from '@mui/icons-material/Add'
@@ -8,14 +8,7 @@ import UpdateIcon from '@mui/icons-material/Update'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 
-import { PageNotFound } from '../helpers/PageNotFound'
 import { Loading } from '../helpers/Loading'
-
-import {
-  filterBookingData,
-  filterContainerData,
-  filterProductData,
-} from './FlattenData'
 
 const TEST_DATA = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
@@ -56,21 +49,6 @@ export const DataTable = ({ endpoint, Icon }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        // TODO: move flattening to backend
-        switch (endpoint) {
-          case 'bookings':
-            res = filterBookingData([...res])
-            break
-          case 'containers':
-            res = filterContainerData(res)
-            break
-          case 'products':
-            res = filterProductData(res)
-            break
-          default:
-            throw new Error('Data Not Found')
-        }
-
         if (res.lenght === 0) res = TEST_DATA
         setData(res)
         const colHeaders = Object.keys(res[0])
