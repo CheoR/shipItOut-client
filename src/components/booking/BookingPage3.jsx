@@ -1,6 +1,5 @@
 import React from 'react'
-import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
-
+import { useHistory } from 'react-router-dom'
 import {
   Grid,
   TextField,
@@ -8,14 +7,13 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  Button,
   Box,
   Typography,
-  ButtonGroup,
   TextareaAutosize,
 } from '@mui/material'
 
 import { agent } from '../../mock/TestFormData'
+import ButtonPanel from '../buttons/ButtonPanel'
 
 export const BookingPage3 = ({
   handleCheckBoxChange,
@@ -23,13 +21,14 @@ export const BookingPage3 = ({
   handleSubmit,
   prevStep,
   isView,
+  instance,
+  action,
   formValues,
 }) => {
   const token = localStorage.getItem('user_token')
   const history = useHistory()
-  const location = useLocation()
 
-  const back = (e) => {
+  const prev = (e) => {
     e.preventDefault()
     prevStep()
   }
@@ -92,6 +91,7 @@ export const BookingPage3 = ({
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
+        sx={{ display: "flex", height: "90%"}}
       >
         <Grid
           container
@@ -236,48 +236,7 @@ export const BookingPage3 = ({
             </Box>
           </Grid>
         </Grid>
-        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
-          <Button
-            variant='contained'
-            color='primary'
-            label='cancel'
-            component={RouterLink}
-            to='/bookings'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={back}
-          >
-            Back
-          </Button>
-          {
-            location.pathname.includes('update')
-            ? (
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={update}
-          >
-            Update
-          </Button>
-            )
-            : (
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={create}
-          >
-            Create
-          </Button>
-            )
-          }
-        </ButtonGroup>
+        <ButtonPanel prev={prev} create={create} update={update} endpoint="bookings" page={3} instance={instance} action={action}/>
       </Grid>
     </Box>
   )

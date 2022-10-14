@@ -1,6 +1,5 @@
 import React from 'react'
 import { DateTimePicker } from '@mui/x-date-pickers'
-import { Link as RouterLink } from 'react-router-dom'
 import {
   Grid,
   TextField,
@@ -12,11 +11,9 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  Button,
   Box,
   TextareaAutosize,
   Typography,
-  ButtonGroup,
 } from '@mui/material'
 
 import {
@@ -27,6 +24,7 @@ import {
   unloadingPort,
   booking_status,
 } from '../../mock/TestFormData'
+import ButtonPanel from '../buttons/ButtonPanel'
 
 export const BookingPage1 = ({
   handleDatePickerChange,
@@ -35,6 +33,8 @@ export const BookingPage1 = ({
   handleSubmit,
   nextStep,
   isView,
+  action,
+  instance,
   formValues,
 }) => {
   console.log('in BOOKING PAGE 1, isView: ', isView)
@@ -61,6 +61,7 @@ export const BookingPage1 = ({
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
+        sx={{ display: "flex", height: "90%"}}
       >
         <Grid
           container
@@ -337,25 +338,7 @@ export const BookingPage1 = ({
             </FormControl>
           </Grid>
         </Grid>
-        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
-          <Button
-            variant='contained'
-            color='primary'
-            label='cancel'
-            component={RouterLink}
-            to='/bookings'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={next}
-          >
-            Next
-          </Button>
-        </ButtonGroup>
+        <ButtonPanel next={next} endpoint="bookings" page={1} instance={instance} action={action} />
       </Grid>
     </Box>
   )

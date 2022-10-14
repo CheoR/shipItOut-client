@@ -119,6 +119,8 @@ export const BookingPage = () => {
           handleSubmit={handleSubmit}
           nextStep={nextStep}
           isView={isView}
+          action={action}
+          instance={instance}
           formValues={formValues}
         />
       )
@@ -132,6 +134,8 @@ export const BookingPage = () => {
           prevStep={prevStep}
           nextStep={nextStep}
           isView={isView}
+          action={action}
+          instance={instance}
           formValues={formValues}
         />
       )
@@ -144,6 +148,8 @@ export const BookingPage = () => {
           handleSubmit={handleSubmit}
           prevStep={prevStep}
           isView={isView}
+          action={action}
+          instance={instance}
           formValues={formValues}
         />
       )

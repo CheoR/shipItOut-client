@@ -1,6 +1,4 @@
 import React from 'react'
-import { Link as RouterLink } from 'react-router-dom'
-
 import {
   Grid,
   TextField,
@@ -12,11 +10,9 @@ import {
   FormGroup,
   FormControlLabel,
   Checkbox,
-  Button,
   Box,
   Typography,
   TextareaAutosize,
-  ButtonGroup,
 } from '@mui/material'
 
 import {
@@ -25,6 +21,7 @@ import {
   container,
   container_location,
 } from '../../mock/TestFormData'
+import ButtonPanel from '../buttons/ButtonPanel'
 
 export const BookingPage2 = ({
   handleCheckBoxChange,
@@ -33,6 +30,8 @@ export const BookingPage2 = ({
   nextStep,
   prevStep,
   isView,
+  action,
+  instance,
   formValues,
 }) => {
   const next = (e) => {
@@ -40,7 +39,7 @@ export const BookingPage2 = ({
     nextStep()
   }
 
-  const back = (e) => {
+  const prev = (e) => {
     e.preventDefault()
     prevStep()
   }
@@ -63,6 +62,7 @@ export const BookingPage2 = ({
         noValidate
         autoComplete='off'
         onSubmit={handleSubmit}
+        sx={{ display: "flex", height: "90%"}}
       >
         <Grid
           container
@@ -230,33 +230,7 @@ export const BookingPage2 = ({
             </FormControl>
           </Grid>
         </Grid>
-        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
-          <Button
-            variant='contained'
-            color='primary'
-            label='cancel'
-            component={RouterLink}
-            to='/bookings'
-          >
-            Cancel
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={back}
-          >
-            Back
-          </Button>
-          <Button
-            variant='contained'
-            color='primary'
-            label='continue'
-            onClick={next}
-          >
-            Next
-          </Button>
-        </ButtonGroup>
+        <ButtonPanel prev={prev} next={next} endpoint="bookings" page={2} instance={instance} action={action}/>
       </Grid>
     </Box>
   )
