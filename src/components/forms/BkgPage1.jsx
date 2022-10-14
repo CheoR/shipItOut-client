@@ -25,7 +25,7 @@ import {
   carrier,
   loadingPort,
   unloadingPort,
-} from './TestFormData'
+} from '../../mock/TestFormData'
 
 export const BkgPage1 = ({
   handleDatePickerChange,

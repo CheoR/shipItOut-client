@@ -24,7 +24,7 @@ import {
   container_type,
   container,
   container_location,
-} from '../forms/TestFormData'
+} from '../../mock/TestFormData'
 
 export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
   const next = (e) => {

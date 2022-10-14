@@ -26,7 +26,7 @@ import {
   carrier,
   loadingPort,
   unloadingPort,
-} from '../forms/TestFormData'
+} from '../../mock/TestFormData'
 
 export const BookingView1 = ({ nextStep, formValues }) => {
   const next = (e) => {

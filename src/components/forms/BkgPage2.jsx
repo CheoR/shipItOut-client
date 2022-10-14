@@ -24,7 +24,7 @@ import {
   container_type,
   container,
   container_location,
-} from './TestFormData'
+} from '../../mock/TestFormData'
 
 export const BkgPage2 = ({
   handleCheckBoxChange,
