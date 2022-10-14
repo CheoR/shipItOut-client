@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { BkgPage1 } from './BkgPage1'
 import { BkgPage2 } from './BkgPage2'
 import { BkgPage3 } from './BkgPage3'
 
 export const BkgPage = () => {
+  let token = localStorage.getItem('user_token')
+  let location = useLocation()
+  const [ , endpoint, action, instance] = location.pathname.split('/')
+
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
@@ -16,7 +21,7 @@ export const BkgPage = () => {
     rail_cutoff: new Date(),
     delivery_address: '',
     delivery_appt: new Date(),
-    booking_status: 0,
+    booking_status: 1,
     are_documents_ready: false,
     are_dues_paid: false,
     has_issue: false,
@@ -41,6 +46,26 @@ export const BkgPage = () => {
     is_fragile: false,
     is_reefer: false,
   })
+
+    useEffect(() => {
+      const fetchBooking = () => {
+        return fetch(`${process.env.REACT_APP_API}/${endpoint}/${instance}`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then((res) => {
+            res.step = 1
+            res.instance = instance
+            setFormValues(res)
+          })
+      }
+      if(location.pathname.includes('update')) {
+        fetchBooking()
+      }
+  }, [action, instance, token, location.pathname])
+
 
   const nextStep = () => {
     const { step } = formValues

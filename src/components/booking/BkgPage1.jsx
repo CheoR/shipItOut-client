@@ -25,6 +25,7 @@ import {
   carrier,
   loadingPort,
   unloadingPort,
+  booking_status,
 } from '../../mock/TestFormData'
 
 export const BkgPage1 = ({
@@ -219,6 +220,26 @@ export const BkgPage1 = ({
               minRows={10}
               onChange={handleInputChange}
             />
+             <FormControl sx={{ width: '100%' }}>
+              <InputLabel id='booking_status'>Booking Status</InputLabel>
+              <Select
+                labelId='booking_status'
+                id='booking_status'
+                name='booking_status'
+                value={formValues.booking_status}
+                onChange={handleInputChange}
+              >
+                {booking_status.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.booking_status}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id='carrier'>Carrier</InputLabel>
               <Select

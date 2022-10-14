@@ -221,3 +221,22 @@ export const container_location = [
     container_location: 'INSPECTION',
   },
 ]
+
+export const booking_status = [
+  {
+    id: 1,
+    booking_status: "XX",
+  },
+    {
+    id: 1,
+    booking_status: "PENDING",
+  },
+    {
+    id: 2,
+    booking_status: "COMPLETE",
+  },
+    {
+    id: 3,
+    booking_status: "CLOSED",
+  }
+]

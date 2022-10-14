@@ -59,7 +59,7 @@ export const BkgPage3 = ({
     console.table(formValues)
     console.log('--- token is ', token)
 
-    return fetch(`${process.env.REACT_APP_API}/bookings`, {
+    return fetch(`${process.env.REACT_APP_API}/bookings/${formValues.instance}`, {
       method: 'PUT',
       headers: {
         Authorization: `Token ${token}`,
