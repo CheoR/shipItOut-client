@@ -1,23 +1,22 @@
 import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
-import { Login } from './auth/Login'
-import { Register } from './auth/Register'
-import { PageNotFound } from './helpers/PageNotFound'
-
-import { Home } from './home/Home'
 import { BookingList } from './booking/BookingList'
-import { BookingUpdate } from './booking/BookingUpdate'
+// import { BookingUpdate } from './booking/BookingUpdate'
+import { BookingView } from './booking/BookingView'
+import { BkgPage } from "./booking/BkgPage"
+
 import { ContainerList } from './container/ContainerList'
 import { ContainerView } from './container/ContainerView'
 
 import { ProductList } from './product/ProductList'
-
-import { BkgPage } from './forms/BkgPage'
-import { BookingView } from './booking/BookingView'
 import { ProductView } from './product/ProductView'
-// import { BookingCreate } from './booking/BookingCreate'
+
+import { PageNotFound } from './helpers/PageNotFound'
+import { Register } from './auth/Register'
 import Layout from './layout/Layout'
+import { Login } from './auth/Login'
+import { Home } from './home/Home'
 
 export const ShipItOut = () => {
   let token = localStorage.getItem('user_token')

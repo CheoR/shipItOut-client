@@ -6,10 +6,6 @@ export const DataTableProvider = (props) => {
   const [data, setData] = useState([])
 
   const getDataTableFor = (endpoint) => {
-    /*
-      Generic data fetch.
-    */
-
     return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
       headers: {
         Authorization: `Token ${localStorage.getItem('user_token')}`,
@@ -17,9 +13,7 @@ export const DataTableProvider = (props) => {
     })
       .then((res) => res.json())
       .then(setData)
-
-    // return true
-  } // getDataTableFor
+  }
 
   return (
     <DataTableContext.Provider
