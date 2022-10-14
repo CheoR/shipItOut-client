@@ -76,18 +76,18 @@ export const carrier = [
   },
 ]
 
-export const containerType = [
+export const container_type = [
   {
     id: 1,
-    equipment_type: '20ST',
+    container_type: '20ST',
   },
   {
     id: 2,
-    equipment_type: '20HC',
+    container_type: '20HC',
   },
   {
     id: 3,
-    equipment_type: '40ST',
+    container_type: '40ST',
   },
 ]
 
@@ -169,8 +169,55 @@ export const otherData = {
   documents: true,
   money_due: true,
   pickup: '06-25-2020 1200',
-  port_cut: '08-28-2020 1200',
-  rail_cut: '',
+  port_cutoff: '08-28-2020 1200',
+  rail_cutoff: '',
   address: '123 fake street',
   notes: 'afadfdafafafd',
 }
+
+export const container_location = [
+  {
+    id: 6,
+    container_location: 'YARD',
+  },
+  {
+    id: 7,
+    container_location: 'RAIL',
+  },
+  {
+    id: 8,
+    container_location: 'SAIL',
+  },
+  {
+    id: 9,
+    container_location: 'PORT',
+  },
+  {
+    id: 10,
+    container_location: 'BERTH',
+  },
+  {
+    id: 11,
+    container_location: 'PICKUP',
+  },
+  {
+    id: 12,
+    container_location: 'TRANSIT',
+  },
+  {
+    id: 13,
+    container_location: 'STORAGE',
+  },
+  {
+    id: 14,
+    container_location: 'DELIVERY',
+  },
+  {
+    id: 15,
+    container_location: 'WAREHOUSE',
+  },
+  {
+    id: 16,
+    container_location: 'INSPECTION',
+  },
+]

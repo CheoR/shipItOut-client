@@ -184,8 +184,8 @@ export const TestForm = () => {
     documents: true,
     money_due: true,
     pickup: '06-25-2020 1200',
-    port_cut: '08-28-2020 1200',
-    rail_cut: '',
+    port_cutoff: '08-28-2020 1200',
+    rail_cutoff: '',
     address: '123 fake street',
     booking_notes: 'afadfdafafafd',
   }
@@ -209,20 +209,20 @@ export const TestForm = () => {
     dues: false,
     issues: false,
     pickup: pickupTime,
-    port_cut: portCutTime,
-    rail_cut: railCutTime,
+    port_cutoff: portCutTime,
+    rail_cutoff: railCutTime,
     address: '',
     booking_notes: '',
     container_notes: '',
     damaged: false,
     inspection: false,
     overweight: false,
-    commodity: '',
+    product: '',
     weight: 0,
     fragile: false,
     hazardous: false,
     reefer: false,
-    productDamaged: false,
+    is_product_damaged: false,
   })
 
   const classes = useStyles()
@@ -250,13 +250,13 @@ export const TestForm = () => {
     )
     setPortCutTime((prevState) => e)
 
-    const name = 'port_cut'
+    const name = 'port_cutoff'
     setFormValues({
       ...formValues,
       [name]: portCutTime,
     })
     console.log(`portCutTime is ${portCutTime}`)
-    console.log(`formValues.port_cut is ${formValues.port_cut}`)
+    console.log(`formValues.port_cutoff is ${formValues.port_cutoff}`)
   }
 
   const handleRailCutDateChange = (e) => {
@@ -266,13 +266,13 @@ export const TestForm = () => {
     )
     setRailCutTime(e)
 
-    const name = 'rail_cut'
+    const name = 'rail_cutoff'
     setFormValues({
       ...formValues,
       [name]: railCutTime,
     })
     console.log(`railCutTime is ${railCutTime}`)
-    console.log(`formValues.rail_cut is ${formValues.rail_cut}`)
+    console.log(`formValues.rail_cutoff is ${formValues.rail_cutoff}`)
   }
 
   const handleCheckBoxChange = (e) => {
@@ -603,7 +603,7 @@ export const TestForm = () => {
 
             <DateTimePicker
               style={{ width: '100%' }}
-              value={formValues.port_cut}
+              value={formValues.port_cutoff}
               disablePast
               onChange={handlePortCutDateChange}
               label='Port Cut'
@@ -612,7 +612,7 @@ export const TestForm = () => {
 
             <DateTimePicker
               style={{ width: '100%' }}
-              value={formValues.rail_cut}
+              value={formValues.rail_cutoff}
               disablePast
               onChange={handleRailCutDateChange}
               label='Rail Cut'

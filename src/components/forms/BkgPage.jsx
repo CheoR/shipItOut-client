@@ -11,11 +11,11 @@ export const BkgPage = () => {
     // booking
     unloading_destination_address: '',
     loading_origin_address: '',
-    pickup_address: "",
+    pickup_address: '',
     pickup_appt: new Date(),
     port_cutoff: new Date(),
     rail_cutoff: new Date(),
-    delivery_address: "",
+    delivery_address: '',
     delivery_appt: new Date(),
     booking_status: 0,
     are_documents_ready: false,
@@ -59,7 +59,7 @@ export const BkgPage = () => {
     e.preventDefault()
     console.log(formValues)
   }
-  
+
   const handleDatePickerChange = (e, name) => {
     setFormValues({
       ...formValues,
@@ -71,7 +71,7 @@ export const BkgPage = () => {
     const { name, checked } = e.target
     setFormValues({
       ...formValues,
-      [name]: checked
+      [name]: checked,
     })
   }
 
@@ -112,12 +112,10 @@ export const BkgPage = () => {
     case 3:
       return (
         <BkgPage3
-          handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           prevStep={prevStep}
-          nextStep={nextStep}
           formValues={formValues}
         />
       )

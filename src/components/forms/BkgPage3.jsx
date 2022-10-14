@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link as RouterLink, Redirect } from 'react-router-dom'
 
 import {
   Grid,
@@ -13,24 +14,17 @@ import {
   ButtonGroup,
   TextareaAutosize,
 } from '@mui/material'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import { agent } from './TestFormData'
 
 export const BkgPage3 = ({
-  handleInputChange,
   handleCheckBoxChange,
+  handleInputChange,
   handleSubmit,
-  nextStep,
   prevStep,
   formValues,
 }) => {
   const token = localStorage.getItem('user_token')
-  const history = useHistory()
-  //  const next = (e) => {
-  //   e.preventDefault()
-  //   nextStep()
-  //  }
 
   const back = (e) => {
     e.preventDefault()
@@ -50,15 +44,13 @@ export const BkgPage3 = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formValues),
-    }).then(() => history.push('/bookings'))
-  } // create
+    }).then(() => Redirect('/bookings'))
+  }
 
   return (
     <Box
       sx={{
         height: '100%',
-        width: '60%',
-        margin: '0 auto',
       }}
     >
       <Typography
@@ -83,7 +75,30 @@ export const BkgPage3 = ({
             item
             sx={{ flex: 1 }}
           >
-            {' '}
+            <TextField
+              id='name'
+              name='name'
+              label='Agent Name'
+              defaultValue={agent.name}
+              disabled
+              sx={{ width: '100%' }}
+            />
+            <TextField
+              id='email'
+              name='email'
+              label='Agent Email'
+              defaultValue={agent.email}
+              disabled
+              sx={{ width: '100%' }}
+            />
+            <TextField
+              id='phone'
+              name='phone'
+              label='Agent Phone'
+              defaultValue={agent.phone}
+              disabled
+              sx={{ width: '100%' }}
+            />
           </Grid>
           <Grid
             item
@@ -92,66 +107,81 @@ export const BkgPage3 = ({
             <FormLabel component='legend'>Verify About Product</FormLabel>
             <FormGroup>
               <FormControlLabel
-                id='fragile'
-                name='fragile'
+                id='is_fragile'
+                name='is_fragile'
                 label='Fragile'
                 control={
                   <Checkbox
-                    checked={formValues.fragile}
+                    checked={formValues.is_fragile}
                     onChange={handleCheckBoxChange}
-                    name='fragile'
+                    name='is_fragile'
                   />
                 }
               />
 
               <FormControlLabel
-                id='hazardous'
-                name='hazardous'
+                id='is_hazardous'
+                name='is_hazardous'
                 label='Hazardous'
                 control={
                   <Checkbox
-                    checked={formValues.hazardous}
+                    checked={formValues.is_hazardous}
                     onChange={handleCheckBoxChange}
-                    name='hazardous'
+                    name='is_hazardous'
                   />
                 }
               />
 
               <FormControlLabel
-                id='reefer'
-                name='reefer'
+                id='is_reefer'
+                name='is_reefer'
                 label='Reefer'
                 control={
                   <Checkbox
-                    checked={formValues.reefer}
+                    checked={formValues.is_reefer}
                     onChange={handleCheckBoxChange}
-                    name='reefer'
+                    name='is_reefer'
                   />
                 }
               />
               <FormControlLabel
-                id='productDamaged'
-                name='productDamaged'
+                id='is_product_damaged'
+                name='is_product_damaged'
                 label='Damaged'
                 control={
                   <Checkbox
-                    checked={formValues.productDamaged}
+                    checked={formValues.is_product_damaged}
                     onChange={handleCheckBoxChange}
-                    name='productDamaged'
+                    name='is_product_damaged'
                   />
                 }
               />
             </FormGroup>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <TextareaAutosize
+              id='product_notes'
+              name='product_notes'
+              aria-label='empty textarea'
+              placeholder='Product Notes'
+              value={formValues.product_notes}
+              style={{ width: 400 }}
+              minRows={10}
+              onChange={handleInputChange}
+            />
             <Box
               sx={{ display: 'flex', flexDirection: 'column' }}
               gap={2}
             >
               <TextField
-                id='commodity'
-                name='commodity'
-                label='Commodity'
-                defaultValue={formValues.commodity}
-                value={formValues.commodity}
+                id='product'
+                name='product'
+                label='Product'
+                defaultValue={formValues.product}
+                value={formValues.product}
                 onChange={handleInputChange}
                 style={{ width: '100%' }}
               />
@@ -170,16 +200,6 @@ export const BkgPage3 = ({
                 inputProps={{ min: 0 }}
               />
             </Box>
-            <TextareaAutosize
-              id='product_notes'
-              name='product_notes'
-              aria-label='empty textarea'
-              placeholder='Product Notes'
-              value={formValues.product_notes}
-              style={{ width: 350 }}
-              minRows={7}
-              onChange={handleInputChange}
-            />
           </Grid>
         </Grid>
         <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
@@ -210,35 +230,6 @@ export const BkgPage3 = ({
           </Button>
         </ButtonGroup>
       </Grid>
-      <Box
-        sx={{ display: 'flex', flexDirection: 'column' }}
-        gap={2}
-      >
-        <TextField
-          id='name'
-          name='name'
-          label='Agent Name'
-          defaultValue={agent.name}
-          disabled
-          sx={{ width: '100%' }}
-        />
-        <TextField
-          id='email'
-          name='email'
-          label='Agent Email'
-          defaultValue={agent.email}
-          disabled
-          sx={{ width: '100%' }}
-        />
-        <TextField
-          id='phone'
-          name='phone'
-          label='Agent Phone'
-          defaultValue={agent.phone}
-          disabled
-          sx={{ width: '100%' }}
-        />
-      </Box>
     </Box>
   )
 }

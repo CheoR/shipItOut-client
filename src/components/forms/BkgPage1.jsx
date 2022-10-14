@@ -35,7 +35,6 @@ export const BkgPage1 = ({
   nextStep,
   formValues,
 }) => {
-
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -67,8 +66,34 @@ export const BkgPage1 = ({
         >
           <Grid
             item
-            sx={{ flex: 1}}
+            sx={{ flex: 1 }}
           >
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <TextField
+                id='name'
+                name='name'
+                label='Agent Name'
+                defaultValue={agent.name}
+                disabled
+                sx={{ width: '100%' }}
+              />
+              <TextField
+                id='email'
+                name='email'
+                label='Agent Email'
+                defaultValue={agent.email}
+                disabled
+                sx={{ width: '100%' }}
+              />
+              <TextField
+                id='phone'
+                name='phone'
+                label='Agent Phone'
+                defaultValue={agent.phone}
+                disabled
+                sx={{ width: '100%' }}
+              />
+            </Box>
             <TextField
               id='pickup_address'
               name='pickup_address'
@@ -101,73 +126,12 @@ export const BkgPage1 = ({
               sx={{ width: '100%' }}
               onChange={handleInputChange}
             />
-                <Box
-        sx={{ display: 'flex', flexDirection: 'column' }}
-      >
-        <TextField
-          id='name'
-          name='name'
-          label='Agent Name'
-          defaultValue={agent.name}
-          disabled
-          sx={{ width: '100%' }}
-        />
-        <TextField
-          id='email'
-          name='email'
-          label='Agent Email'
-          defaultValue={agent.email}
-          disabled
-          sx={{ width: '100%' }}
-        />
-        <TextField
-          id='phone'
-          name='phone'
-          label='Agent Phone'
-          defaultValue={agent.phone}
-          disabled
-          sx={{ width: '100%' }}
-        />
-      </Box>
           </Grid>
           <Grid
             item
-            sx={{ flex: 1}}
+            sx={{ flex: 1 }}
           >
-            
-            <DateTimePicker
-              renderInput={(props) => <TextField {...props} />}
-              value={formValues.pickup_appt}
-              disablePast
-              onChange={(e) => handleDatePickerChange(e, "pickup_appt")}
-              label='Pickup Appt'
-              showTodayButton
-            />
-            <DateTimePicker
-              renderInput={(props) => <TextField {...props} />}
-              value={formValues.port_cutoff}
-              disablePast
-              onChange={(e) => handleDatePickerChange(e, "port_cutoff")}
-              label='Port Cutoff'
-              showTodayButton
-            />
-            <DateTimePicker
-              renderInput={(props) => <TextField {...props} />}
-              value={formValues.rail_cutoff}
-              disablePast
-              onChange={(e) => handleDatePickerChange(e, "rail_cutoff")}
-              label='Rail Cutoff'
-              showTodayButton
-            />
-            <DateTimePicker
-              renderInput={(props) => <TextField {...props} />}
-              value={formValues.delivery_appt}
-              disablePast
-              onChange={(e) => handleDatePickerChange(e, "delivery_appt")}
-              label='Delivery Appt'
-              showTodayButton
-            />
-                        <FormLabel component='legend'>Verify About Booking</FormLabel>
+            <FormLabel component='legend'>Verify About Booking</FormLabel>
             <FormGroup>
               <FormControlLabel
                 id='are_documents_ready'
@@ -208,11 +172,53 @@ export const BkgPage1 = ({
                 }
               />
             </FormGroup>
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.pickup_appt}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, 'pickup_appt')}
+              label='Pickup Appt'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.port_cutoff}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, 'port_cutoff')}
+              label='Port Cutoff'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.rail_cutoff}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, 'rail_cutoff')}
+              label='Rail Cutoff'
+              showTodayButton
+            />
+            <DateTimePicker
+              renderInput={(props) => <TextField {...props} />}
+              value={formValues.delivery_appt}
+              disablePast
+              onChange={(e) => handleDatePickerChange(e, 'delivery_appt')}
+              label='Delivery Appt'
+              showTodayButton
+            />
           </Grid>
           <Grid
             item
-            sx={{ flex: 1}}
+            sx={{ flex: 1 }}
           >
+            <TextareaAutosize
+              id='booking_notes'
+              name='booking_notes'
+              aria-label='empty textarea'
+              placeholder='Booking Notes'
+              value={formValues.booking_notes}
+              style={{ width: 400 }}
+              minRows={10}
+              onChange={handleInputChange}
+            />
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id='carrier'>Carrier</InputLabel>
               <Select
@@ -294,17 +300,6 @@ export const BkgPage1 = ({
                 ))}
               </Select>
             </FormControl>
-
-            <TextareaAutosize
-              id='booking_notes'
-              name='booking_notes'
-              aria-label='empty textarea'
-              placeholder='Booking Notes'
-              value={formValues.booking_notes}
-              style={{ width: 400 }}
-              minRows={10}
-              onChange={handleInputChange}
-            />
           </Grid>
         </Grid>
         <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
