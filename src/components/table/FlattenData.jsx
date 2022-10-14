@@ -64,17 +64,17 @@ export const filterBookingViewData = (data) => {
   // data['carrier'] = carrier.name
   // data['container_status'] = cntr_status.status
   // data['container'] = container.container
-  // data['size'] = container.equipment_size
+  // data['size'] = container.equipment_type
   // data['container_damaged'] = container.is_damaged
   // data['overweight'] = container.is_overweight
-  // data['needs_inspection'] = container.is_need_inspection
+  // data['needs_inspection'] = container.is_needs_inspection
   // data['container_available'] = container.is_in_use
   // data['port'] = port.code
   // data['port_name'] = port.name
   // data['port_location'] = port.location
-  // data['port_cut'] = booking.port_cutoff
-  // data['rail_cut'] = booking.rail_cutoff
-  // data['document_submitted'] = document.are_docs_ready
+  // data['port_cutoff'] = booking.port_cutoffoff
+  // data['rail_cutoff'] = booking.rail_cutoffoff
+  // data['document_submitted'] = document.are_documents_ready
   // data['money_owed'] = money.are_dues_paid
   // data['issues'] = booking.has_issue
   // data['booking_notes'] = booking.notes
@@ -98,18 +98,18 @@ export const filterBookingViewData = (data) => {
 //   dues: false,
 //   issues: false,
 //   pickup: new Date(),
-//   port_cut: new Date(),
-//   rail_cut: new Date(),
+//   port_cutoff: new Date(),
+//   rail_cutoff: new Date(),
 //   address: "",
 //   booking_notes: "",
 //   container_notes: "",
-//   isContainerDamaged: false,
+//   is_container_damaged: false,
 //   inspection: false,
 //   overweight: false,
-//   commodity: "",
+//   product: "",
 //   weight: 0,
 //   fragile: false,
 //   hazardous: false,
 //   reefer: false,
-//   productDamaged: false
+//   is_product_damaged: false
 //  })

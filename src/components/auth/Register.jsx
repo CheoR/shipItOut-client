@@ -18,27 +18,27 @@ import { Link } from 'react-router-dom'
 
 const ACCOUNT_TYPE = [
   {
-    type: "default",
+    type: 'default',
     key: 0,
   },
-    {
-    type: "shipper",
+  {
+    type: 'shipper',
     key: 1,
   },
-    {
-    type: "broker",
+  {
+    type: 'broker',
     key: 2,
   },
-    {
-    type: "warehouse",
+  {
+    type: 'warehouse',
     key: 3,
   },
-    {
-    type: "carrier",
+  {
+    type: 'carrier',
     key: 4,
   },
-    {
-    type: "portops",
+  {
+    type: 'portops',
     key: 5,
   },
 ]
@@ -284,29 +284,27 @@ export const Register = (props) => {
             autoFocus
           />
         </FormControl>
-        <FormControl
-              sx={{ width: '100%' }}
-            >
-              <InputLabel id='accountType'>Account Type</InputLabel>
-              <Select
-                labelId='accountType'
-                id='accountType'
-                name='account_type'
-                // defaultValue={ACCOUNT_TYPE[0]}
-                value={accountType.value}
-                inputRef={accountType}
+        <FormControl sx={{ width: '100%' }}>
+          <InputLabel id='accountType'>Account Type</InputLabel>
+          <Select
+            labelId='accountType'
+            id='accountType'
+            name='account_type'
+            // defaultValue={ACCOUNT_TYPE[0]}
+            value={accountType.value}
+            inputRef={accountType}
+          >
+            {ACCOUNT_TYPE.map((role) => (
+              <MenuItem
+                key={role.key}
+                id={role.key}
+                value={role.key}
               >
-                {ACCOUNT_TYPE.map((role) => (
-                  <MenuItem
-                    key={role.key}
-                    id={role.key}
-                    value={role.key}
-                  >
-                    {role.type.toUpperCase()}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+                {role.type.toUpperCase()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
         <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
           <Button
             variant='contained'

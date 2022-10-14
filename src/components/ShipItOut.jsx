@@ -1,4 +1,4 @@
-import React, { useEffect} from 'react'
+import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import { Login } from './auth/Login'
@@ -24,7 +24,7 @@ export const ShipItOut = () => {
   useEffect(() => {
     // refresh
   }, [token])
-  
+
   return (
     <Layout>
       <Switch>

@@ -57,10 +57,10 @@ export const NavBar = () => {
   }
 
   const handleCloseNavMenu = (e) => {
-    if(e.target.textContent.toLowerCase() === "logout") {
+    if (e.target.textContent.toLowerCase() === 'logout') {
       logoutUser()
       setAnchorElNav(null)
-      Redirect("")
+      Redirect('')
     } else {
       setAnchorElNav(null)
     }
@@ -71,7 +71,7 @@ export const NavBar = () => {
   }
 
   const logoutUser = () => {
-    localStorage.removeItem('user_token');
+    localStorage.removeItem('user_token')
   }
 
   return (
