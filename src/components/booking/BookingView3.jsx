@@ -1,218 +1,202 @@
 import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
-  FormControl,
   FormLabel,
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   Button,
+  Box,
+  Typography,
+  ButtonGroup,
+  TextareaAutosize,
 } from '@mui/material'
-import { ThemeProvider } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+
+import { agent } from '../forms/TestFormData'
 
 export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
-
   const back = (e) => {
     e.preventDefault()
     prevStep()
   }
 
   return (
-    <ThemeProvider>
-      <fieldset style={{ margin: '0 auto', width: '60%' }}>
-        <h1 style={{ margin: '0 auto', textAlign: 'center' }}>View Product</h1>
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete='off'
-          style={{ border: 'black', width: '100%', margin: '0 auto' }}
+    <Box
+      sx={{
+        height: '100%',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        Product
+      </Typography>
+      <Grid
+        component='form'
+        container
+        noValidate
+        autoComplete='off'
+      >
+        <Grid
+          container
+          sx={{ display: 'flex' }}
+          gap={2}
         >
           <Grid
-            container
-            spacing={4}
-            style={{ width: '100%', margin: '0 auto ' }}
+            item
+            sx={{ flex: 1 }}
           >
-            <Grid
-              item
-              xs={4}
-              container
-              direction='column'
-            >
-              <TextField
-                id='name'
-                name='name'
-                label='Agent Name'
-                defaultValue={formValues.full_name}
+            <TextField
+              id='name'
+              name='name'
+              label='Agent Name'
+              defaultValue={agent.name}
+              sx={{ width: '100%' }}
+              disabled
+            />
+            <TextField
+              id='email'
+              name='email'
+              label='Agent Email'
+              defaultValue={agent.email}
+              sx={{ width: '100%' }}
+              disabled
+            />
+            <TextField
+              id='phone'
+              name='phone'
+              label='Agent Phone'
+              defaultValue={agent.phone}
+              sx={{ width: '100%' }}
+              disabled
+            />
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <FormLabel component='legend'>Verify About Product</FormLabel>
+            <FormGroup disabled>
+              <FormControlLabel
+                id='is_fragile'
+                name='is_fragile'
+                label='Fragile'
+                control={
+                  <Checkbox
+                    checked={formValues.is_fragile}
+                    name='is_fragile'
+                  />
+                }
                 disabled
-                style={{ width: '50%' }}
               />
-              <TextField
-                id='email'
-                name='email'
-                label='Agent Email'
-                defaultValue={formValues.email}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='phone'
-                name='phone'
-                label='Agent Phone'
-                defaultValue={formValues.phone}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <div
-                style={{
-                  width: '100%',
-                  marginTop: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='cabcek'
-                  component={Link}
-                  to='/bookings'
-                  className={classes.button}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='continue'
-                  className={classes.button}
-                  onClick={back}
-                >
-                  Back
-                </Button>
 
-                <></>
-              </div>
-            </Grid>
+              <FormControlLabel
+                id='is_hazardous'
+                name='is_hazardous'
+                label='Hazardous'
+                control={
+                  <Checkbox
+                    checked={formValues.is_hazardous}
+                    name='is_hazardous'
+                  />
+                }
+                disabled
+              />
 
-            <Grid
-              item
-              xs={4}
+              <FormControlLabel
+                id='is_reefer'
+                name='is_reefer'
+                label='Reefer'
+                control={
+                  <Checkbox
+                    checked={formValues.is_reefer}
+                    name='is_reefer'
+                  />
+                }
+                disabled
+              />
+              <FormControlLabel
+                id='is_product_damaged'
+                name='is_product_damaged'
+                label='Damaged'
+                control={
+                  <Checkbox
+                    checked={formValues.is_product_damaged}
+                    name='is_product_damaged'
+                  />
+                }
+                disabled
+              />
+            </FormGroup>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <TextareaAutosize
+              id='product_notes'
+              name='product_notes'
+              aria-label='empty textarea'
+              placeholder='Product Notes'
+              value={formValues.product_notes}
+              style={{ width: 400 }}
+              minRows={10}
+              disabled
+            />
+            <Box
+              sx={{ display: 'flex', flexDirection: 'column' }}
+              gap={2}
             >
               <TextField
                 id='product'
                 name='product'
-                label='product'
-                value={formValues.products[0].product}
+                label='Product'
+                defaultValue={formValues.product}
+                value={formValues.product}
+                style={{ width: '100%' }}
                 disabled
-                style={{ width: '50%' }}
               />
               <TextField
                 id='weight'
                 name='weight'
                 type='number'
                 label='Weight (in lbs)'
-                value={formValues.products[0].weight}
-                disabled
-                style={{ width: '50%' }}
+                defaultValue={formValues.weight}
+                value={parseFloat(formValues.weight).toFixed(2)}
+                style={{ width: '100%' }}
                 InputLabelProps={{
                   shrink: true,
                 }}
                 inputProps={{ min: 0 }}
+                disabled
               />
-            </Grid>
-            <Grid
-              item
-              xs={4}
-            >
-              <FormControl
-                component='fieldset'
-                className={classes.formControl}
-              >
-                <FormLabel component='legend'>Verify About Product</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    id='product_fragile'
-                    name='product_fragile'
-                    label='Fragile'
-                    control={
-                      <Checkbox
-                        checked={formValues.products[0].product_fragile}
-                        name='product_fragile'
-                      />
-                    }
-                    disabled
-                  />
-
-                  <FormControlLabel
-                    id='product_haz'
-                    name='product_haz'
-                    label='Hazardous'
-                    control={
-                      <Checkbox
-                        checked={formValues.products[0].product_haz}
-                        name='product_haz'
-                      />
-                    }
-                    disabled
-                  />
-
-                  <FormControlLabel
-                    id='reefer'
-                    name='reefer'
-                    label='Reefer'
-                    control={
-                      <Checkbox
-                        checked={formValues.products[0].reefer}
-                        name='reefer'
-                      />
-                    }
-                    disabled
-                  />
-                  <FormControlLabel
-                    id='product_damaged'
-                    name='product_damaged'
-                    label='Damaged'
-                    control={
-                      <Checkbox
-                        checked={formValues.products[0].product_damaged}
-                        name='product_damaged'
-                      />
-                    }
-                    disabled
-                  />
-                </FormGroup>
-
-                <FormHelperText>Safety First</FormHelperText>
-              </FormControl>
-            </Grid>
+            </Box>
           </Grid>
-        </form>
-      </fieldset>
-    </ThemeProvider>
+        </Grid>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={back}
+          >
+            Back
+          </Button>
+        </ButtonGroup>
+      </Grid>
+    </Box>
   )
 }

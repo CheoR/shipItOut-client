@@ -1,44 +1,32 @@
 import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
-import { makeStyles } from '@mui/material/styles'
 import {
   Grid,
   TextField,
   FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   FormLabel,
   FormGroup,
   FormControlLabel,
   Checkbox,
-  FormHelperText,
   Button,
+  Box,
+  TextareaAutosize,
+  Typography,
+  ButtonGroup,
 } from '@mui/material'
-import DateTimePicker from '@mui/lab/DateTimePicker'
-import TextareaAutosize from '@mui/material/TextareaAutosize'
-import { ThemeProvider } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+
+import {
+  agent,
+  container_type,
+  container,
+  container_location,
+} from '../forms/TestFormData'
 
 export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 80,
-      },
-    },
-    formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
-    },
-    selectEmpty: {
-      marginTop: theme.spacing(2),
-    },
-    button: {
-      margin: theme.spacing(1),
-    },
-  }))
-
-  const classes = useStyles()
-
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -50,257 +38,220 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
   }
 
   return (
-    <ThemeProvider>
-      <fieldset style={{ margin: '0 auto', width: '60%' }}>
-        <h1 style={{ margin: '0 auto', textAlign: 'center' }}>
-          View {formValues.container}
-        </h1>
-        <form
-          className={classes.root}
-          noValidate
-          autoComplete='off'
-          style={{ border: 'black', width: '100%', margin: '0 auto' }}
+    <Box
+      sx={{
+        height: '100%',
+      }}
+    >
+      <Typography
+        variant='h2'
+        textAlign='center'
+      >
+        Container
+      </Typography>
+      <Grid
+        component='form'
+        container
+        noValidate
+        autoComplete='off'
+        disabled
+      >
+        <Grid
+          container
+          sx={{ display: 'flex' }}
+          gap={2}
         >
           <Grid
-            container
-            spacing={4}
-            style={{ width: '100%', margin: '0 auto ' }}
+            item
+            sx={{ flex: 1 }}
           >
-            <Grid
-              item
-              xs={4}
-              container
-              direction='column'
-            >
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
               <TextField
                 id='name'
                 name='name'
                 label='Agent Name'
-                defaultValue={formValues.full_name}
+                defaultValue={agent.name}
+                sx={{ width: '100%' }}
                 disabled
-                style={{ width: '50%' }}
               />
               <TextField
                 id='email'
                 name='email'
                 label='Agent Email'
-                defaultValue={formValues.email}
+                defaultValue={agent.email}
+                sx={{ width: '100%' }}
                 disabled
-                style={{ width: '50%' }}
               />
               <TextField
                 id='phone'
                 name='phone'
                 label='Agent Phone'
-                defaultValue={formValues.phone}
+                defaultValue={agent.phone}
+                sx={{ width: '100%' }}
                 disabled
-                style={{ width: '50%' }}
               />
-              <div
-                style={{
-                  width: '100%',
-                  marginTop: '100%',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='cabcek'
-                  component={Link}
-                  to='/bookings'
-                  className={classes.button}
-                >
-                  Cancel
-                </Button>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='continue'
-                  className={classes.button}
-                  onClick={back}
-                >
-                  Back
-                </Button>
-                <Button
-                  variant='contained'
-                  color='secondary'
-                  label='continue'
-                  className={classes.button}
-                  onClick={next}
-                >
-                  Next
-                </Button>
-              </div>
-            </Grid>
+            </Box>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <FormLabel component='legend'>Verify About Container</FormLabel>
+            <FormGroup disabled>
+              <FormControlLabel
+                id='is_container_damaged'
+                name='is_container_damaged'
+                label='Damaged'
+                control={
+                  <Checkbox
+                    checked={formValues.is_container_damaged}
+                    name='is_container_damaged'
+                  />
+                }
+                disabled
+              />
 
-            <Grid
-              item
-              xs={4}
+              <FormControlLabel
+                id='is_needs_inspection'
+                name='is_needs_inspection'
+                label='Needs Inspection'
+                control={
+                  <Checkbox
+                    checked={formValues.is_needs_inspection}
+                    name='is_needs_inspection'
+                  />
+                }
+                disabled
+              />
+
+              <FormControlLabel
+                id='is_overweight'
+                name='is_overweight'
+                label='Overweight'
+                control={
+                  <Checkbox
+                    checked={formValues.is_overweight}
+                    name='is_overweight'
+                  />
+                }
+                disabled
+              />
+            </FormGroup>
+          </Grid>
+          <Grid
+            item
+            sx={{ flex: 1 }}
+          >
+            <TextareaAutosize
+              id='container_notes'
+              name='container_notes'
+              aria-label='empty textarea'
+              placeholder='Container Notes'
+              value={formValues.container_notes}
+              style={{ width: 400 }}
+              minRows={10}
+              disabled
+            />
+            <FormControl
+              sx={{ width: '100%' }}
+              disabled
             >
-              <TextField
-                id='service'
-                name='service'
-                label='Service'
-                defaultValue={formValues.service}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='voyage'
-                name='voyage'
-                label='Voyage'
-                defaultValue={formValues.voyage}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='carrier'
-                name='carrier'
-                label='Carrier'
-                defaultValue={formValues.carrier}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='size'
-                name='size'
-                label='Container Type'
-                defaultValue={formValues.size}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
+              <InputLabel id='container_type'>Container Type</InputLabel>
+              <Select
+                labelId='container_type'
+                id='container_type'
+                name='container_type'
+                value={formValues.container_type}
+              >
+                {container_type.map((s) => (
+                  <MenuItem
+                    key={s.id}
+                    id={s.id}
+                    value={s.id}
+                  >
+                    {s.container_type}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <FormControl
+              sx={{ width: '100%' }}
+              disabled
+            >
+              <InputLabel id='container'>Container</InputLabel>
+              <Select
+                labelId='container'
                 id='container'
                 name='container'
-                label='Container'
-                defaultValue={formValues.container}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='port'
-                name='port'
-                label='Loading Port'
-                defaultValue={formValues.port}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='destination'
-                name='destination'
-                label='Unloading Port'
-                defaultValue={formValues.destination}
-                disabled
-                style={{ width: '50%' }}
-              />
-              <TextField
-                id='booking_status'
-                name='booking_status'
-                label='Booking Status'
-                defaultValue={formValues.booking_status}
-                disabled
-                style={{ width: '50%' }}
-              />
-            </Grid>
-            <Grid
-              item
-              xs={4}
-            >
-              <FormControl
-                component='fieldset'
-                className={classes.formControl}
+                value={formValues.container}
               >
-                <FormLabel component='legend'>Verify About Container</FormLabel>
-                <FormGroup>
-                  <FormControlLabel
-                    id='container_damaged'
-                    name='container_damaged'
-                    label='Damaged'
-                    control={
-                      <Checkbox
-                        checked={formValues.container_damaged}
-                        name='container_damaged'
-                      />
-                    }
-                    disabled
-                  />
+                {container.map((s) => (
+                  <MenuItem
+                    key={s.id}
+                    id={s.id}
+                    value={s.id}
+                  >
+                    {s.container}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
 
-                  <FormControlLabel
-                    id='needs_inspection'
-                    name='needs_inspection'
-                    label='Needs Inspection'
-                    control={
-                      <Checkbox
-                        checked={formValues.needs_inspection}
-                        name='needs_inspection'
-                      />
-                    }
-                    disabled
-                  />
-
-                  <FormControlLabel
-                    id='overweight'
-                    name='overweight'
-                    label='Overweight'
-                    control={
-                      <Checkbox
-                        checked={formValues.overweight}
-                        name='overweight'
-                      />
-                    }
-                    disabled
-                  />
-                </FormGroup>
-
-                <FormHelperText>Safety First</FormHelperText>
-              </FormControl>
-              <DateTimePicker
-                style={{ width: '100%' }}
-                value={formValues.pickup}
-                label='Pick Up'
-                showTodayButton
-                disabled
-              />
-
-              <DateTimePicker
-                style={{ width: '100%' }}
-                value={formValues.port_cutoff}
-                label='Port Cut'
-                showTodayButton
-                disabled
-              />
-
-              <DateTimePicker
-                style={{ width: '100%' }}
-                value={formValues.rail_cutoff}
-                label='Rail Cut'
-                showTodayButton
-                disabled
-              />
-              <TextField
-                id='address'
-                name='address'
-                label='Pickup Address'
-                defaultValue={formValues.address}
-                style={{ width: '100%' }}
-                disabled
-              />
-              <TextareaAutosize
-                id='container_notes'
-                name='container_notes'
-                aria-label='empty textarea'
-                placeholder='Container Notes'
-                value={formValues.container_notes}
-                style={{ width: '100%' }}
-                rowsMin={5}
-                disabled
-              />
-            </Grid>
+            <FormControl
+              sx={{ width: '100%' }}
+              disabled
+            >
+              <InputLabel id='container_location'>
+                Container Location
+              </InputLabel>
+              <Select
+                labelId='container_location'
+                id='container_location'
+                name='container_location'
+                value={formValues.container_location}
+              >
+                {container_location.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.container_location}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
-        </form>
-      </fieldset>
-    </ThemeProvider>
+        </Grid>
+        <ButtonGroup sx={{ margin: '0 auto', my: 1, gap: 2 }}>
+          <Button
+            variant='contained'
+            color='primary'
+            label='cancel'
+            component={RouterLink}
+            to='/bookings'
+          >
+            Cancel
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={back}
+          >
+            Back
+          </Button>
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={next}
+          >
+            Next
+          </Button>
+        </ButtonGroup>
+      </Grid>
+    </Box>
   )
 }
