@@ -26,6 +26,7 @@ import {
   carrier,
   loadingPort,
   unloadingPort,
+  booking_status,
 } from '../../mock/TestFormData'
 
 export const BookingView1 = ({ nextStep, formValues }) => {
@@ -210,6 +211,25 @@ export const BookingView1 = ({ nextStep, formValues }) => {
               minRows={10}
               disabled
             />
+            <FormControl sx={{ width: '100%' }} disabled>
+              <InputLabel id='booking_status'>Booking Status</InputLabel>
+              <Select
+                labelId='booking_status'
+                id='booking_status'
+                name='booking_status'
+                value={formValues.booking_status}
+              >
+                {booking_status.map((c) => (
+                  <MenuItem
+                    key={c.id}
+                    id={c.id}
+                    value={c.id}
+                  >
+                    {c.booking_status}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
             <FormControl
               sx={{ width: '100%' }}
               disabled
