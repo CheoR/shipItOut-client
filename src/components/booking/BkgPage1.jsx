@@ -220,7 +220,7 @@ export const BkgPage1 = ({
               minRows={10}
               onChange={handleInputChange}
             />
-             <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }}>
               <InputLabel id='booking_status'>Booking Status</InputLabel>
               <Select
                 labelId='booking_status'
