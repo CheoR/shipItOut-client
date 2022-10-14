@@ -26,7 +26,7 @@ import {
   container_location,
 } from '../../mock/TestFormData'
 
-export const BkgPage2 = ({
+export const BookingPage2 = ({
   handleCheckBoxChange,
   handleInputChange,
   handleSubmit,

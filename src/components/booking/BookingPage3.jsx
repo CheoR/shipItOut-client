@@ -17,7 +17,7 @@ import {
 
 import { agent } from '../../mock/TestFormData'
 
-export const BkgPage3 = ({
+export const BookingPage3 = ({
   handleCheckBoxChange,
   handleInputChange,
   handleSubmit,

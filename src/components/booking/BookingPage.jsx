@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { BkgPage1 } from './BkgPage1'
-import { BkgPage2 } from './BkgPage2'
-import { BkgPage3 } from './BkgPage3'
+import { BookingPage1 } from './BookingPage1'
+import { BookingPage2 } from './BookingPage2'
+import { BookingPage3 } from './BookingPage3'
 
-export const BkgPage = () => {
+export const BookingPage = () => {
   let token = localStorage.getItem('user_token')
   let location = useLocation()
   const [ , endpoint, action, instance] = location.pathname.split('/')
@@ -110,7 +110,7 @@ export const BkgPage = () => {
   switch (formValues.step) {
     case 1:
       return (
-        <BkgPage1
+        <BookingPage1
           handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
           handleInputChange={handleInputChange}
@@ -122,7 +122,7 @@ export const BkgPage = () => {
 
     case 2:
       return (
-        <BkgPage2
+        <BookingPage2
           handleCheckBoxChange={handleCheckBoxChange}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
@@ -134,7 +134,7 @@ export const BkgPage = () => {
 
     case 3:
       return (
-        <BkgPage3
+        <BookingPage3
           handleCheckBoxChange={handleCheckBoxChange}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}

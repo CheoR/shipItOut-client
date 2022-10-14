@@ -28,7 +28,7 @@ import {
   booking_status,
 } from '../../mock/TestFormData'
 
-export const BkgPage1 = ({
+export const BookingPage1 = ({
   handleDatePickerChange,
   handleCheckBoxChange,
   handleInputChange,

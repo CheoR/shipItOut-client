@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { BookingList } from './booking/BookingList'
 // import { BookingUpdate } from './booking/BookingUpdate'
 import { BookingView } from './booking/BookingView'
-import { BkgPage } from "./booking/BkgPage"
+import { BookingPage } from "./booking/BookingPage"
 
 import { ContainerList } from './container/ContainerList'
 import { ContainerView } from './container/ContainerView'
@@ -52,7 +52,7 @@ export const ShipItOut = () => {
         <Route
           exact
           path='/bookings/update/:id(\d+)'
-          component={BkgPage} // BookingUpdate}
+          component={BookingPage} // BookingUpdate}
         />
         <Route
           exact
@@ -62,7 +62,7 @@ export const ShipItOut = () => {
         <Route
           exact
           path='/bookings/create'
-          component={BkgPage}
+          component={BookingPage}
         />
         <Route
           exact
