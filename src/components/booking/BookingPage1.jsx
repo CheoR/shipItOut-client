@@ -34,8 +34,10 @@ export const BookingPage1 = ({
   handleInputChange,
   handleSubmit,
   nextStep,
+  isView,
   formValues,
 }) => {
+  console.log('in BOOKING PAGE 1, isView: ', isView)
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -75,24 +77,24 @@ export const BookingPage1 = ({
                 name='name'
                 label='Agent Name'
                 defaultValue={agent.name}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
               <TextField
                 id='email'
                 name='email'
                 label='Agent Email'
                 defaultValue={agent.email}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
               <TextField
                 id='phone'
                 name='phone'
                 label='Agent Phone'
                 defaultValue={agent.phone}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
             </Box>
             <TextField
@@ -100,32 +102,36 @@ export const BookingPage1 = ({
               name='pickup_address'
               label='Pickup Address'
               defaultValue={formValues.pickup_address}
-              sx={{ width: '100%' }}
               onChange={handleInputChange}
+              sx={{ width: '100%' }}
+              disabled={isView}
             />
             <TextField
               id='loading_origin_address'
               name='loading_origin_address'
               label='Loading Address'
               defaultValue={formValues.loading_origin_address}
-              sx={{ width: '100%' }}
               onChange={handleInputChange}
+              sx={{ width: '100%' }}
+              disabled={isView}
             />
             <TextField
               id='unloading_destination_address'
               name='unloading_destination_address'
               label='Unloading Address'
               defaultValue={formValues.unloading_destination_address}
-              sx={{ width: '100%' }}
               onChange={handleInputChange}
+              sx={{ width: '100%' }}
+              disabled={isView}
             />
             <TextField
               id='delivery_address'
               name='delivery_address'
               label='Delivery Address'
               defaultValue={formValues.delivery_address}
-              sx={{ width: '100%' }}
               onChange={handleInputChange}
+              sx={{ width: '100%' }}
+              disabled={isView}
             />
           </Grid>
           <Grid
@@ -141,10 +147,11 @@ export const BookingPage1 = ({
                 control={
                   <Checkbox
                     checked={formValues.are_documents_ready}
-                    onChange={handleCheckBoxChange}
+                    onChange={handleCheckBoxChange} 
                     name='are_documents_ready'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -158,6 +165,7 @@ export const BookingPage1 = ({
                     name='are_dues_paid'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -171,6 +179,7 @@ export const BookingPage1 = ({
                     name='has_issue'
                   />
                 }
+                disabled={isView}
               />
             </FormGroup>
             <DateTimePicker
@@ -180,6 +189,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'pickup_appt')}
               label='Pickup Appt'
               showTodayButton
+              disabled={isView}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -188,6 +198,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'port_cutoff')}
               label='Port Cutoff'
               showTodayButton
+              disabled={isView}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -196,6 +207,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'rail_cutoff')}
               label='Rail Cutoff'
               showTodayButton
+              disabled={isView}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -204,6 +216,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'delivery_appt')}
               label='Delivery Appt'
               showTodayButton
+              disabled={isView}
             />
           </Grid>
           <Grid
@@ -219,8 +232,9 @@ export const BookingPage1 = ({
               style={{ width: 400 }}
               minRows={10}
               onChange={handleInputChange}
+              disabled={isView}
             />
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='booking_status'>Booking Status</InputLabel>
               <Select
                 labelId='booking_status'
@@ -240,7 +254,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='carrier'>Carrier</InputLabel>
               <Select
                 labelId='carrier'
@@ -260,7 +274,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='voyage'>Voyage</InputLabel>
               <Select
                 labelId='voyage'
@@ -280,7 +294,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='loading_port'>Loading Port</InputLabel>
               <Select
                 labelId='loading_port'
@@ -301,7 +315,7 @@ export const BookingPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='unloading_port'>Unloading Port</InputLabel>
               <Select
                 labelId='unloading_port'

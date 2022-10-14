@@ -2,8 +2,6 @@ import React, { useEffect } from 'react'
 import { Switch, Route } from 'react-router-dom'
 
 import { BookingList } from './booking/BookingList'
-// import { BookingUpdate } from './booking/BookingUpdate'
-import { BookingView } from './booking/BookingView'
 import { BookingPage } from "./booking/BookingPage"
 
 import { ContainerList } from './container/ContainerList'
@@ -52,12 +50,12 @@ export const ShipItOut = () => {
         <Route
           exact
           path='/bookings/update/:id(\d+)'
-          component={BookingPage} // BookingUpdate}
+          component={BookingPage}
         />
         <Route
           exact
-          path='/bookings/:id(\d+)'
-          component={BookingView}
+          path='/bookings/view/:id(\d+)'
+          component={BookingPage}
         />
         <Route
           exact

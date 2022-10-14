@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+
 import { BookingPage1 } from './BookingPage1'
 import { BookingPage2 } from './BookingPage2'
 import { BookingPage3 } from './BookingPage3'
@@ -8,6 +9,7 @@ export const BookingPage = () => {
   let token = localStorage.getItem('user_token')
   let location = useLocation()
   const [ , endpoint, action, instance] = location.pathname.split('/')
+  const isView = action === 'view'
 
   const [formValues, setFormValues] = useState({
     // pages
@@ -61,7 +63,7 @@ export const BookingPage = () => {
             setFormValues(res)
           })
       }
-      if(location.pathname.includes('update')) {
+      if(!location.pathname.includes('create')) {
         fetchBooking()
       }
   }, [action, instance, token, location.pathname])
@@ -116,6 +118,7 @@ export const BookingPage = () => {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           nextStep={nextStep}
+          isView={isView}
           formValues={formValues}
         />
       )
@@ -128,6 +131,7 @@ export const BookingPage = () => {
           handleSubmit={handleSubmit}
           prevStep={prevStep}
           nextStep={nextStep}
+          isView={isView}
           formValues={formValues}
         />
       )
@@ -139,6 +143,7 @@ export const BookingPage = () => {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           prevStep={prevStep}
+          isView={isView}
           formValues={formValues}
         />
       )

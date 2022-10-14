@@ -32,6 +32,7 @@ export const BookingPage2 = ({
   handleSubmit,
   nextStep,
   prevStep,
+  isView,
   formValues,
 }) => {
   const next = (e) => {
@@ -78,24 +79,24 @@ export const BookingPage2 = ({
                 name='name'
                 label='Agent Name'
                 defaultValue={agent.name}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
               <TextField
                 id='email'
                 name='email'
                 label='Agent Email'
                 defaultValue={agent.email}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
               <TextField
                 id='phone'
                 name='phone'
                 label='Agent Phone'
                 defaultValue={agent.phone}
-                disabled
                 sx={{ width: '100%' }}
+                disabled={isView}
               />
             </Box>
           </Grid>
@@ -116,6 +117,7 @@ export const BookingPage2 = ({
                     name='is_container_damaged'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -129,6 +131,7 @@ export const BookingPage2 = ({
                     name='is_needs_inspection'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -142,6 +145,7 @@ export const BookingPage2 = ({
                     name='is_overweight'
                   />
                 }
+                disabled={isView}
               />
             </FormGroup>
           </Grid>
@@ -158,8 +162,9 @@ export const BookingPage2 = ({
               style={{ width: 400 }}
               minRows={10}
               onChange={handleInputChange}
+              disabled={isView}
             />
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='container_type'>Container Type</InputLabel>
               <Select
                 labelId='container_type'
@@ -180,7 +185,7 @@ export const BookingPage2 = ({
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='container'>Container</InputLabel>
               <Select
                 labelId='container'
@@ -201,7 +206,7 @@ export const BookingPage2 = ({
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: '100%' }}>
+            <FormControl sx={{ width: '100%' }} disabled={isView}>
               <InputLabel id='container_location'>
                 Container Location
               </InputLabel>

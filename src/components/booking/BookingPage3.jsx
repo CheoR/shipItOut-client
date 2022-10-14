@@ -22,6 +22,7 @@ export const BookingPage3 = ({
   handleInputChange,
   handleSubmit,
   prevStep,
+  isView,
   formValues,
 }) => {
   const token = localStorage.getItem('user_token')
@@ -106,24 +107,24 @@ export const BookingPage3 = ({
               name='name'
               label='Agent Name'
               defaultValue={agent.name}
-              disabled
               sx={{ width: '100%' }}
+              disabled={isView}
             />
             <TextField
               id='email'
               name='email'
               label='Agent Email'
               defaultValue={agent.email}
-              disabled
               sx={{ width: '100%' }}
+              disabled={isView}
             />
             <TextField
               id='phone'
               name='phone'
               label='Agent Phone'
               defaultValue={agent.phone}
-              disabled
               sx={{ width: '100%' }}
+              disabled={isView}
             />
           </Grid>
           <Grid
@@ -143,6 +144,7 @@ export const BookingPage3 = ({
                     name='is_fragile'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -156,6 +158,7 @@ export const BookingPage3 = ({
                     name='is_hazardous'
                   />
                 }
+                disabled={isView}
               />
 
               <FormControlLabel
@@ -169,6 +172,7 @@ export const BookingPage3 = ({
                     name='is_reefer'
                   />
                 }
+                disabled={isView}
               />
               <FormControlLabel
                 id='is_product_damaged'
@@ -181,6 +185,7 @@ export const BookingPage3 = ({
                     name='is_product_damaged'
                   />
                 }
+                disabled={isView}
               />
             </FormGroup>
           </Grid>
@@ -197,6 +202,7 @@ export const BookingPage3 = ({
               style={{ width: 400 }}
               minRows={10}
               onChange={handleInputChange}
+              disabled={isView}
             />
             <Box
               sx={{ display: 'flex', flexDirection: 'column' }}
@@ -210,6 +216,7 @@ export const BookingPage3 = ({
                 value={formValues.product}
                 onChange={handleInputChange}
                 style={{ width: '100%' }}
+                disabled={isView}
               />
               <TextField
                 id='weight'
@@ -224,6 +231,7 @@ export const BookingPage3 = ({
                   shrink: true,
                 }}
                 inputProps={{ min: 0 }}
+                disabled={isView}
               />
             </Box>
           </Grid>
