@@ -124,10 +124,10 @@ export const BookingView3 = ({ nextStep, prevStep, formValues }) => {
               xs={4}
             >
               <TextField
-                id='commodity'
-                name='commodity'
-                label='Commodity'
-                value={formValues.products[0].commodity}
+                id='product'
+                name='product'
+                label='product'
+                value={formValues.products[0].product}
                 disabled
                 style={{ width: '50%' }}
               />

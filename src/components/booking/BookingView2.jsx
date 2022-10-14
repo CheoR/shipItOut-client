@@ -368,7 +368,7 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
 
               <DateTimePicker
                 style={{ width: '100%' }}
-                value={formValues.port_cut}
+                value={formValues.port_cutoff}
                 label='Port Cut'
                 showTodayButton
                 disabled
@@ -376,7 +376,7 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
 
               <DateTimePicker
                 style={{ width: '100%' }}
-                value={formValues.rail_cut}
+                value={formValues.rail_cutoff}
                 label='Rail Cut'
                 showTodayButton
                 disabled

@@ -387,14 +387,14 @@ export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
 
               <DateTimePicker
                 style={{ width: '100%' }}
-                value={formValues.port_cut}
+                value={formValues.port_cutoff}
                 label='Port Cut'
                 showTodayButton
               />
 
               <DateTimePicker
                 style={{ width: '100%' }}
-                value={formValues.rail_cut}
+                value={formValues.rail_cutoff}
                 disablePast
                 label='Rail Cut'
                 showTodayButton

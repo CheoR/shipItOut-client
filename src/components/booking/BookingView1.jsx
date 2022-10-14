@@ -19,17 +19,17 @@ import {
 import { DateTimePicker } from '@mui/x-date-pickers'
 import { Link as RouterLink } from 'react-router-dom'
 import {
-   agent,
+  agent,
   service,
   voyage,
   vessel,
   carrier,
-  containerType,
+  container_type,
   container,
   loadingPort,
   unloadingPort,
-  statuses,} from '../forms/TestFormData'
-
+  statuses,
+} from '../forms/TestFormData'
 
 export const BookingView1 = ({ nextStep, formValues }) => {
   const next = (e) => {
@@ -164,7 +164,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
                 value={formValues.container.container}
                 disabled
               >
-                {containerType.map((c) => (
+                {container_type.map((c) => (
                   <MenuItem
                     key={c.id}
                     id={c.id}
@@ -199,7 +199,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
                 ))}
               </Select>
             </FormControl>
-          
+
             <FormControl sx={{ width: '100%' }}>
               <InputLabel id='loadingPortSelect'>Loading Port</InputLabel>
               <Select
@@ -278,7 +278,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
                 label='Documents'
                 control={
                   <Checkbox
-                    checked={formValues.document.are_docs_ready}
+                    checked={formValues.document.are_documents_ready}
                     name='document_submitted'
                   />
                 }
@@ -324,7 +324,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
               <DateTimePicker
                 sx={{ width: '100%' }}
                 renderInput={(props) => <TextField {...props} />}
-                value={formValues.port_cutoff}
+                value={formValues.port_cutoffoff}
                 label='Port Cut'
                 showTodayButton
                 disabled
@@ -333,7 +333,7 @@ export const BookingView1 = ({ nextStep, formValues }) => {
               <DateTimePicker
                 sx={{ width: '100%' }}
                 renderInput={(props) => <TextField {...props} />}
-                value={formValues.rail_cutoff}
+                value={formValues.rail_cutoffoff}
                 disablePast
                 label='Rail Cut'
                 showTodayButton
