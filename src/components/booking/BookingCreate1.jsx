@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import { makeStyles } from '@mui/material/styles'
 import {
@@ -20,7 +20,6 @@ import TextareaAutosize from '@mui/material/TextareaAutosize'
 import { ThemeProvider } from '@mui/material/styles'
 import { Link } from 'react-router-dom'
 import { Loading } from '../helpers/Loading'
-const token = localStorage.getItem('user_token')
 
 export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -203,15 +202,6 @@ export const BookingCreate1 = ({ nextStep, formValues, setFormValues }) => {
               item
               xs={4}
             >
-              {/* <TextField id="service" name="service" label="Service" defaultValue={formValues.service}  style={{ width: "50%" }} />
-        <TextField id="voyage" name="voyage" label="Voyage" defaultValue={formValues.voyage}  style={{ width: "50%" }} />
-        <TextField id="carrier" name="carrier" label="Carrier" defaultValue={formValues.carrier}  style={{ width: "50%" }} />
-        <TextField id="size" name="size" label="Container Type" defaultValue={formValues.size}  style={{ width: "50%" }} />
-        <TextField id="container" name="container" label="Container" defaultValue={formValues.container}  style={{ width: "50%" }} />
-        <TextField id="port" name="port" label="Loading Port" defaultValue={formValues.port}  style={{ width: "50%" }} />
-        <TextField id="destination" name="destination" label="Unloading Port" defaultValue={formValues.destination}  style={{ width: "50%" }} />
-        <TextField id="booking_status" name="booking_status" label="Booking Status" defaultValue={formValues.booking_status}  style={{ width: "50%" }} /> */}
-
               <FormControl
                 className={classes.formControl}
                 style={{ width: '60%' }}

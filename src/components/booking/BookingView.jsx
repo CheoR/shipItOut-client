@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link as RouterLink, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { BookingView1 } from './BookingView1'
 import { BookingView2 } from './BookingView2'
 import { BookingView3 } from './BookingView3'
@@ -24,7 +24,7 @@ export const BookingView = () => {
         addStep['step'] = 1
         setFormValues(addStep)
       })
-  }, []) // useEffect
+  }, [])
 
   const nextStep = () => {
     const { step } = formValues

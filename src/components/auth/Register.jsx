@@ -290,7 +290,6 @@ export const Register = (props) => {
             labelId='accountType'
             id='accountType'
             name='account_type'
-            // defaultValue={ACCOUNT_TYPE[0]}
             value={accountType.value}
             inputRef={accountType}
           >

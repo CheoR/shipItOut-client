@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as RouterLink, Redirect } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 
 import {
   Grid,
@@ -25,6 +25,7 @@ export const BkgPage3 = ({
   formValues,
 }) => {
   const token = localStorage.getItem('user_token')
+  const history = useHistory()
 
   const back = (e) => {
     e.preventDefault()
@@ -44,7 +45,10 @@ export const BkgPage3 = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formValues),
-    }).then(() => Redirect('/bookings'))
+    }).then(() => {
+      history.push("/bookings")
+    })
+      .catch((err) => console.error('POST Error: ', err))
   }
 
   return (
@@ -191,7 +195,7 @@ export const BkgPage3 = ({
                 type='number'
                 label='Weight (in lbs)'
                 defaultValue={formValues.weight}
-                value={formValues.weight}
+                value={parseFloat(formValues.weight).toFixed(2)}
                 onChange={handleInputChange}
                 style={{ width: '100%' }}
                 InputLabelProps={{

@@ -5,9 +5,6 @@ import {
   Grid,
   TextField,
   FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   FormLabel,
   FormGroup,
   FormControlLabel,
@@ -206,105 +203,6 @@ export const BookingView2 = ({ nextStep, prevStep, formValues }) => {
                 disabled
                 style={{ width: '50%' }}
               />
-
-              {/* <FormControl className={classes.formControl} style={{ width: "60%" }}>
-
-        <InputLabel id="serviceSelect">Service</InputLabel>
-        <Select
-         labelId="serviceSelect"
-         id="service"
-         name="service"
-         value={ formValues.service }
-        //  displayEmpty={true}
-         label="cow"
-         placeholder="hola"
-         
-         fontWeight="fontWeightBold"
-        >
-          <MenuItem value="" disabled>
-            { formValues.service }
-          </MenuItem>
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="voyageSelect">Voyage</InputLabel>
-        <Select
-         labelId="voyageSelect"
-         id="voyage"
-         name="voyage"
-         value={formValues.voyage}
-         
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="carrierSelect">Carrier</InputLabel>
-        <Select
-         labelId="carrierSelect"
-         id="carrier"
-         name="carrier"
-         value={formValues.carrier}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="sizeSelect">Container Type</InputLabel>
-        <Select
-         labelId="sizeSelect"
-         id="size"
-         name="size"
-         value={formValues.size}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="containerSelect">Container</InputLabel>
-        <Select
-         labelId="containerSelect"
-         id="container"
-         name="container"
-         value={formValues.container}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled>
-        <InputLabel id="portSelect" >Loading Port</InputLabel>
-        <Select
-         labelId="portSelect"
-         id="port"
-         name="port"
-         value={formValues.port}
-        >
-        </Select>
-       </FormControl>
-
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
-        <InputLabel id="destinationSelect">Unloading Port</InputLabel>
-        <Select
-         labelId="destinationSelect"
-         id="destination"
-         name="destination"
-         value={formValues.destination}
-        >
-        </Select>
-       </FormControl>
-
-       <FormControl className={classes.formControl} style={{ width: "60%" }} disabled >
-        <InputLabel id="statusSelect">Status</InputLabel>
-        <Select
-         labelId="statusSelect"
-         id="status"
-         name="status"
-         value={formValues.status}
-        >
-        </Select>
-       </FormControl>  */}
             </Grid>
             <Grid
               item
