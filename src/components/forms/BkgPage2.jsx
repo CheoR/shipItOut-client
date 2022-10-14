@@ -27,7 +27,6 @@ import {
 } from './TestFormData'
 
 export const BkgPage2 = ({
-  handleDatePickerChange,
   handleCheckBoxChange,
   handleInputChange,
   handleSubmit,

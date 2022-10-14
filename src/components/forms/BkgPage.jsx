@@ -99,7 +99,6 @@ export const BkgPage = () => {
     case 2:
       return (
         <BkgPage2
-          handleDatePickerChange={handleDatePickerChange}
           handleCheckBoxChange={handleCheckBoxChange}
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}

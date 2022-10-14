@@ -45,9 +45,10 @@ export const BkgPage3 = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(formValues),
-    }).then(() => {
-      history.push("/bookings")
     })
+      .then(() => {
+        history.push('/bookings')
+      })
       .catch((err) => console.error('POST Error: ', err))
   }
 
