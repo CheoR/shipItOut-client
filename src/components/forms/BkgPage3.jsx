@@ -247,7 +247,7 @@ export const BkgPage3 = ({
             Back
           </Button>
           {
-            location.includes('update')
+            location.pathname.includes('update')
             ? (
           <Button
             variant='contained'
