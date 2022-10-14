@@ -10,10 +10,7 @@ import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 
 import { Loading } from '../helpers/Loading'
 
-const TEST_DATA = [
-  { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-  { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-]
+import { TEST_TABLE_DATA } from '../../mock/TestFormData'
 
 export const DataTable = ({ endpoint, Icon }) => {
   // const history = useHistory()
@@ -49,7 +46,7 @@ export const DataTable = ({ endpoint, Icon }) => {
     })
       .then((res) => res.json())
       .then((res) => {
-        if (res.lenght === 0) res = TEST_DATA
+        if (res.lenght === 0) res = TEST_TABLE_DATA
         setData(res)
         const colHeaders = Object.keys(res[0])
 
@@ -147,7 +144,7 @@ export const DataTable = ({ endpoint, Icon }) => {
               color='primary'
               startIcon={<VisibilityIcon />}
               component={RouterLink}
-              to={`/${endpoint}/${selectionModel[0]}`}
+              to={`/${endpoint}/view/${selectionModel[0]}`}
             >
               View
             </Button>
