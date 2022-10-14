@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { BkgPage1 } from './BkgPage1'
 import { BkgPage2 } from './BkgPage2'
 import { BkgPage3 } from './BkgPage3'
-import { BkPage4 } from './BkgPage4'
 
 export const BkgPage = () => {
   const [formValues, setFormValues] = useState({
@@ -115,16 +114,6 @@ export const BkgPage = () => {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
           prevStep={prevStep}
-          formValues={formValues}
-        />
-      )
-
-    case 4:
-      return (
-        <BkPage4
-          handleChange={handleInputChange}
-          nextStep={nextStep}
-          backStep={prevStep}
           formValues={formValues}
         />
       )

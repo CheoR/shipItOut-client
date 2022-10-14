@@ -53,7 +53,7 @@ export const ShipItOut = () => {
         <Route
           exact
           path='/bookings/update/:id(\d+)'
-          component={BookingUpdate}
+          component={BkgPage} // BookingUpdate}
         />
         <Route
           exact

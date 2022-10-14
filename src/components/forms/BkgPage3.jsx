@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink, useHistory, useLocation } from 'react-router-dom'
 
 import {
   Grid,
@@ -26,6 +26,7 @@ export const BkgPage3 = ({
 }) => {
   const token = localStorage.getItem('user_token')
   const history = useHistory()
+  const location = useLocation()
 
   const back = (e) => {
     e.preventDefault()
@@ -40,6 +41,26 @@ export const BkgPage3 = ({
 
     return fetch(`${process.env.REACT_APP_API}/bookings`, {
       method: 'POST',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formValues),
+    })
+      .then(() => {
+        history.push('/bookings')
+      })
+      .catch((err) => console.error('POST Error: ', err))
+  }
+
+  const update = (e) => {
+    console.table('all values')
+    e.preventDefault()
+    console.table(formValues)
+    console.log('--- token is ', token)
+
+    return fetch(`${process.env.REACT_APP_API}/bookings`, {
+      method: 'PUT',
       headers: {
         Authorization: `Token ${token}`,
         'Content-Type': 'application/json',
@@ -225,6 +246,19 @@ export const BkgPage3 = ({
           >
             Back
           </Button>
+          {
+            location.includes('update')
+            ? (
+          <Button
+            variant='contained'
+            color='primary'
+            label='continue'
+            onClick={update}
+          >
+            Update
+          </Button>
+            )
+            : (
           <Button
             variant='contained'
             color='primary'
@@ -233,6 +267,8 @@ export const BkgPage3 = ({
           >
             Create
           </Button>
+            )
+          }
         </ButtonGroup>
       </Grid>
     </Box>
