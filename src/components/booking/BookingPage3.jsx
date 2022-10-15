@@ -108,7 +108,7 @@ export const BookingPage3 = ({
               label='Agent Name'
               defaultValue={agent.name}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled
             />
             <TextField
               id='email'
@@ -116,7 +116,7 @@ export const BookingPage3 = ({
               label='Agent Email'
               defaultValue={agent.email}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled
             />
             <TextField
               id='phone'
@@ -124,7 +124,7 @@ export const BookingPage3 = ({
               label='Agent Phone'
               defaultValue={agent.phone}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled
             />
           </Grid>
           <Grid

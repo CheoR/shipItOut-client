@@ -79,7 +79,7 @@ export const BookingPage1 = ({
                 label='Agent Name'
                 defaultValue={agent.name}
                 sx={{ width: '100%' }}
-                disabled={isView}
+                disabled
               />
               <TextField
                 id='email'
@@ -87,7 +87,7 @@ export const BookingPage1 = ({
                 label='Agent Email'
                 defaultValue={agent.email}
                 sx={{ width: '100%' }}
-                disabled={isView}
+                disabled
               />
               <TextField
                 id='phone'
@@ -95,7 +95,7 @@ export const BookingPage1 = ({
                 label='Agent Phone'
                 defaultValue={agent.phone}
                 sx={{ width: '100%' }}
-                disabled={isView}
+                disabled
               />
             </Box>
             <TextField
@@ -331,7 +331,7 @@ export const BookingPage1 = ({
                     id={p.id}
                     value={p.id}
                   >
-                    {p.name}
+                    {p.name}ag
                   </MenuItem>
                 ))}
               </Select>
