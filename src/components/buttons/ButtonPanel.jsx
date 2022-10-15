@@ -56,7 +56,7 @@ const ButtonPanel = ({ prev, next, create, update, endpoint, page, instance, act
           }
 
           {
-            action === "update" && (
+            action === "update" && update && (
             <Button
               variant='contained'
               color='primary'
