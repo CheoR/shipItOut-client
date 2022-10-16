@@ -245,3 +245,30 @@ export const TEST_TABLE_DATA = [
   { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
   { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
 ]
+
+export const ACCOUNT_TYPE = [
+  {
+    type: 'default',
+    key: 0,
+  },
+  {
+    type: 'shipper',
+    key: 1,
+  },
+  {
+    type: 'broker',
+    key: 2,
+  },
+  {
+    type: 'warehouse',
+    key: 3,
+  },
+  {
+    type: 'carrier',
+    key: 4,
+  },
+  {
+    type: 'portops',
+    key: 5,
+  },
+]

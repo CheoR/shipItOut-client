@@ -15,33 +15,8 @@ import {
   Typography,
 } from '@mui/material'
 import { Link } from 'react-router-dom'
+import { ACCOUNT_TYPE } from '../../mock/TestFormData'
 
-const ACCOUNT_TYPE = [
-  {
-    type: 'default',
-    key: 0,
-  },
-  {
-    type: 'shipper',
-    key: 1,
-  },
-  {
-    type: 'broker',
-    key: 2,
-  },
-  {
-    type: 'warehouse',
-    key: 3,
-  },
-  {
-    type: 'carrier',
-    key: 4,
-  },
-  {
-    type: 'portops',
-    key: 5,
-  },
-]
 export const Register = (props) => {
   const username = React.createRef()
   const firstName = React.createRef()
