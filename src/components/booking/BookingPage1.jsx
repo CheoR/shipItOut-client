@@ -35,7 +35,6 @@ export const BookingPage1 = ({
   formValues,
   data
 }) => {
-  console.log('in BOOKING PAGE 1, isView: ', isView)
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -100,7 +99,7 @@ export const BookingPage1 = ({
               id='pickup_address'
               name='pickup_address'
               label='Pickup Address'
-              defaultValue={formValues.pickup_address}
+              value={formValues.pickup_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
               disabled={isView}
@@ -109,7 +108,7 @@ export const BookingPage1 = ({
               id='loading_origin_address'
               name='loading_origin_address'
               label='Loading Address'
-              defaultValue={formValues.loading_origin_address}
+              value={formValues.loading_origin_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
               disabled={isView}
@@ -118,7 +117,7 @@ export const BookingPage1 = ({
               id='unloading_destination_address'
               name='unloading_destination_address'
               label='Unloading Address'
-              defaultValue={formValues.unloading_destination_address}
+              value={formValues.unloading_destination_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
               disabled={isView}
@@ -127,7 +126,7 @@ export const BookingPage1 = ({
               id='delivery_address'
               name='delivery_address'
               label='Delivery Address'
-              defaultValue={formValues.delivery_address}
+              value={formValues.delivery_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
               disabled={isView}
