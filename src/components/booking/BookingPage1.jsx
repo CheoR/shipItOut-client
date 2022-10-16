@@ -18,10 +18,7 @@ import {
 
 import {
   agent,
-  voyage,
   carrier,
-  loadingPort,
-  unloadingPort,
   booking_status,
 } from '../../mock/TestFormData'
 import ButtonPanel from '../buttons/ButtonPanel'
@@ -36,6 +33,7 @@ export const BookingPage1 = ({
   action,
   instance,
   formValues,
+  data
 }) => {
   console.log('in BOOKING PAGE 1, isView: ', isView)
   const next = (e) => {
@@ -284,7 +282,7 @@ export const BookingPage1 = ({
                 value={formValues.voyage}
                 onChange={handleInputChange}
               >
-                {voyage.map((v) => (
+                {data.voyages.map((v) => (
                   <MenuItem
                     key={v.id}
                     id={v.id}
@@ -304,7 +302,7 @@ export const BookingPage1 = ({
                 value={formValues.loading_port}
                 onChange={handleInputChange}
               >
-                {loadingPort.map((p) => (
+                {data.ports.map((p) => (
                   <MenuItem
                     key={p.id}
                     id={p.id}
@@ -325,13 +323,13 @@ export const BookingPage1 = ({
                 value={formValues.unloading_port}
                 onChange={handleInputChange}
               >
-                {unloadingPort.map((p) => (
+                {data.ports.map((p) => (
                   <MenuItem
                     key={p.id}
                     id={p.id}
                     value={p.id}
                   >
-                    {p.name}ag
+                    {p.name}
                   </MenuItem>
                 ))}
               </Select>

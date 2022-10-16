@@ -50,7 +50,10 @@ export const BookingPage3 = ({
       .then(() => {
         history.push('/bookings')
       })
-      .catch((err) => console.error('POST Error: ', err))
+      .catch((err) => {
+        console.error('POST Error: ', err)
+        history.push('/bookings')
+      })
   }
 
   const update = (e) => {

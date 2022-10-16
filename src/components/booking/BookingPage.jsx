@@ -11,6 +11,8 @@ export const BookingPage = () => {
   const [ , endpoint, action, instance] = location.pathname.split('/')
   const isView = action === 'view'
 
+  const [ports, setPorts] = useState([])
+  const [voyages, setVoyages] = useState([])
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
@@ -35,7 +37,7 @@ export const BookingPage = () => {
     // container
     container: 0,
     container_notes: '',
-    equipment_location: 0,
+    container_location: 6,
     is_container_damaged: false,
     is_needs_inspection: false,
     is_overweight: false,
@@ -67,6 +69,32 @@ export const BookingPage = () => {
         fetchBooking()
       }
   }, [action, instance, token, location.pathname])
+
+  useEffect(() => {
+      const fetchPorts = () => {
+        return fetch(`${process.env.REACT_APP_API}/ports`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(setPorts)
+      }
+      fetchPorts()
+  }, [])
+
+  useEffect(() => {
+      const fetchPorts = () => {
+        return fetch(`${process.env.REACT_APP_API}/voyages`, {
+          headers: {
+            Authorization: `Token ${token}`,
+          },
+        })
+          .then((res) => res.json())
+          .then(setVoyages)
+      }
+      fetchPorts()
+  }, [])
 
 
   const nextStep = () => {
@@ -122,6 +150,10 @@ export const BookingPage = () => {
           action={action}
           instance={instance}
           formValues={formValues}
+          data={{
+            ports,
+            voyages
+          }}
         />
       )
 
