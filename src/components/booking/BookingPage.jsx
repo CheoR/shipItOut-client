@@ -84,7 +84,7 @@ export const BookingPage = () => {
   }, [])
 
   useEffect(() => {
-      const fetchPorts = () => {
+      const fetchVoyages = () => {
         return fetch(`${process.env.REACT_APP_API}/voyages`, {
           headers: {
             Authorization: `Token ${token}`,
@@ -93,7 +93,7 @@ export const BookingPage = () => {
           .then((res) => res.json())
           .then(setVoyages)
       }
-      fetchPorts()
+      fetchVoyages()
   }, [])
 
 

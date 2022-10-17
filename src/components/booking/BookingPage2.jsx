@@ -34,8 +34,6 @@ export const BookingPage2 = ({
   instance,
   formValues,
 }) => {
-  console.log('BKGP2 dformValues are: ')
-  console.table(formValues)
   const next = (e) => {
     e.preventDefault()
     nextStep()
