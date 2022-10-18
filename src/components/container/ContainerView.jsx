@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
+
+import { Loading } from '../helpers/Loading'
 import { ContainerView1 } from './ContainerView1'
 import { ContainerView2 } from './ContainerView2'
 import { ContainerView3 } from './ContainerView3'
@@ -36,7 +38,7 @@ export const ContainerView = () => {
       })
   }, []) // useEffect
 
-  if (isLoading) return <>Loading .. </>
+  if (isLoading) return <Loading text="Container" />
 
   const nextStep = () => {
     const { step } = formValues
@@ -77,5 +79,5 @@ export const ContainerView = () => {
 
     default:
       return <>Container Loading . . </>
-  } // swtich
+  }
 }
