@@ -17,6 +17,11 @@ export const BookingPage = () => {
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
+    agent_first_name: "",
+    agent_last_name: "",
+    agent_email: "",
+    agent_company: "",
+    agent_phone: "",
     // booking
     unloading_destination_address: '',
     loading_origin_address: '',
@@ -99,19 +104,12 @@ export const BookingPage = () => {
 
   useEffect(() => {
     const getCarriers = () => {
-      console.log('================ FETCHING CARRIER DATA =====')
       fetch(`${process.env.REACT_APP_API}/appusers/just_carriers`, {
         headers: {
           Authorization: `Token ${localStorage.getItem('user_token')}`,
         },
       })
-        .then((res) => {
-          const data = res.json()
-          console.log('+++++++++++in use effect carriers')
-          console.log(data)
-          console.log('++++++++++')
-          return data
-        })
+        .then((res) => res.json())
         .then(setCarriers)
         .catch((error) => console.log('Error fetching Carriers: ', error))
     }

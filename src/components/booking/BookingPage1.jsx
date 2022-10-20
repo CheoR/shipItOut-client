@@ -17,10 +17,10 @@ import {
 } from '@mui/material'
 
 import {
-  agent,
   booking_status,
 } from '../../mock/TestFormData'
 import ButtonPanel from '../buttons/ButtonPanel'
+import AgentBlock from '../layout/AgentBlock'
 
 export const BookingPage1 = ({
   handleDatePickerChange,
@@ -68,32 +68,12 @@ export const BookingPage1 = ({
             item
             sx={{ flex: 1 }}
           >
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-              <TextField
-                id='name'
-                name='name'
-                label='Agent Name'
-                defaultValue={agent.name}
-                sx={{ width: '100%' }}
-                disabled
-              />
-              <TextField
-                id='email'
-                name='email'
-                label='Agent Email'
-                defaultValue={agent.email}
-                sx={{ width: '100%' }}
-                disabled
-              />
-              <TextField
-                id='phone'
-                name='phone'
-                label='Agent Phone'
-                defaultValue={agent.phone}
-                sx={{ width: '100%' }}
-                disabled
-              />
-            </Box>
+            <AgentBlock agent={{
+              company: formValues.agent_company,
+              name: `${formValues.agent_first_name} ${formValues.agent_last_name}`,
+              email: formValues.agent_email,
+              phone: formValues.agent_phone
+            }} />
             <TextField
               id='pickup_address'
               name='pickup_address'

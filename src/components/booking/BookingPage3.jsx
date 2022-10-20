@@ -12,7 +12,7 @@ import {
   TextareaAutosize,
 } from '@mui/material'
 
-import { agent } from '../../mock/TestFormData'
+import AgentBlock from '../layout/AgentBlock'
 import ButtonPanel from '../buttons/ButtonPanel'
 
 export const BookingPage3 = ({
@@ -105,30 +105,12 @@ export const BookingPage3 = ({
             item
             sx={{ flex: 1 }}
           >
-            <TextField
-              id='name'
-              name='name'
-              label='Agent Name'
-              defaultValue={agent.name}
-              sx={{ width: '100%' }}
-              disabled
-            />
-            <TextField
-              id='email'
-              name='email'
-              label='Agent Email'
-              defaultValue={agent.email}
-              sx={{ width: '100%' }}
-              disabled
-            />
-            <TextField
-              id='phone'
-              name='phone'
-              label='Agent Phone'
-              defaultValue={agent.phone}
-              sx={{ width: '100%' }}
-              disabled
-            />
+            <AgentBlock agent={{
+              company: formValues.agent_company,
+              name: `${formValues.agent_first_name} ${formValues.agent_last_name}`,
+              email: formValues.agent_email,
+              phone: formValues.agent_phone
+            }} />
           </Grid>
           <Grid
             item
