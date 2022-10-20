@@ -64,15 +64,15 @@ export const vessel = [
 export const carrier = [
   {
     id: 1,
-    name: 'carrier1',
+    company: 'carrier1',
   },
   {
     id: 2,
-    name: 'carrier2',
+    company: 'carrier2',
   },
   {
     id: 3,
-    name: 'carrier3',
+    company: 'carrier3',
   },
 ]
 

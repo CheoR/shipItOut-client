@@ -18,7 +18,6 @@ import {
 
 import {
   agent,
-  carrier,
   booking_status,
 } from '../../mock/TestFormData'
 import ButtonPanel from '../buttons/ButtonPanel'
@@ -261,13 +260,13 @@ export const BookingPage1 = ({
                 value={formValues.carrier}
                 onChange={handleInputChange}
               >
-                {carrier.map((c) => (
+                {data.carriers.map((c) => (
                   <MenuItem
                     key={c.id}
                     id={c.id}
                     value={c.id}
                   >
-                    {c.name}
+                    {c.company}
                   </MenuItem>
                 ))}
               </Select>

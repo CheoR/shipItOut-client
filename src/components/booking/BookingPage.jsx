@@ -13,6 +13,7 @@ export const BookingPage = () => {
 
   const [ports, setPorts] = useState([])
   const [voyages, setVoyages] = useState([])
+  const [carriers, setCarriers] = useState([])
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
@@ -96,6 +97,28 @@ export const BookingPage = () => {
       fetchVoyages()
   }, [])
 
+  useEffect(() => {
+    const getCarriers = () => {
+      console.log('================ FETCHING CARRIER DATA =====')
+      fetch(`${process.env.REACT_APP_API}/appusers/just_carriers`, {
+        headers: {
+          Authorization: `Token ${localStorage.getItem('user_token')}`,
+        },
+      })
+        .then((res) => {
+          const data = res.json()
+          console.log('+++++++++++in use effect carriers')
+          console.log(data)
+          console.log('++++++++++')
+          return data
+        })
+        .then(setCarriers)
+        .catch((error) => console.log('Error fetching Carriers: ', error))
+    }
+
+    getCarriers()
+  }, [])
+
 
   const nextStep = () => {
     const { step } = formValues
@@ -152,7 +175,8 @@ export const BookingPage = () => {
           formValues={formValues}
           data={{
             ports,
-            voyages
+            voyages,
+            carriers,
           }}
         />
       )
