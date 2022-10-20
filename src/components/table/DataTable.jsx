@@ -13,7 +13,7 @@ import { Loading } from '../helpers/Loading'
 import { TEST_TABLE_DATA } from '../../mock/TestFormData'
 
 export const DataTable = ({ endpoint, Icon }) => {
-  // const history = useHistory()
+  // const navigateTo = useNavigate()
   const [data, setData] = useState([])
   const [columns, setColumns] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -180,7 +180,7 @@ export const DataTable = ({ endpoint, Icon }) => {
                     },
                   ).then(() => {
                     setIsRefreshed((prevState) => !prevState)
-                    // history.push(`/${endpoint}`)
+                    // navigateTo(`/${endpoint}`)
                   })
                 }}
               >

@@ -1,9 +1,9 @@
 import React from 'react'
 import { Button, ButtonGroup } from '@mui/material'
-import { Link as RouterLink, useHistory } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 
 const ButtonPanel = ({ prev, next, create, update, endpoint, page, instance, action }) => {
-  const history = useHistory()
+  const navigateTo = useNavigate()
 
   return (
     <ButtonGroup sx={{ margin: '0 auto', gap: 2,  width: "100%", display: "flex", justifyContent: "center", height: 50, }}>
@@ -47,7 +47,7 @@ const ButtonPanel = ({ prev, next, create, update, endpoint, page, instance, act
               color='primary'
               label='Edit'
               onClick={() => {
-                history.push(`/${endpoint}/update/${instance}`)
+                navigateTo(`/${endpoint}/update/${instance}`)
               }}
             >
               Edit

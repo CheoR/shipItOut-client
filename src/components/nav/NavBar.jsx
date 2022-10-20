@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link as RouterLink, Redirect, useLocation } from 'react-router-dom'
+import { Link as RouterLink, redirect, useLocation } from 'react-router-dom'
 
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -60,7 +60,7 @@ export const NavBar = () => {
     if (e.target.textContent.toLowerCase() === 'logout') {
       logoutUser()
       setAnchorElNav(null)
-      Redirect('')
+      redirect('')
     } else {
       setAnchorElNav(null)
     }

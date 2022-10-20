@@ -1,5 +1,5 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import {
   Grid,
   TextField,
@@ -26,7 +26,7 @@ export const BookingPage3 = ({
   formValues,
 }) => {
   const token = localStorage.getItem('user_token')
-  const history = useHistory()
+  const navigateTo = useNavigate()
 
   const prev = (e) => {
     e.preventDefault()
@@ -48,11 +48,11 @@ export const BookingPage3 = ({
       body: JSON.stringify(formValues),
     })
       .then(() => {
-        history.push('/bookings')
+        navigateTo('/bookings')
       })
       .catch((err) => {
         console.error('POST Error: ', err)
-        history.push('/bookings')
+        navigateTo('/bookings')
       })
   }
 
@@ -71,7 +71,7 @@ export const BookingPage3 = ({
       body: JSON.stringify(formValues),
     })
       .then(() => {
-        history.push('/bookings')
+        navigateTo('/bookings')
       })
       .catch((err) => console.error('POST Error: ', err))
   }
