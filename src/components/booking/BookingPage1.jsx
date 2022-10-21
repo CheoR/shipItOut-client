@@ -217,7 +217,7 @@ export const BookingPage1 = ({
                 labelId='booking_status'
                 id='booking_status'
                 name='booking_status'
-                value={formValues.booking_status}
+                value={formValues.booking_status || ""}
                 onChange={handleInputChange}
               >
                 {booking_status.map((c) => (
@@ -237,7 +237,7 @@ export const BookingPage1 = ({
                 labelId='carrier'
                 id='carrier'
                 name='carrier'
-                value={formValues.carrier}
+                value={formValues.carrier || ""}
                 onChange={handleInputChange}
               >
                 {data.carriers.map((c) => (
@@ -257,7 +257,7 @@ export const BookingPage1 = ({
                 labelId='voyage'
                 id='voyage'
                 name='voyage'
-                value={formValues.voyage}
+                value={formValues.voyage || ""}
                 onChange={handleInputChange}
               >
                 {data.voyages.map((v) => (
@@ -277,7 +277,7 @@ export const BookingPage1 = ({
                 labelId='loading_port'
                 id='loading_port'
                 name='loading_port'
-                value={formValues.loading_port}
+                value={formValues.loading_port || ""}
                 onChange={handleInputChange}
               >
                 {data.ports.map((p) => (
@@ -298,7 +298,7 @@ export const BookingPage1 = ({
                 labelId='unloading_port'
                 id='unloading_port'
                 name='unloading_port'
-                value={formValues.unloading_port}
+                value={formValues.unloading_port || ""}
                 onChange={handleInputChange}
               >
                 {data.ports.map((p) => (

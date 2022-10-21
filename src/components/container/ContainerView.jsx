@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 import { Loading } from '../helpers/Loading'
 import { ContainerView1 } from './ContainerView1'
@@ -9,8 +9,6 @@ import { ContainerView3 } from './ContainerView3'
 export const ContainerView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [formValues, setFormValues] = useState([])
-  const location = useLocation()
-  const endpoint = location.pathname.slice(1)
   const token = localStorage.getItem('user_token')
   const { id } = useParams()
 
@@ -36,7 +34,7 @@ export const ContainerView = () => {
         setFormValues(res)
         setIsLoading(false)
       })
-  }, []) // useEffect
+  }, [id, token])
 
   if (isLoading) return <Loading text="Container" />
 

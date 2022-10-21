@@ -224,7 +224,7 @@ export const container_location = [
 
 export const booking_status = [
   {
-    id: 1,
+    id: 0,
     booking_status: "XX",
   },
     {
@@ -249,7 +249,7 @@ export const TEST_TABLE_DATA = [
 export const ACCOUNT_TYPE = [
   {
     type: 'default',
-    key: 0,
+    key: '0',
   },
   {
     type: 'shipper',
