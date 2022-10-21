@@ -1,5 +1,7 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import { Container, Grid } from '@mui/material'
+
 import { Footer } from '../footer/Footer'
 import { NavBar } from '../nav/NavBar'
 
@@ -10,7 +12,7 @@ const sxContainer = {
   background: 'lightgray',
 }
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <Grid
       container
@@ -28,7 +30,7 @@ const Layout = ({ children }) => {
           component='main'
           sx={{ height: '100%' }}
         >
-          {children}
+          <Outlet />
         </Container>
       </Grid>
 

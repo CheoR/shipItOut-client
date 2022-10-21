@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -14,7 +14,8 @@ import {
   Typography,
 } from '@mui/material'
 
-export const Login = (props) => {
+export const Login = () => {
+  const navigateTo = useNavigate()
   const username = React.createRef()
   const password = React.createRef()
   const [open, setOpen] = React.useState(false)
@@ -45,7 +46,7 @@ export const Login = (props) => {
       .then((res) => {
         if ('valid' in res && res.valid && 'token' in res) {
           localStorage.setItem('user_token', res.token)
-          props.history.push('/bookings')
+          navigateTo('/')
         } else {
           handleOpen()
         }
@@ -133,12 +134,12 @@ export const Login = (props) => {
         sx={{ textAlign: 'center' }}
       >
         Not a member yet?{' '}
-        <Link
+        <RouterLink
           to='/register'
           style={{ textDecoration: 'none' }}
         >
           Register
-        </Link>
+        </RouterLink>
       </Typography>
     </Box>
   )

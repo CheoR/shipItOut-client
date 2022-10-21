@@ -12,8 +12,8 @@ import {
   TextareaAutosize,
 } from '@mui/material'
 
-import AgentBlock from '../layout/AgentBlock'
-import ButtonPanel from '../buttons/ButtonPanel'
+import AgentBlock from '../../layout/AgentBlock'
+import ButtonPanel from '../../buttons/ButtonPanel'
 
 export const BookingPage3 = ({
   handleCheckBoxChange,

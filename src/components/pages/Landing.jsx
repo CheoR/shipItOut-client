@@ -1,10 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link as RouterLink } from 'react-router-dom'
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 
 import logo from '../../assets/images/pugTransport.svg'
 
-export const Home = () => {
+export const Landing = () => {
   return (
     <Box
       sx={{
@@ -52,12 +52,12 @@ export const Home = () => {
         sx={{ gap: 1, margin: '0 auto' }}
         size='large'
       >
-        <Link to='login'>
+        <RouterLink to='login'>
           <Button>Login</Button>
-        </Link>
-        <Link to='/register'>
+        </RouterLink>
+        <RouterLink to='/register'>
           <Button>Register</Button>
-        </Link>
+        </RouterLink>
       </ButtonGroup>
     </Box>
   )

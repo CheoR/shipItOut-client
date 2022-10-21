@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -14,7 +15,7 @@ import {
   Select,
   Typography,
 } from '@mui/material'
-import { Link } from 'react-router-dom'
+
 import { ACCOUNT_TYPE } from '../../mock/TestFormData'
 
 export const Register = (props) => {

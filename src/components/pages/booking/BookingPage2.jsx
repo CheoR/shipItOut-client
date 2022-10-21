@@ -18,9 +18,9 @@ import {
   container_type,
   container,
   container_location,
-} from '../../mock/TestFormData'
-import AgentBlock from '../layout/AgentBlock'
-import ButtonPanel from '../buttons/ButtonPanel'
+} from '../../../mock/TestFormData'
+import AgentBlock from '../../layout/AgentBlock'
+import ButtonPanel from '../../buttons/ButtonPanel'
 
 export const BookingPage2 = ({
   handleCheckBoxChange,

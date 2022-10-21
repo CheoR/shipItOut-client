@@ -1,27 +1,29 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
-import { BookingList } from './booking/BookingList'
-import { BookingPage } from "./booking/BookingPage"
-
-import { ContainerList } from './container/ContainerList'
-import { ContainerView } from './container/ContainerView'
-
-import { ProductList } from './product/ProductList'
-import { ProductView } from './product/ProductView'
-
-import { PageNotFound } from './helpers/PageNotFound'
-import { Register } from './auth/Register'
-import Layout from './layout/Layout'
-import { Login } from './auth/Login'
-import { Home } from './home/Home'
 import { DataTableProvider } from './table/DataTableProvider'
-import { DataTable } from './table/DataTable'
+
+import { BookingList } from './pages/booking/BookingList'
+import { BookingPage } from "./pages/booking/BookingPage"
+
+import { ContainerList } from './pages/container/ContainerList'
+import { ContainerView } from './pages/container/ContainerView'
+
+import { ProductList } from './pages/product/ProductList'
+import { ProductView } from './pages/product/ProductView'
+
+import { PageNotFound } from './pages/PageNotFound'
+import { Register } from './auth/Register'
+import { Landing } from './pages/Landing'
+import { Login } from './auth/Login'
+import Layout from './layout/Layout'
 
 export const ShipItOut = () => {
   let token = localStorage.getItem('user_token')
   useEffect(() => {
     // refresh
+    // TODO: figure out how to refresh body after token gets set
+    // the navbar resets but not the body from Landing to Bookings
   }, [token])
 
 
@@ -29,32 +31,30 @@ export const ShipItOut = () => {
     <DataTableProvider>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="home">
-            <Route index element={ <Home /> } />
-          </Route>
-          {/* <Route path="products">
-            <Route index element={ <DataTable /> } />
-            <Route path="update/:id" element={ <ProductUpdate /> } />
-            <Route path="create" element={ <ProductForm /> } />
-            <Route path=":id" element={ <ProductDetail /> } />
+          <Route index element={ token ? <BookingList /> : <Landing /> } />
+
+          <Route path="products">
+            <Route index element={ <ProductList /> } />
+            <Route path="update/:id(\d+)" element={ <ProductView /> } />
+            <Route path="create" element={ <ProductView /> } />
+            <Route path=":id(\d+)" element={ <ProductView /> } />
             <Route path="*" element={ <PageNotFound /> } />
           </Route>
 
           <Route path="containers">
-            <Route index element={ <DataTable /> } />
-            <Route path="update/:id" element={ <ContainerUpdate /> } />
-            <Route path="create" element={ <ContainerForm /> } />
-            <Route path=":id" element={ <ContainerDetail /> } />
+            <Route index element={ <ContainerList /> } />
+            <Route path="update/:id(\d+)" element={ <ContainerView /> } />
+            <Route path="create" element={ <ContainerView /> } />
+            <Route path="view/:id(\d+)" element={ <ContainerView /> } />
             <Route path="*" element={ <PageNotFound /> } />
           </Route>
-
           <Route path="bookings">
-            <Route index element={ <DataTable /> } />
-            <Route path="update/:id" element={ <BookingUpdate /> } />
-            <Route path="create" element={ <BookingForm /> } />
-            <Route path=":id" element={ <BookingDetail /> } />
+            <Route index element={ <BookingList /> } />
+            <Route path="update/:id(\d+)" element={ <BookingPage /> } />
+            <Route path="view/:id(\d+)" element={ <BookingPage /> } />
+            <Route path="create" element={ <BookingPage /> } />
             <Route path="*" element={ <PageNotFound /> } />
-          </Route> */}
+          </Route>
 
           <Route path="register" element={ <Register /> } />
           <Route path="login" element={ <Login /> } />
@@ -62,68 +62,5 @@ export const ShipItOut = () => {
         </Route>
       </Routes>
     </DataTableProvider>
-    // <Layout>
-    //   <Routes>
-    //     <Route
-    //       exact
-    //       path='/products/:id(\d+)'
-    //       component={ProductView}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/products'
-    //       component={ProductList}
-    //     />
-
-    //     <Route
-    //       exact
-    //       path='/containers/:id(\d+)'
-    //       component={ContainerView}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/containers'
-    //       component={ContainerList}
-    //     />
-
-    //     <Route
-    //       exact
-    //       path='/bookings/update/:id(\d+)'
-    //       component={BookingPage}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/bookings/view/:id(\d+)'
-    //       component={BookingPage}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/bookings/create'
-    //       component={BookingPage}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/bookings'
-    //       component={BookingList}
-    //     />
-
-    //     <Route
-    //       exact
-    //       path='/register'
-    //       component={Register}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/login'
-    //       component={Login}
-    //     />
-    //     <Route
-    //       exact
-    //       path='/'
-    //       component={token ? BookingList : Home}
-    //     />
-    //     <Route component={PageNotFound} />
-    //   </Routes>
-    // </Layout>
   )
 }

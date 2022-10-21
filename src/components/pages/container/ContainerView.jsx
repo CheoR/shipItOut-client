@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Loading } from '../helpers/Loading'
+import { Loading } from '../../helpers/Loading'
 import { ContainerView1 } from './ContainerView1'
 import { ContainerView2 } from './ContainerView2'
 import { ContainerView3 } from './ContainerView3'

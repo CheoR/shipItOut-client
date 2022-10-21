@@ -18,9 +18,9 @@ import {
 
 import {
   booking_status,
-} from '../../mock/TestFormData'
-import ButtonPanel from '../buttons/ButtonPanel'
-import AgentBlock from '../layout/AgentBlock'
+} from '../../../mock/TestFormData'
+import ButtonPanel from '../../buttons/ButtonPanel'
+import AgentBlock from '../../layout/AgentBlock'
 
 export const BookingPage1 = ({
   handleDatePickerChange,

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Loading } from '../helpers/Loading'
+
+import { Loading } from '../../helpers/Loading'
 import { ProductView1 } from './ProductView1'
 import { ProductView2 } from './ProductView2'
 import { ProductView3 } from './ProductView3'

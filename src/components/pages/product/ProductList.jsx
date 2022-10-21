@@ -2,8 +2,8 @@ import React from 'react'
 
 import { GrCubes } from 'react-icons/gr'
 
-import { PageNotFound } from '../helpers/PageNotFound'
-import { DataTable } from '../table/DataTable'
+import { PageNotFound } from '../PageNotFound'
+import { DataTable } from '../../table/DataTable'
 
 import styles from './ProductList.module.css'
 
