@@ -11,15 +11,17 @@ import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 import { Loading } from '../helpers/Loading'
 
 import { TEST_TABLE_DATA } from '../../mock/TestFormData'
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 export const DataTable = ({ endpoint, Icon }) => {
   // const navigateTo = useNavigate()
-  const [data, setData] = useState([])
-  const [columns, setColumns] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
   const [selectionModel, setSelectionModel] = useState([])
   const [isRefreshed, setIsRefreshed] = useState(false)
-  const token = localStorage.getItem('user_token')
+  const [isLoading, setIsLoading] = useState(true)
+  const [token] = useLocalStorage('user_token')
+  const [columns, setColumns] = useState([])
+  const [data, setData] = useState([])
+  // const token = JSON.parse(localStorage.getItem('user_token'))
 
   // const deleteSelected = (e) => {
   //   e.preventDefault()

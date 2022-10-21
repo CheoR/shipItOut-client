@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Link as RouterLink, redirect, useLocation } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
@@ -16,6 +16,7 @@ import MenuItem from '@mui/material/MenuItem'
 import { Link } from '@mui/material'
 
 import logo from '../../assets/images/pugTransport.svg'
+import useLocalStorage from '../../hooks/useLocalStorage'
 
 const loggedOutPages = [
   { page: 'Home', link: '' },
@@ -37,16 +38,20 @@ const settings = [
 ]
 
 export const NavBar = () => {
-  const [anchorElNav, setAnchorElNav] = React.useState(null)
-  const [anchorElUser, setAnchorElUser] = React.useState(null)
-
   const location = useLocation()
+  const navigateTo = useNavigate()
+
   const url = location.pathname
-  let token = localStorage.getItem('user_token')
+  // let token = localStorage.getItem('user_token')
+  const [token, setToken] = useLocalStorage('user_token')
+
+  const [anchorElNav, setAnchorElNav] = useState(null)
+  const [anchorElUser, setAnchorElUser] = useState(null)
+
 
   useEffect(() => {
     // rerender navbar when user logs in/out
-    // console.log(`current url: ${url}`)
+    console.log(`test navbar token: ${token}`)
   }, [url, token])
 
   const handleOpenNavMenu = (event) => {
@@ -60,7 +65,6 @@ export const NavBar = () => {
     if (e.target.textContent.toLowerCase() === 'logout') {
       logoutUser()
       setAnchorElNav(null)
-      redirect('')
     } else {
       setAnchorElNav(null)
     }
@@ -69,9 +73,11 @@ export const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null)
   }
-
+  
   const logoutUser = () => {
-    localStorage.removeItem('user_token')
+    // localStorage.removeItem('user_token')
+    setToken(() => "")
+    navigateTo('/')
   }
 
   return (
