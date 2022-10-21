@@ -8,12 +8,14 @@ import { ShipItOut } from './components/ShipItOut'
 import { DataTableProvider } from './components/table/DataTableProvider'
 
 import './index.css'
+import { CssBaseline } from '@mui/material'
 
 ReactDOM.render(
   <React.StrictMode>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <DataTableProvider>
         <Router>
+          <CssBaseline />
           <ShipItOut />
         </Router>
       </DataTableProvider>

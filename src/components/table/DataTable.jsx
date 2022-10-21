@@ -21,22 +21,22 @@ export const DataTable = ({ endpoint, Icon }) => {
   const [isRefreshed, setIsRefreshed] = useState(false)
   const token = localStorage.getItem('user_token')
 
-  const deleteSelected = (e) => {
-    e.preventDefault()
-    return fetch(
-      `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
-      {
-        method: 'DELETE',
-        headers: {
-          Authorization: `Token ${token}`,
-          'Content-Type': 'application/json',
-        },
-      },
-    ).then(() => {
-      console.log('calling resset')
-      setIsRefreshed((prevState) => !prevState)
-    })
-  }
+  // const deleteSelected = (e) => {
+  //   e.preventDefault()
+  //   return fetch(
+  //     `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
+  //     {
+  //       method: 'DELETE',
+  //       headers: {
+  //         Authorization: `Token ${token}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //     },
+  //   ).then(() => {
+  //     console.log('calling resset')
+  //     setIsRefreshed((prevState) => !prevState)
+  //   })
+  // }
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
@@ -79,7 +79,7 @@ export const DataTable = ({ endpoint, Icon }) => {
         ])
         setIsLoading(false)
       })
-  }, [isRefreshed])
+  }, [endpoint, isRefreshed, token])
 
   if (isLoading) return <Loading text='table' />
 

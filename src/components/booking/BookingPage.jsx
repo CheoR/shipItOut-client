@@ -31,7 +31,7 @@ export const BookingPage = () => {
     rail_cutoff: new Date(),
     delivery_address: '',
     delivery_appt: new Date(),
-    booking_status: 1,
+    booking_status: 0,
     are_documents_ready: false,
     are_dues_paid: false,
     has_issue: false,
@@ -74,7 +74,7 @@ export const BookingPage = () => {
       if(!location.pathname.includes('create')) {
         fetchBooking()
       }
-  }, [action, instance, token, location.pathname])
+  }, [action, endpoint, instance, token, location.pathname])
 
   useEffect(() => {
       const fetchPorts = () => {
@@ -87,7 +87,7 @@ export const BookingPage = () => {
           .then(setPorts)
       }
       fetchPorts()
-  }, [])
+  }, [token])
 
   useEffect(() => {
       const fetchVoyages = () => {
@@ -100,7 +100,7 @@ export const BookingPage = () => {
           .then(setVoyages)
       }
       fetchVoyages()
-  }, [])
+  }, [token])
 
   useEffect(() => {
     const getCarriers = () => {

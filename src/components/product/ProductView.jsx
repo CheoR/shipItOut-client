@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
+import { Loading } from '../helpers/Loading'
 import { ProductView1 } from './ProductView1'
 import { ProductView2 } from './ProductView2'
 import { ProductView3 } from './ProductView3'
@@ -7,8 +8,6 @@ import { ProductView3 } from './ProductView3'
 export const ProductView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [formValues, setFormValues] = useState({})
-  const location = useLocation()
-  const endpoint = location.pathname.slice(1)
   const token = localStorage.getItem('user_token')
   const { id } = useParams()
 
@@ -47,9 +46,9 @@ export const ProductView = () => {
         setFormValues(res)
         setIsLoading(false)
       })
-  }, []) // useEffect
+  }, [id, token])
 
-  if (isLoading) return <>Loading .. </>
+  if (isLoading) return <Loading text="product" />
 
   const nextStep = () => {
     const { step } = formValues

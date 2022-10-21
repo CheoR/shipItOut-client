@@ -149,7 +149,7 @@ export const BookingPage2 = ({
                 labelId='container_type'
                 id='container_type'
                 name='container_type'
-                value={formValues.container_type}
+                value={formValues.container_type || ''}
                 onChange={handleInputChange}
               >
                 {container_type.map((s) => (
@@ -170,7 +170,7 @@ export const BookingPage2 = ({
                 labelId='container'
                 id='container'
                 name='container'
-                value={formValues.container}
+                value={formValues.container || ''}
                 onChange={handleInputChange}
               >
                 {container.map((s) => (
@@ -193,7 +193,7 @@ export const BookingPage2 = ({
                 labelId='container_location'
                 id='container_location'
                 name='container_location'
-                value={formValues.container_location}
+                value={formValues.container_location || ""}
                 onChange={handleInputChange}
               >
                 {container_location.map((c) => (

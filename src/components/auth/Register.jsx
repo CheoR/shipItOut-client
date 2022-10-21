@@ -265,7 +265,7 @@ export const Register = (props) => {
             labelId='accountType'
             id='accountType'
             name='account_type'
-            value={accountType.value}
+            value={accountType.current?.value || 0}
             inputRef={accountType}
           >
             {ACCOUNT_TYPE.map((role) => (
