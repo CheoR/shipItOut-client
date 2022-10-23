@@ -15,27 +15,10 @@ import Menu from '@mui/material/Menu'
 import { Link } from '@mui/material'
 import Box from '@mui/material/Box'
 
-import logo from '../../assets/images/pugTransport.svg'
+import { loggedInPages, loggedOutPages, settings } from '../../constants/pages'
 import { UserContext } from '../../context/UserContext'
+import logo from '../../assets/images/pugTransport.svg'
 
-const loggedOutPages = [
-  { page: 'Home', link: '' },
-  { page: 'Login', link: 'login' },
-  { page: 'Register', link: 'register' },
-]
-const loggedInPages = [
-  { page: 'Home', link: '' },
-  { page: 'Bookings', link: 'bookings' },
-  { page: 'Containers', link: 'containers' },
-  { page: 'Products', link: 'products' },
-]
-
-const settings = [
-  { setting: 'Profile', link: 'profile' },
-  { setting: 'Account', link: 'account' },
-  { setting: 'Dashboard', link: 'dashboard' },
-  { setting: 'Logout', link: '' },
-]
 
 export const NavBar = () => {
   const { user: { token }, logout } = useContext(UserContext)
