@@ -17,8 +17,8 @@ import {
 } from '@mui/material'
 
 import {
-  booking_status,
-} from '../../../mock/TestFormData'
+  BOOKING_STATUS,
+} from '../../../constants/formFields'
 import ButtonPanel from '../../buttons/ButtonPanel'
 import AgentBlock from '../../layout/AgentBlock'
 
@@ -220,7 +220,7 @@ export const BookingPage1 = ({
                 value={formValues.booking_status || ""}
                 onChange={handleInputChange}
               >
-                {booking_status.map((c) => (
+                {BOOKING_STATUS.map((c) => (
                   <MenuItem
                     key={c.id}
                     id={c.id}

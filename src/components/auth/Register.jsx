@@ -17,7 +17,7 @@ import {
 } from '@mui/material'
 
 import { UserContext } from '../../context/UserContext'
-import { ACCOUNT_TYPE } from '../../mock/TestFormData'
+import { ACCOUNT_TYPE } from '../../constants/formFields'
 
 
 export const Register = (props) => {

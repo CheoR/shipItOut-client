@@ -11,7 +11,7 @@ import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 import { Loading } from '../helpers/Loading'
 import { UserContext } from '../../context/UserContext'
 
-import { TEST_TABLE_DATA } from '../../mock/TestFormData'
+import { TEST_TABLE_DATA } from '../../constants/formFields'
 
 export const DataTable = ({ endpoint, Icon }) => {
   const [selectionModel, setSelectionModel] = useState([])

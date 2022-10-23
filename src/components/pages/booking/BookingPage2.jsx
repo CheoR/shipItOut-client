@@ -15,10 +15,10 @@ import {
 } from '@mui/material'
 
 import {
-  container_type,
-  container,
-  container_location,
-} from '../../../mock/TestFormData'
+  CONTAINER_TYPE,
+  CONTAINERS,
+  CONTAINER_LOCATION,
+} from '../../../constants/formFields'
 import AgentBlock from '../../layout/AgentBlock'
 import ButtonPanel from '../../buttons/ButtonPanel'
 
@@ -152,7 +152,7 @@ export const BookingPage2 = ({
                 value={formValues.container_type || ''}
                 onChange={handleInputChange}
               >
-                {container_type.map((s) => (
+                {CONTAINER_TYPE.map((s) => (
                   <MenuItem
                     key={s.id}
                     id={s.id}
@@ -173,7 +173,7 @@ export const BookingPage2 = ({
                 value={formValues.container || ''}
                 onChange={handleInputChange}
               >
-                {container.map((s) => (
+                {CONTAINERS.map((s) => (
                   <MenuItem
                     key={s.id}
                     id={s.id}
@@ -196,7 +196,7 @@ export const BookingPage2 = ({
                 value={formValues.container_location || ""}
                 onChange={handleInputChange}
               >
-                {container_location.map((c) => (
+                {CONTAINER_LOCATION.map((c) => (
                   <MenuItem
                     key={c.id}
                     id={c.id}
