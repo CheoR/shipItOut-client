@@ -1,42 +1,43 @@
-import React, { createContext } from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { createContext, useState } from 'react'
 
-const UserContext = createContext(null)
+const UserContext = createContext()
 
 const UserContextProvider = ({ children }) => {
-  const [token, setToken] = useState({
-    if (typeof window === 'undefined') {
-      return initialValue
-    }
-
-    try {
-      // Get from local storage by key
-      const item = window.localStorage.getItem(key)
-      // Parse stored json or if none return initialValue
-      return item ? JSON.parse(item) : initialValue
-    } catch (error) {
-      // If error also return initialValue
-      console.log(error)
-      return initialValue
-    }
+  const [user, setUser] = useState({
+    name: '',
+    isAuth: false,
+    token: '',
   })
 
-  useEffect(() =>{
-    const getToken = () => localStorage.getItem(key)
+  const login = ({ name, token }) => {
+    window.localStorage.setItem('user_token', token)
+    setUser((prevState) => ({
+      name: name,
+      auth: true,
+      token: token,
+    }))
+  }
 
-    getToken()
-  }, [])
+  const logout = () => {
+    window.localStorage.removeItem('user_token')
+    setUser((prevState) => ({
+      name: '',
+      auth: false,
+      token: '',
+    }))
+  }
 
   return (
-    <UserContext.Provider value={{
-      token,
-      setToken
-    }}
+    <UserContext.Provider
+      value={{
+        user,
+        login,
+        logout,
+      }}
     >
-      { children }
+      {children}
     </UserContext.Provider>
   )
 }
 
-export {UserContext, UserContextProvider}
+export { UserContext, UserContextProvider }

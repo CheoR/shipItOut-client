@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useContext } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import { DataTableProvider } from './table/DataTableProvider'
@@ -12,24 +12,16 @@ import { ContainerView } from './pages/container/ContainerView'
 import { ProductList } from './pages/product/ProductList'
 import { ProductView } from './pages/product/ProductView'
 
+import { UserContext } from '../context/UserContext'
 import { PageNotFound } from './pages/PageNotFound'
 import { Register } from './auth/Register'
 import { Landing } from './pages/Landing'
 import { Login } from './auth/Login'
 import Layout from './layout/Layout'
-import useLocalStorage from '../hooks/useLocalStorage'
+
 
 export const ShipItOut = () => {
-  // let token = localStorage.getItem('user_token')
-  let [token] = useLocalStorage('user_token')
-  useEffect(() => {
-    // refresh
-    // TODO: figure out how to refresh body after token gets set
-    // the navbar resets but not the body from Landing to Bookings
-    console.log('test ShipItOut use effect token: ', token)
-  }, [token])
-
-  console.log('test SHipItout token: ', token)
+  const { user:{token} } = useContext(UserContext)
 
   return (
     <DataTableProvider>

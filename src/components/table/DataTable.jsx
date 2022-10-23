@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
 import { DataGrid } from '@mui/x-data-grid'
@@ -9,19 +9,17 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 
 import { Loading } from '../helpers/Loading'
+import { UserContext } from '../../context/UserContext'
 
 import { TEST_TABLE_DATA } from '../../mock/TestFormData'
-import useLocalStorage from '../../hooks/useLocalStorage'
 
 export const DataTable = ({ endpoint, Icon }) => {
-  // const navigateTo = useNavigate()
   const [selectionModel, setSelectionModel] = useState([])
   const [isRefreshed, setIsRefreshed] = useState(false)
+  const { user: {token} } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(true)
-  const [token] = useLocalStorage('user_token')
   const [columns, setColumns] = useState([])
   const [data, setData] = useState([])
-  // const token = JSON.parse(localStorage.getItem('user_token'))
 
   // const deleteSelected = (e) => {
   //   e.preventDefault()

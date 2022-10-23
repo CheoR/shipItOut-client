@@ -1,4 +1,4 @@
-import React, { createRef, useState, } from 'react'
+import React, { createRef, useContext, useState, } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -13,10 +13,10 @@ import {
   InputLabel,
   Typography,
 } from '@mui/material'
-import useLocalStorage from '../../hooks/useLocalStorage'
+import { UserContext } from '../../context/UserContext'
 
 export const Login = () => {
-  const [, setToken] = useLocalStorage('user_token')
+  const { login } = useContext(UserContext)
   const [open, setOpen] = useState(false)
   const navigateTo = useNavigate()
 
@@ -43,7 +43,11 @@ export const Login = () => {
       .then((res) => res.json())
       .then((res) => {
         if ('valid' in res && res.valid && 'token' in res) {
-          setToken(() => res.token)
+          // setToken(() => res.token)
+          login({
+            name: username.current.value,
+            token: res.token,
+          })
           navigateTo('/')
         } else {
           handleOpen()

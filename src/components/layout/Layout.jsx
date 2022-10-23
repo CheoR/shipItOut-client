@@ -4,8 +4,6 @@ import { Container, Grid } from '@mui/material'
 
 import { Footer } from '../footer/Footer'
 import { NavBar } from '../nav/NavBar'
-import useLocalStorage from '../../hooks/useLocalStorage'
-import { useEffect } from 'react'
 
 const sxContainer = {
   display: 'flex',
@@ -15,10 +13,6 @@ const sxContainer = {
 }
 
 const Layout = () => {
-
-  const [token] = useLocalStorage('user_token')
-
-  useEffect(() => {}, [token])
   return (
     <Grid
       container

@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -16,9 +16,13 @@ import {
   Typography,
 } from '@mui/material'
 
+import { UserContext } from '../../context/UserContext'
 import { ACCOUNT_TYPE } from '../../mock/TestFormData'
 
+
 export const Register = (props) => {
+  const { login } = useContext(UserContext)
+  const navigateTo = useNavigate()
   const username = React.createRef()
   const firstName = React.createRef()
   const lastName = React.createRef()
@@ -76,8 +80,11 @@ export const Register = (props) => {
         .then((res) => res.json())
         .then((res) => {
           if (res.valid) {
-            localStorage.setItem('user_token', res.token)
-            props.history.push('/bookings')
+            login({
+              name: username.current.value,
+              token: res.token,
+            })
+            navigateTo('/bookings')
           } else {
             // TODO: return error reason from server to display in popup
             handleOpen(res.reason)
@@ -294,12 +301,12 @@ export const Register = (props) => {
           sx={{ textAlign: 'center' }}
         >
           Already registered?{' '}
-          <Link
+          <RouterLink
             to='/login'
             style={{ textDecoration: 'none' }}
           >
             Login
-          </Link>
+          </RouterLink>
         </Typography>
       </Box>
     </Box>

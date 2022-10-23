@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 
-import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
-import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
 import MenuIcon from '@mui/icons-material/Menu'
 import Container from '@mui/material/Container'
+import MenuItem from '@mui/material/MenuItem'
+import Tooltip from '@mui/material/Tooltip'
+import Toolbar from '@mui/material/Toolbar'
+import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import MenuItem from '@mui/material/MenuItem'
+import Menu from '@mui/material/Menu'
 import { Link } from '@mui/material'
+import Box from '@mui/material/Box'
 
 import logo from '../../assets/images/pugTransport.svg'
-import useLocalStorage from '../../hooks/useLocalStorage'
+import { UserContext } from '../../context/UserContext'
 
 const loggedOutPages = [
   { page: 'Home', link: '' },
@@ -38,20 +38,16 @@ const settings = [
 ]
 
 export const NavBar = () => {
-  const location = useLocation()
-  const navigateTo = useNavigate()
-
-  const url = location.pathname
-  // let token = localStorage.getItem('user_token')
-  const [token, setToken] = useLocalStorage('user_token')
-
+  const { user: { token }, logout } = useContext(UserContext)
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
+  const navigateTo = useNavigate()
+  const location = useLocation()
 
+  const url = location.pathname
 
   useEffect(() => {
     // rerender navbar when user logs in/out
-    console.log(`test navbar token: ${token}`)
   }, [url, token])
 
   const handleOpenNavMenu = (event) => {
@@ -75,8 +71,7 @@ export const NavBar = () => {
   }
   
   const logoutUser = () => {
-    // localStorage.removeItem('user_token')
-    setToken(() => "")
+    logout()
     navigateTo('/')
   }
 
