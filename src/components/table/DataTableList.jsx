@@ -6,13 +6,13 @@ import { BiNews } from 'react-icons/bi'
 import { Box } from '@mui/material'
 
 import { UserContext } from '../../context/UserContext'
-import { PageNotFound } from '../helpers/PageNotFound'
+import { PageNotFound } from '../pages/PageNotFound'
 import { DataTable } from './DataTable'
 
 const get_icon = {
-  "bookings": <BiNews />,
-  "containers": <MdViewAgenda />,
-  "products": <GrCubes />,
+  "bookings": BiNews,
+  "containers": MdViewAgenda,
+  "products": GrCubes,
 }
 
 const DataTableList = ({endpoint}) => {
