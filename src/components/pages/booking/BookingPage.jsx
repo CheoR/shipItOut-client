@@ -74,7 +74,14 @@ export const BookingPage = () => {
   useEffect(() => {
     const fetchPorts = () => {
       return axiosInstance.get('/ports')
-        .then(setPorts)
+        .then((response) => setPorts(response.data))
+        .catch((err) => {
+          const msg = `Error: could not fetch Ports.\n`
+          if(err.response) {
+            // Not in 200 response range
+            console.error(`${msg}\n `, err.response.data)
+          }
+        })
     }
     fetchPorts()
   }, [])
@@ -82,7 +89,14 @@ export const BookingPage = () => {
   useEffect(() => {
     const fetchVoyages = () => {
       return axiosInstance.get('/voyages')
-        .then(setVoyages)
+        .then((response) => setVoyages(response.data))
+        .catch((err) => {
+          const msg = `Error: could not fetch Voyages.\n`
+          if(err.response) {
+            // Not in 200 response range
+            console.error(`${msg}\n `, err.response.data)
+          }
+        })
     }
     fetchVoyages()
   }, [])
@@ -90,14 +104,14 @@ export const BookingPage = () => {
   useEffect(() => {
     const getCarriers = () => {
       return axiosInstance.get('/appusers/just_carriers')
-        .then(setCarriers)
+        .then((response) => setCarriers(response.data))
         .catch((err) => {
-        const msg = `Error: could not fetch Carrier.\n`
-        if(err.response) {
-          // Not in 200 response range
-          console.error(`${msg}\n `, err.response.data)
-        }
-      })
+          const msg = `Error: could not fetch Carriers.\n`
+          if(err.response) {
+            // Not in 200 response range
+            console.error(`${msg}\n `, err.response.data)
+          }
+        })
     }
 
     getCarriers()

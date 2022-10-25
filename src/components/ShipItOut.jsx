@@ -31,23 +31,23 @@ export const ShipItOut = () => {
 
           <Route path="products">
             <Route index element={ <ProductList /> } />
-            <Route path="update/:id(\d+)" element={ <ProductView /> } />
+            <Route path="update/:id" element={ <ProductView /> } />
             <Route path="create" element={ <ProductView /> } />
-            <Route path=":id(\d+)" element={ <ProductView /> } />
+            <Route path=":id" element={ <ProductView /> } />
             <Route path="*" element={ <PageNotFound /> } />
           </Route>
 
           <Route path="containers">
             <Route index element={ <ContainerList /> } />
-            <Route path="update/:id(\d+)" element={ <ContainerView /> } />
+            <Route path="update/:id" element={ <ContainerView /> } />
             <Route path="create" element={ <ContainerView /> } />
-            <Route path="view/:id(\d+)" element={ <ContainerView /> } />
+            <Route path="view/:id" element={ <ContainerView /> } />
             <Route path="*" element={ <PageNotFound /> } />
           </Route>
           <Route path="bookings">
             <Route index element={ <BookingList /> } />
-            <Route path="update/:id(\d+)" element={ <BookingPage /> } />
-            <Route path="view/:id(\d+)" element={ <BookingPage /> } />
+            <Route path="update/:id" element={ <BookingPage /> } />
+            <Route path="view/:id" element={ <BookingPage /> } />
             <Route path="create" element={ <BookingPage /> } />
             <Route path="*" element={ <PageNotFound /> } />
           </Route>
