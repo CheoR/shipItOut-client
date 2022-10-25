@@ -26,7 +26,7 @@ const UserContextProvider = ({ children }) => {
       auth: false,
       token: '',
     }))
-    axiosInstance.setHeader('Authorization', null)
+    delete axiosInstance.defaults.headers.common['Authorization']
   }
 
   return (
