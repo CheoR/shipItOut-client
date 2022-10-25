@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
+import axiosInstance from '../utils/axios'
 // import { BookingPage1 } from '../components/booking/BookingPage1'
 
 export const PortContext = createContext(null)
@@ -6,52 +7,26 @@ export const PortContext = createContext(null)
 export const PortContextProvider = ({ children }) => {
   const [ports, setPorts] = useState([])
 
-  // const getPorts = () => {
-  //   return fetch(`${process.env.REACT_APP_API}/ports`, {
-  //     headers: {
-  //       Authorization: `Token ${localStorage.getItem('user_token')}`,
-  //     },
-  //   })
-  //     .then((res) => res.json())
-  //     .then(setPorts)
-  // }
-
-  // useEffect(() => {
-  //   async function fetchPorts() {
-  //     const res = await fetch(`${process.env.REACT_APP_API}/ports`, {
-  //       headers: {
-  //         Authorization: `Token ${localStorage.getItem('user_token')}`,
-  //       },
-  //     })
-  //     const _ports = res.json()
-  //     setPorts(_ports)
-  //   }
-  //   fetchPorts()
-  // }, [])
-
   useEffect(() => {
     const fetchPorts = () => {
-      fetch(`${process.env.REACT_APP_API}/ports`, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('user_token')}`,
-        },
-      })
-        .then((res) => res.json())
+      return axiosInstance
+        .get('/ports')
         .then(setPorts)
-        .catch((err) => console.log('Could not fetch ports: ', err))
+        .catch((err) => {
+          const msg = 'Error: Could not Fetch Ports.\n'
+          console.error(`${msg}: ${err.response.data}`)
+        })
     }
     fetchPorts()
   }, [])
 
   // useEffect(() => {
   //   async function fetchPorts() {
-  //     const res = await fetch(`${process.env.REACT_APP_API}/ports`, {
-  //       headers: {
-  //         Authorization: `Token ${localStorage.getItem('user_token')}`,
-  //       },
+  //     const response = await axiosInstance.get('/ports').catch((err) => {
+  //       const msg = 'Error: Could not Fetch Ports.\n'
+  //       console.error(`${msg}: ${err.response.data}`)
   //     })
-  //     const _ports = res.json()
-  //     setPorts(_ports)
+  //     setPorts(response.data)
   //   }
   //   fetchPorts()
   // }, [])

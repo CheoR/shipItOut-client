@@ -1,4 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react'
+import axiosInstance from '../utils/axios'
 
 console.log('================ CARRIER CONTEXT CALLED =====')
 const CarrierContext = createContext(null)
@@ -9,20 +10,19 @@ const CarrierContextProvider = ({ children }) => {
   useEffect(() => {
     const getCarriers = () => {
       console.log('================ FETCHING CARRIER DATA =====')
-      fetch(`${process.env.REACT_APP_API}/appusers/just_carriers`, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('user_token')}`,
-        },
-      })
-        .then((res) => {
-          const data = res.json()
+      return axiosInstance
+        .get('/appusers/just_carriers')
+        .then((response) => {
           console.log('+++++++++++in use effect carriers')
-          console.log(data)
+          console.log(response.data)
           console.log('++++++++++')
-          return data
+          return response.data
         })
         .then(setCarriers)
-        .catch((error) => console.log('Error fetching Carriers: ', error))
+        .catch((err) => {
+          const msg = 'Error: Could not Fetch Carriers.\n'
+          console.error(`${msg}: ${err.response.data}`)
+        })
     }
 
     getCarriers()
