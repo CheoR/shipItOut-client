@@ -1,17 +1,15 @@
 import React, { createContext, useState } from 'react'
 
+import axiosInstance from '../../utils/axios'
+
+
 export const DataTableContext = createContext()
 
 export const DataTableProvider = (props) => {
   const [data, setData] = useState([])
 
   const getDataTableFor = (endpoint) => {
-    return fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem('user_token')}`,
-      },
-    })
-      .then((res) => res.json())
+    return axiosInstance.get(`/${endpoint}`)
       .then(setData)
   }
 

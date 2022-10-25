@@ -29,7 +29,7 @@ export const DataTable = ({ endpoint, Icon }) => {
         setSelectionModel([])
       })
       .catch((err) => {
-        const msg = `Error: could not delete ${endpoint}/${selectionModel[0]}}.\n`
+        const msg = `Error: could not delete ${endpoint}/${selectionModel[0]}.\n`
         if(err.response) {
           // Not in 200 response range
           console.error(`${msg}\n `, err.response.data)
