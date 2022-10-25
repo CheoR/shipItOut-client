@@ -1,5 +1,5 @@
 import React, { createRef, useContext, useState, } from 'react'
-import { Link as RouterLink, useNavigate } from 'react-router-dom'
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   Box,
   Button,
@@ -18,6 +18,11 @@ import { UserContext } from '../../context/UserContext'
 import axiosInstance from '../../utils/axios'
 
 export const Login = () => {
+  // error if user manually inputs url since not navigating to /login from another state
+  // const { state: { from = "/" } = {} } = useLocation();
+  const { state } = useLocation();
+  const from = state?.from || undefined
+
   const { login } = useContext(UserContext)
   const [open, setOpen] = useState(false)
   const navigateTo = useNavigate()
@@ -45,7 +50,7 @@ export const Login = () => {
           name: username.current.value,
           token: res.data.token,
         })
-        navigateTo('/')
+        navigateTo(from ?? '/', { replace: true })
       } else {
         handleOpen()
       }
