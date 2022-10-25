@@ -9,7 +9,7 @@ import { DataTableProvider } from './table/DataTableProvider'
 import PrivateRoute from './auth/PrivateRoute/PrivateRoute'
 import { UserContext } from '../context/UserContext'
 import { PageNotFound } from './pages/PageNotFound'
-import DataTableList from './table/DataTableList'
+import { DataTable } from './table/DataTable'
 import { Register } from './auth/Register'
 import { Landing } from './pages/Landing'
 import { Login } from './auth/Login'
@@ -23,11 +23,11 @@ export const ShipItOut = () => {
     <DataTableProvider>
         <Routes>
           <Route path="/" element={ <Layout /> }>
-            <Route index element={ token ? <DataTableList endpoint="bookings" /> : <Landing /> } />
+            <Route index element={ token ? <DataTable endpoint="bookings" /> : <Landing /> } />
 
             <Route element={ <PrivateRoute />}>
               <Route path="products">
-                <Route index element={ <DataTableList endpoint="products" /> } />
+                <Route index element={ <DataTable endpoint="products" /> } />
                 <Route path="update/:id" element={ <ProductView /> } />
                 <Route path="create" element={ <ProductView /> } />
                 <Route path=":id" element={ <ProductView /> } />
@@ -35,14 +35,15 @@ export const ShipItOut = () => {
               </Route>
 
               <Route path="containers">
-                <Route index element={ <DataTableList endpoint="containers" /> } />
+                <Route index element={ <DataTable endpoint="containers" /> } />
                 <Route path="update/:id" element={ <ContainerView /> } />
                 <Route path="create" element={ <ContainerView /> } />
                 <Route path="view/:id" element={ <ContainerView /> } />
                 <Route path="*" element={ <PageNotFound /> } />
               </Route>
+
               <Route path="bookings">
-                <Route index element={<DataTableList endpoint="bookings" />} />
+                <Route index element={<DataTable endpoint="bookings" />} />
                 <Route path="update/:id" element={ <BookingPage /> } />
                 <Route path="view/:id" element={ <BookingPage /> } />
                 <Route path="create" element={ <BookingPage /> } />

@@ -1,25 +1,36 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Link as RouterLink } from 'react-router-dom'
 
-import { DataGrid } from '@mui/x-data-grid'
-import AddIcon from '@mui/icons-material/Add'
+import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
+import VisibilityIcon from '@mui/icons-material/Visibility'
 import DeleteIcon from '@mui/icons-material/Delete'
 import UpdateIcon from '@mui/icons-material/Update'
-import VisibilityIcon from '@mui/icons-material/Visibility'
-import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add'
+import { DataGrid } from '@mui/x-data-grid'
 
-import { Loading } from '../helpers/Loading'
-import axiosInstance from '../../utils/axios'
-import { UserContext } from '../../context/UserContext'
+import { MdViewAgenda } from 'react-icons/md'
+import { GrCubes } from 'react-icons/gr'
+import { BiNews } from 'react-icons/bi'
+
 import { TEST_TABLE_DATA } from '../../constants/formFields'
+import { UserContext } from '../../context/UserContext'
+import axiosInstance from '../../utils/axios'
+import { Loading } from '../helpers/Loading'
 
-export const DataTable = ({ endpoint, Icon }) => {
+const get_icon = {
+  "bookings": BiNews,
+  "containers": MdViewAgenda,
+  "products": GrCubes,
+}
+
+export const DataTable = ({ endpoint }) => {
   const [selectionModel, setSelectionModel] = useState([])
   const [isRefreshed, setIsRefreshed] = useState(false)
   const { user: {token} } = useContext(UserContext)
   const [isLoading, setIsLoading] = useState(true)
   const [columns, setColumns] = useState([])
   const [data, setData] = useState([])
+  const Icon = get_icon[endpoint]
 
   const deleteSelected = (e) => {
     e.preventDefault()
