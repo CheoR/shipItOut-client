@@ -5,80 +5,21 @@ const axiosInstance = axios.create()
 // Axios will remember that baseURL, plus other values you might
 //  want to specify for every request, including headers
 axiosInstance.defaults.baseURL = process.env.REACT_APP_API
-axios.defaults.headers.common['Authorization'] =
-  localStorage.getItem('user_token')
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+axiosInstance.defaults.timeout = 5000
+axiosInstance.defaults.headers.common['Accept'] = 'application/json'
+axiosInstance.defaults.headers.post['Content-Type'] = 'application/json'
+
+axiosInstance.interceptors.request.use((request) => {
+  const token = localStorage.getItem('user_token')
+
+  if (token) {
+    request.headers.Authorization = `Token ${token}`
+  }
+
+  return request
+})
 
 export default axiosInstance
-
-// const handleLogin = (e) => {
-//   e.preventDefault()
-
-//   axios
-//     .post('/login', {
-//       username: username.current.value,
-//       password: password.current.value,
-//     })
-//     .then((res) => {
-//       console.log('----- response is ----')
-//       console.table(res.data)
-//       if (res.status === 401) handleOpen()
-//       if (res.data.valid && res.data.token) {
-//         localStorage.setItem('user_token', res.data.token)
-//         props.history.push('/bookings')
-//       } else {
-//         handleOpen()
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error.message)
-//     })
-// }
-
-// const handleLogin = (e) => {
-//   e.preventDefault()
-
-//   axiosInstance
-//     .post('/login', {
-//       username: username.current.value,
-//       password: password.current.value,
-//     })
-//     .then((res) => {
-//       console.log('----- response is ----')
-//       console.table(res.data)
-//       if (res.data.valid && 'token' in res) {
-//         localStorage.setItem('user_token', res.token)
-//         props.history.push('/bookings')
-//       } else {
-//         handleOpen()
-//       }
-//     })
-//     .catch((error) => {
-//       console.error(error)
-//     });
-//   }
-
-//   return fetch(`${process.env.REACT_APP_API}/login`, {
-//     method: 'POST',
-//     headers: {
-//       'Content-Type': 'application/json',
-//       Accept: 'application/json',
-//     },
-//     body: JSON.stringify({
-//       username: username.current.value,
-//       password: password.current.value,
-//     }),
-//   })
-//     .then((res) => res.json())
-//     .then((res) => {
-//       if ('valid' in res && res.valid && 'token' in res) {
-//         localStorage.setItem('user_token', res.token)
-//         props.history.push('/bookings')
-//       } else {
-//         handleOpen()
-//       }
-//     })
-// }
 
 // const handleRegister = (e) => {
 //   e.preventDefault()
@@ -222,20 +163,3 @@ export default axiosInstance
 //     setFormValues(res)
 //     setIsLoading(false)
 //   })
-
-// const deleteSelected = (e) => {
-//   e.preventDefault()
-//   return fetch(
-//     `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
-//     {
-//       method: 'DELETE',
-//       headers: {
-//         Authorization: `Token ${token}`,
-//         'Content-Type': 'application/json',
-//       },
-//     },
-//   ).then(() => {
-//     console.log('calling resset')
-//     setIsRefreshed((prevState) => !prevState)
-//   })
-// }

@@ -1,4 +1,5 @@
 import React, { createContext, useState } from 'react'
+import axiosInstance from '../utils/axios'
 
 const UserContext = createContext()
 
@@ -25,6 +26,7 @@ const UserContextProvider = ({ children }) => {
       auth: false,
       token: '',
     }))
+    axiosInstance.setHeader('Authorization', null)
   }
 
   return (
