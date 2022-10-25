@@ -9,8 +9,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import { ButtonGroup, Button, Typography, Box, Grid } from '@mui/material'
 
 import { Loading } from '../helpers/Loading'
+import axiosInstance from '../../utils/axios'
 import { UserContext } from '../../context/UserContext'
-
 import { TEST_TABLE_DATA } from '../../constants/formFields'
 
 export const DataTable = ({ endpoint, Icon }) => {
@@ -21,34 +21,36 @@ export const DataTable = ({ endpoint, Icon }) => {
   const [columns, setColumns] = useState([])
   const [data, setData] = useState([])
 
-  // const deleteSelected = (e) => {
-  //   e.preventDefault()
-  //   return fetch(
-  //     `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
-  //     {
-  //       method: 'DELETE',
-  //       headers: {
-  //         Authorization: `Token ${token}`,
-  //         'Content-Type': 'application/json',
-  //       },
-  //     },
-  //   ).then(() => {
-  //     console.log('calling resset')
-  //     setIsRefreshed((prevState) => !prevState)
-  //   })
-  // }
+  const deleteSelected = (e) => {
+    e.preventDefault()
+    return axiosInstance.delete(`/${endpoint}/${selectionModel[0]}`)
+      .then(() => {
+        setIsRefreshed((prevState) => !prevState)
+        setSelectionModel([])
+      })
+      .catch((err) => {
+        const msg = `Error: could not delete ${endpoint}/${selectionModel[0]}}.\n`
+        if(err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+        }
+      })
+  }
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API}/${endpoint}`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.lenght === 0) res = TEST_TABLE_DATA
-        setData(res)
-        const colHeaders = Object.keys(res[0])
+    const fetchData = async () => {
+      try {
+        const response = await axiosInstance.get(`/${endpoint}`)
+
+        let colHeaders
+        // even if response is in 200 range, may be empty
+          if(response && !!response.data.length) {
+            colHeaders = Object.keys(response.data[0])       
+            setData(response.data)
+          } else {
+            colHeaders = Object.keys(TEST_TABLE_DATA[0])
+            setData(TEST_TABLE_DATA)
+        }
 
         const headers = colHeaders.map((header) => {
           return {
@@ -58,41 +60,49 @@ export const DataTable = ({ endpoint, Icon }) => {
             width: 140,
           }
         })
+
         setColumns(headers)
         setIsLoading(false)
-      })
-      .catch((err) => {
-        const header = 'Data Not Found'
-        setColumns([
-          {
-            field: `${header}`,
-            headerName: `${header}`,
-            description: `${header}`,
-            flex: 1,
-          },
-        ])
-        setData([
-          {
-            id: 0,
-            header: header,
-          },
-        ])
-        setIsLoading(false)
-      })
+
+      } catch (err) {
+        const msg = `Error: Could not fetch data for ${endpoint}.\n `
+        if(err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+          const header = 'Data Not Found'
+          setColumns([
+            {
+              field: `${header}`,
+              headerName: `${header}`,
+              description: `${header}`,
+              flex: 1,
+            },
+          ])
+          setData([
+            {
+              id: 0,
+              header: header,
+            },
+          ])
+          setIsLoading(false)
+        } else {
+          console.error(`${msg}: ${err.message}`)
+        }
+      }
+    }
+    fetchData()
   }, [endpoint, isRefreshed, token])
 
   if (isLoading) return <Loading text='table' />
 
-  const sxContainer = {
-    display: 'flex',
-    flexDirection: 'column',
-    height: '100%',
-  }
-
   return (
     <Grid
       container
-      sx={sxContainer}
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+      }}
     >
       <Grid item>
         <Typography
@@ -165,24 +175,7 @@ export const DataTable = ({ endpoint, Icon }) => {
                 variant='contained'
                 color='primary'
                 startIcon={<DeleteIcon />}
-                // onClick={deleteSelected}
-
-                onClick={(e) => {
-                  e.preventDefault()
-                  return fetch(
-                    `${process.env.REACT_APP_API}/${endpoint}/${selectionModel[0]}`,
-                    {
-                      method: 'DELETE',
-                      headers: {
-                        Authorization: `Token ${token}`,
-                        'Content-Type': 'application/json',
-                      },
-                    },
-                  ).then(() => {
-                    setIsRefreshed((prevState) => !prevState)
-                    // navigateTo(`/${endpoint}`)
-                  })
-                }}
+                onClick={deleteSelected}
               >
                 Delete
               </Button>

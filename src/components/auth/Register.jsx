@@ -18,9 +18,10 @@ import {
 
 import { UserContext } from '../../context/UserContext'
 import { ACCOUNT_TYPE } from '../../constants/formFields'
+import axiosInstance from '../../utils/axios'
 
 
-export const Register = (props) => {
+export const Register = () => {
   const { login } = useContext(UserContext)
   const navigateTo = useNavigate()
   const username = React.createRef()
@@ -69,30 +70,27 @@ export const Register = (props) => {
         account_type: parseInt(accountType.current.value),
       }
 
-      return fetch(`${process.env.REACT_APP_API}/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify(newUser),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.valid) {
+      return axiosInstance.post('/register', newUser)
+        .then((response) => {
+          if (response.data.valid) {
             login({
               name: username.current.value,
-              token: res.token,
+              token: response.data.token,
             })
             navigateTo('/bookings')
           } else {
             // TODO: return error reason from server to display in popup
-            handleOpen(res.reason)
+            handleOpen(response.data.reason)
           }
         })
         .catch((err) => {
-          console.error(err)
-        })
+        const msg = `Error: could not register ${username.current.value}.\n`
+        if(err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+        }
+      })
+
     } else {
       handleOpen('password')
     }

@@ -13,7 +13,9 @@ import {
   InputLabel,
   Typography,
 } from '@mui/material'
+
 import { UserContext } from '../../context/UserContext'
+import axiosInstance from '../../utils/axios'
 
 export const Login = () => {
   const { login } = useContext(UserContext)
@@ -29,31 +31,27 @@ export const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault()
 
-    return fetch(`${process.env.REACT_APP_API}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        username: username.current.value,
-        password: password.current.value,
-      }),
+    return axiosInstance.post('/login', {
+      username: username.current.value,
+      password: password.current.value,
     })
-      .then((res) => res.json())
-      .then((res) => {
-        if ('valid' in res && res.valid && 'token' in res) {
-          // setToken(() => res.token)
-          login({
-            name: username.current.value,
-            token: res.token,
-          })
-          navigateTo('/')
-        } else {
-          handleOpen()
-        }
-      })
+    .then((res) => {
+      if (
+        'valid' in res.data &&
+        res.data.valid &&
+        'token' in res.data
+      ) {
+        login({
+          name: username.current.value,
+          token: res.data.token,
+        })
+        navigateTo('/')
+      } else {
+        handleOpen()
+      }
+    })
   }
+
   return (
     <Box sx={{ height: '100%' }}>
       <Dialog
