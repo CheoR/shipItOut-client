@@ -1,14 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { GrCubes } from 'react-icons/gr'
 
-import { PageNotFound } from '../PageNotFound'
+import { UserContext } from '../../../context/UserContext'
 import { DataTable } from '../../table/DataTable'
+import { PageNotFound } from '../PageNotFound'
 
 import styles from './ProductList.module.css'
 
+
 export const ProductList = () => {
-  const token = localStorage.getItem('user_token')
+  const { user: { token } } = useContext(UserContext)
   return token ? (
     <div className={styles.product}>
       <DataTable

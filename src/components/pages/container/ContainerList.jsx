@@ -1,12 +1,14 @@
-import { Box } from '@mui/material'
-import React from 'react'
-import { MdViewAgenda } from 'react-icons/md'
+import React, { useContext } from 'react'
 
-import { PageNotFound } from '../PageNotFound'
+import { MdViewAgenda } from 'react-icons/md'
+import { Box } from '@mui/material'
+
+import { UserContext } from '../../../context/UserContext'
 import { DataTable } from '../../table/DataTable'
+import { PageNotFound } from '../PageNotFound'
 
 export const ContainerList = () => {
-  const token = localStorage.getItem('user_token')
+  const { user: { token }} = useContext(UserContext)
   return token ? (
     <Box sx={{ height: '100%'}}>
       <DataTable

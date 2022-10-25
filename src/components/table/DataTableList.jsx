@@ -1,9 +1,11 @@
-import React from 'react'
-import { Box } from '@mui/material'
-import { BiNews } from 'react-icons/bi'
+import React, { useContext } from 'react'
+
 import { MdViewAgenda } from 'react-icons/md'
 import { GrCubes } from 'react-icons/gr'
+import { BiNews } from 'react-icons/bi'
+import { Box } from '@mui/material'
 
+import { UserContext } from '../../context/UserContext'
 import { PageNotFound } from '../helpers/PageNotFound'
 import { DataTable } from './DataTable'
 
@@ -14,7 +16,7 @@ const get_icon = {
 }
 
 const DataTableList = ({endpoint}) => {
-  const token = localStorage.getItem('user_token')
+  const { user: {token}} = useContext(UserContext)
   return token
   ? (
     <Box sx={{ height: '100%' }}>
