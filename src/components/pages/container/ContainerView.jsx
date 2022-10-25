@@ -1,15 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { Loading } from '../../helpers/Loading'
+import { UserContext } from '../../../context/UserContext'
+import axiosInstance from '../../../utils/axios'
 import { ContainerView1 } from './ContainerView1'
 import { ContainerView2 } from './ContainerView2'
 import { ContainerView3 } from './ContainerView3'
+import { Loading } from '../../helpers/Loading'
 
 export const ContainerView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [formValues, setFormValues] = useState([])
-  const token = localStorage.getItem('user_token')
+  const { user: {token} } = useContext(UserContext)
   const { id } = useParams()
 
   useEffect(() => {
@@ -18,20 +20,15 @@ export const ContainerView = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    return fetch(`${process.env.REACT_APP_API}/bookings`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        res = res.filter((r) => parseInt(r.id) === parseInt(id))[0]
-        const addStep = { ...res }
+    return axiosInstance.get(`/bookings`)
+      .then((response) => {
+        response = response.data.filter((r) => parseInt(r.id) === parseInt(id))[0]
+        const addStep = { ...response }
         addStep['step'] = 2
         return addStep
       })
-      .then((res) => {
-        setFormValues(res)
+      .then((response) => {
+        setFormValues(response.data)
         setIsLoading(false)
       })
   }, [id, token])
@@ -76,6 +73,6 @@ export const ContainerView = () => {
       )
 
     default:
-      return <>Container Loading . . </>
+      return <Loading text="Container" />
   }
 }

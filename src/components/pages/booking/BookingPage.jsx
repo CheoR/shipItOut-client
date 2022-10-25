@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import axiosInstance from '../../../utils/axios'
 
 import { BookingPage1 } from './BookingPage1'
 import { BookingPage2 } from './BookingPage2'
 import { BookingPage3 } from './BookingPage3'
 
 export const BookingPage = () => {
-  let token = localStorage.getItem('user_token')
   let location = useLocation()
   const [ , endpoint, action, instance] = location.pathname.split('/')
   const isView = action === 'view'
@@ -59,59 +59,45 @@ export const BookingPage = () => {
 
     useEffect(() => {
       const fetchBooking = () => {
-        return fetch(`${process.env.REACT_APP_API}/${endpoint}/${instance}`, {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((res) => {
-            res.step = 1
-            res.instance = instance
-            setFormValues(res)
+        return axiosInstance.get(`/${endpoint}/${instance}`)
+          .then((response) => {
+            response.data.step = 1
+            response.data.instance = instance
+            setFormValues(response.data)
           })
       }
       if(!location.pathname.includes('create')) {
         fetchBooking()
       }
-  }, [action, endpoint, instance, token, location.pathname])
+  }, [action, endpoint, instance, location.pathname])
 
   useEffect(() => {
-      const fetchPorts = () => {
-        return fetch(`${process.env.REACT_APP_API}/ports`, {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then(setPorts)
-      }
-      fetchPorts()
-  }, [token])
+    const fetchPorts = () => {
+      return axiosInstance.get('/ports')
+        .then(setPorts)
+    }
+    fetchPorts()
+  }, [])
 
   useEffect(() => {
-      const fetchVoyages = () => {
-        return fetch(`${process.env.REACT_APP_API}/voyages`, {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then(setVoyages)
-      }
-      fetchVoyages()
-  }, [token])
+    const fetchVoyages = () => {
+      return axiosInstance.get('/voyages')
+        .then(setVoyages)
+    }
+    fetchVoyages()
+  }, [])
 
   useEffect(() => {
     const getCarriers = () => {
-      fetch(`${process.env.REACT_APP_API}/appusers/just_carriers`, {
-        headers: {
-          Authorization: `Token ${localStorage.getItem('user_token')}`,
-        },
-      })
-        .then((res) => res.json())
+      return axiosInstance.get('/appusers/just_carriers')
         .then(setCarriers)
-        .catch((error) => console.log('Error fetching Carriers: ', error))
+        .catch((err) => {
+        const msg = `Error: could not fetch Carrier.\n`
+        if(err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+        }
+      })
     }
 
     getCarriers()

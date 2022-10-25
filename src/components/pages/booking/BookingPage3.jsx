@@ -14,6 +14,7 @@ import {
 
 import AgentBlock from '../../layout/AgentBlock'
 import ButtonPanel from '../../buttons/ButtonPanel'
+import axiosInstance from '../../../utils/axios'
 
 export const BookingPage3 = ({
   handleCheckBoxChange,
@@ -25,7 +26,6 @@ export const BookingPage3 = ({
   action,
   formValues,
 }) => {
-  const token = localStorage.getItem('user_token')
   const navigateTo = useNavigate()
 
   const prev = (e) => {
@@ -34,46 +34,30 @@ export const BookingPage3 = ({
   }
 
   const create = (e) => {
-    console.table('all values')
     e.preventDefault()
-    console.table(formValues)
-    console.log('--- token is ', token)
 
-    return fetch(`${process.env.REACT_APP_API}/bookings`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Token ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formValues),
-    })
+    return axiosInstance.post('/bookings', formValues)
       .then(() => {
         navigateTo('/bookings')
       })
       .catch((err) => {
-        console.error('POST Error: ', err)
+        const msg = 'Error: Could not Create Booking.\n'
+        console.error(`${msg}: ${err.response.data}`)
         navigateTo('/bookings')
       })
   }
 
   const update = (e) => {
-    console.table('all values')
     e.preventDefault()
-    console.table(formValues)
-    console.log('--- token is ', token)
-
-    return fetch(`${process.env.REACT_APP_API}/bookings/${formValues.instance}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Token ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formValues),
-    })
+    return axiosInstance.put(`/bookings/${formValues.instance}`, formValues)
       .then(() => {
         navigateTo('/bookings')
       })
-      .catch((err) => console.error('POST Error: ', err))
+      .catch((err) => {
+        const msg = 'Error: Could not Update Booking.\n'
+        console.error(`${msg}: ${err.response.data}`)
+        navigateTo('/bookings')
+      })
   }
 
   return (

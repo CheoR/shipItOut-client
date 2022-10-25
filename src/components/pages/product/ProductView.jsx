@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
+import { UserContext } from '../../../context/UserContext'
+import axiosInstance from '../../../utils/axios'
 import { Loading } from '../../helpers/Loading'
 import { ProductView1 } from './ProductView1'
 import { ProductView2 } from './ProductView2'
@@ -9,7 +11,7 @@ import { ProductView3 } from './ProductView3'
 export const ProductView = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [formValues, setFormValues] = useState({})
-  const token = localStorage.getItem('user_token')
+  const { user: {token} } = useContext(UserContext)
   const { id } = useParams()
 
   useEffect(() => {
@@ -18,16 +20,11 @@ export const ProductView = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    return fetch(`${process.env.REACT_APP_API}/bookings`, {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-      .then((res) => res.json())
-      .then((res) => {
+    return axiosInstance.get(`/bookings`)
+      .then((response) => {
         // get the container that the product belongs to
 
-        const container = res.find((obj) => {
+        const container = response.data.find((obj) => {
           const prodIndex = obj.products.find(
             (prod) => parseInt(prod.product_id) === parseInt(id),
           )
@@ -43,8 +40,8 @@ export const ProductView = () => {
 
         return addStep
       })
-      .then((res) => {
-        setFormValues(res)
+      .then((response) => {
+        setFormValues(response.data)
         setIsLoading(false)
       })
   }, [id, token])
@@ -89,6 +86,6 @@ export const ProductView = () => {
       )
 
     default:
-      return <>Product Loading . . </>
-  } // swtich
+      return <Loading text="Product" />
+  }
 }
