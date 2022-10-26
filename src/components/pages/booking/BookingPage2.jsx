@@ -29,6 +29,7 @@ export const BookingPage2 = ({
   formValues,
   data,
 }) => {
+
   const next = (e) => {
     e.preventDefault()
     nextStep()
@@ -169,7 +170,7 @@ export const BookingPage2 = ({
                 value={formValues.container || ''}
                 onChange={handleInputChange}
               >
-                {data.containers_available.map((s) => (
+                {data.containers_available.filter((c) => c.container_type === formValues.container_type).map((s) => (
                   <MenuItem
                     key={parseInt(s.id)}
                     id={parseInt(s.id)}
