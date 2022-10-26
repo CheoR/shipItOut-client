@@ -44,16 +44,29 @@ const FormContextProvider = ({ children }) => {
       const fetchBookingStatus = await axiosInstance.get(
         '/bookings/booking_statuses',
       )
+      const fetchContainerTypes = await axiosInstance.get(
+        '/containers/container_types',
+      )
+      const fetchContainerLocations = await axiosInstance.get(
+        '/containers/container_locations',
+      )
 
-      Promise.all([fetchCarriers, fetchPorts, fetchVoyages, fetchBookingStatus])
-        .then(([carriers, ports, voyages, statuses]) => {
-          console.log('statuses are ')
-          console.log(statuses.data.booking_status)
+      Promise.all([
+        fetchCarriers,
+        fetchPorts,
+        fetchVoyages,
+        fetchBookingStatus,
+        fetchContainerTypes,
+        fetchContainerLocations,
+      ])
+        .then(([carriers, ports, voyages, statuses, containers, locations]) => {
           setData({
             carriers: carriers.data,
             ports: ports.data,
             voyages: voyages.data,
             booking_statuses: statuses.data.booking_status,
+            container_types: containers.data.container_type,
+            container_locations: locations.data.container_location,
             isLoading: false,
           })
         })

@@ -15,9 +15,7 @@ import {
 } from '@mui/material'
 
 import {
-  CONTAINER_TYPE,
   CONTAINERS,
-  CONTAINER_LOCATION,
 } from '../../../constants/formFields'
 import AgentBlock from '../../layout/AgentBlock'
 import ButtonPanel from '../../buttons/ButtonPanel'
@@ -32,6 +30,7 @@ export const BookingPage2 = ({
   action,
   instance,
   formValues,
+  data,
 }) => {
   const next = (e) => {
     e.preventDefault()
@@ -152,11 +151,11 @@ export const BookingPage2 = ({
                 value={formValues.container_type || ''}
                 onChange={handleInputChange}
               >
-                {CONTAINER_TYPE.map((s) => (
+                {data.container_types.map((s) => (
                   <MenuItem
-                    key={s.id}
-                    id={s.id}
-                    value={s.id}
+                    key={parseInt(s.id)}
+                    id={parseInt(s.id)}
+                    value={parseInt(s.id)}
                   >
                     {s.container_type}
                   </MenuItem>
@@ -196,11 +195,11 @@ export const BookingPage2 = ({
                 value={formValues.container_location || ""}
                 onChange={handleInputChange}
               >
-                {CONTAINER_LOCATION.map((c) => (
+                {data.container_locations.map((c) => (
                   <MenuItem
-                    key={c.id}
-                    id={c.id}
-                    value={c.id}
+                    key={parseInt(c.id)}
+                    id={parseInt(c.id)}
+                    value={parseInt(c.id)}
                   >
                     {c.container_location}
                   </MenuItem>

@@ -14,7 +14,7 @@ export const BookingPage = () => {
   const [ , endpoint, action, instance] = location.pathname.split('/')
   const isView = action === 'view'
 
-  const { data: { ports, voyages, carriers, isLoading, booking_statuses } } = useContext(FormContext)
+  const { data: { ports, voyages, carriers, isLoading, booking_statuses, container_types, container_locations } } = useContext(FormContext)
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
@@ -148,6 +148,10 @@ export const BookingPage = () => {
           action={action}
           instance={instance}
           formValues={formValues}
+          data={{
+            container_types,
+            container_locations,
+          }}
         />
       )
 
