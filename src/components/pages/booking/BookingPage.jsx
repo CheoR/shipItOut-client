@@ -132,6 +132,7 @@ export const BookingPage = () => {
             voyages,
             carriers,
             booking_statuses,
+            isLoading,
           }}
         />
       )

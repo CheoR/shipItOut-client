@@ -1,5 +1,4 @@
 import React from 'react'
-import { DateTimePicker } from '@mui/x-date-pickers'
 import {
   Grid,
   TextField,
@@ -15,6 +14,7 @@ import {
   TextareaAutosize,
   Typography,
 } from '@mui/material'
+import { DateTimePicker } from '@mui/x-date-pickers'
 
 import ButtonPanel from '../../buttons/ButtonPanel'
 import AgentBlock from '../../layout/AgentBlock'
@@ -78,7 +78,7 @@ export const BookingPage1 = ({
               value={formValues.pickup_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <TextField
               id='loading_origin_address'
@@ -87,7 +87,7 @@ export const BookingPage1 = ({
               value={formValues.loading_origin_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <TextField
               id='unloading_destination_address'
@@ -96,7 +96,7 @@ export const BookingPage1 = ({
               value={formValues.unloading_destination_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <TextField
               id='delivery_address'
@@ -105,7 +105,7 @@ export const BookingPage1 = ({
               value={formValues.delivery_address}
               onChange={handleInputChange}
               sx={{ width: '100%' }}
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
           </Grid>
           <Grid
@@ -125,7 +125,7 @@ export const BookingPage1 = ({
                     name='are_documents_ready'
                   />
                 }
-                disabled={isView}
+                disabled={isView || data.isLoading}
               />
 
               <FormControlLabel
@@ -139,7 +139,7 @@ export const BookingPage1 = ({
                     name='are_dues_paid'
                   />
                 }
-                disabled={isView}
+                disabled={isView || data.isLoading}
               />
 
               <FormControlLabel
@@ -153,7 +153,7 @@ export const BookingPage1 = ({
                     name='has_issue'
                   />
                 }
-                disabled={isView}
+                disabled={isView || data.isLoading}
               />
             </FormGroup>
             <DateTimePicker
@@ -163,7 +163,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'pickup_appt')}
               label='Pickup Appt'
               showTodayButton
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -172,7 +172,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'port_cutoff')}
               label='Port Cutoff'
               showTodayButton
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -181,7 +181,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'rail_cutoff')}
               label='Rail Cutoff'
               showTodayButton
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
             <DateTimePicker
               renderInput={(props) => <TextField {...props} />}
@@ -190,7 +190,7 @@ export const BookingPage1 = ({
               onChange={(e) => handleDatePickerChange(e, 'delivery_appt')}
               label='Delivery Appt'
               showTodayButton
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
           </Grid>
           <Grid
@@ -206,9 +206,9 @@ export const BookingPage1 = ({
               style={{ width: 400 }}
               minRows={10}
               onChange={handleInputChange}
-              disabled={isView}
+              disabled={isView || data.isLoading}
             />
-            <FormControl sx={{ width: '100%' }} disabled={isView}>
+            <FormControl sx={{ width: '100%' }} disabled={isView || data.isLoading}>
               <InputLabel id='booking_status'>Booking Status</InputLabel>
               <Select
                 labelId='booking_status'
@@ -228,7 +228,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }} disabled={isView}>
+            <FormControl sx={{ width: '100%' }} disabled={isView || data.isLoading}>
               <InputLabel id='carrier'>Carrier</InputLabel>
               <Select
                 labelId='carrier'
@@ -248,7 +248,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }} disabled={isView}>
+            <FormControl sx={{ width: '100%' }} disabled={isView || data.isLoading}>
               <InputLabel id='voyage'>Voyage</InputLabel>
               <Select
                 labelId='voyage'
@@ -268,7 +268,7 @@ export const BookingPage1 = ({
                 ))}
               </Select>
             </FormControl>
-            <FormControl sx={{ width: '100%' }} disabled={isView}>
+            <FormControl sx={{ width: '100%' }} disabled={isView || data.isLoading}>
               <InputLabel id='loading_port'>Loading Port</InputLabel>
               <Select
                 labelId='loading_port'
@@ -289,7 +289,7 @@ export const BookingPage1 = ({
               </Select>
             </FormControl>
 
-            <FormControl sx={{ width: '100%' }} disabled={isView}>
+            <FormControl sx={{ width: '100%' }} disabled={isView || data.isLoading}>
               <InputLabel id='unloading_port'>Unloading Port</InputLabel>
               <Select
                 labelId='unloading_port'
