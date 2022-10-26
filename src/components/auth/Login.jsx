@@ -16,12 +16,14 @@ import {
 
 import { UserContext } from '../../context/UserContext'
 import axiosInstance from '../../utils/axios'
+import { URL } from '../../constants/routes'
+
 
 export const Login = () => {
   // error if user manually inputs url since not navigating to /login from another state
   // const { state: { from = "/" } = {} } = useLocation();
   const { state } = useLocation();
-  const from = state?.from || undefined
+  const prevPage = state?.from || undefined
 
   const { login } = useContext(UserContext)
   const [open, setOpen] = useState(false)
@@ -36,7 +38,7 @@ export const Login = () => {
   const handleLogin = (e) => {
     e.preventDefault()
 
-    return axiosInstance.post('/login', {
+    return axiosInstance.post(URL.LOGIN, {
       username: username.current.value,
       password: password.current.value,
     })
@@ -50,7 +52,9 @@ export const Login = () => {
           name: username.current.value,
           token: res.data.token,
         })
-        navigateTo(from ?? '/', { replace: true })
+        // prevPage if they tried to view a page without logging in first
+        // take user back to that page
+        navigateTo(prevPage ?? URL.HOME, { replace: true })
       } else {
         handleOpen()
       }
@@ -140,7 +144,7 @@ export const Login = () => {
       >
         Not a member yet?{' '}
         <RouterLink
-          to='/register'
+          to={URL.REGISTER}
           style={{ textDecoration: 'none' }}
         >
           Register

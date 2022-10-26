@@ -2,11 +2,12 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { UserContext } from '../../../context/UserContext'
-import axiosInstance from '../../../utils/axios'
 import { ContainerView1 } from './ContainerView1'
 import { ContainerView2 } from './ContainerView2'
 import { ContainerView3 } from './ContainerView3'
+import axiosInstance from '../../../utils/axios'
 import { Loading } from '../../helpers/Loading'
+import { URL } from '../../../constants/routes'
 
 export const ContainerView = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -20,7 +21,7 @@ export const ContainerView = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    return axiosInstance.get(`/bookings`)
+    return axiosInstance.get(URL.BOOKINGS)
       .then((response) => {
         response = response.data.filter((r) => parseInt(r.id) === parseInt(id))[0]
         const addStep = { ...response }

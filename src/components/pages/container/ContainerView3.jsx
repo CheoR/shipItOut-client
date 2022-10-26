@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { makeStyles } from '@mui/material/styles'
 import {
@@ -13,7 +14,9 @@ import {
   Button,
 } from '@mui/material'
 import { ThemeProvider } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+
+import { URL } from '../../../constants/routes'
+
 
 export const ContainerView3 = ({ prevStep, formValues }) => {
   useEffect(() => {
@@ -107,8 +110,8 @@ export const ContainerView3 = ({ prevStep, formValues }) => {
                   variant='contained'
                   color='secondary'
                   label='cabcek'
-                  component={Link}
-                  to='/bookings'
+                  component={RouterLink}
+                  to={URL.BOOKINGS}
                   className={classes.button}
                 >
                   Cancel

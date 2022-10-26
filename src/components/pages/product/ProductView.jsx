@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 
 import { UserContext } from '../../../context/UserContext'
 import axiosInstance from '../../../utils/axios'
+import { URL } from '../../../constants/routes'
 import { Loading } from '../../helpers/Loading'
 import { ProductView1 } from './ProductView1'
 import { ProductView2 } from './ProductView2'
@@ -20,7 +21,7 @@ export const ProductView = () => {
 
   useEffect(() => {
     setIsLoading(true)
-    return axiosInstance.get(`/bookings`)
+    return axiosInstance.get(URL.BOOKINGS)
       .then((response) => {
         // get the container that the product belongs to
 

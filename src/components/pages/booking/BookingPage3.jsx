@@ -12,9 +12,10 @@ import {
   TextareaAutosize,
 } from '@mui/material'
 
-import AgentBlock from '../../layout/AgentBlock'
 import ButtonPanel from '../../buttons/ButtonPanel'
+import AgentBlock from '../../layout/AgentBlock'
 import axiosInstance from '../../../utils/axios'
+import { URL } from '../../../constants/routes'
 
 export const BookingPage3 = ({
   handleCheckBoxChange,
@@ -36,27 +37,27 @@ export const BookingPage3 = ({
   const create = (e) => {
     e.preventDefault()
 
-    return axiosInstance.post('/bookings', formValues)
+    return axiosInstance.post(URL.BOOKINGS, formValues)
       .then(() => {
-        navigateTo('/bookings')
+        navigateTo(URL.BOOKINGS)
       })
       .catch((err) => {
         const msg = 'Error: Could not Create Booking.\n'
         console.error(`${msg}: ${err.response.data}`)
-        navigateTo('/bookings')
+        navigateTo(URL.BOOKINGS)
       })
   }
 
   const update = (e) => {
     e.preventDefault()
-    return axiosInstance.put(`/bookings/${formValues.instance}`, formValues)
+    return axiosInstance.put(`${URL.BOOKINGS}/${formValues.instance}`, formValues)
       .then(() => {
-        navigateTo('/bookings')
+        navigateTo(URL.BOOKINGS)
       })
       .catch((err) => {
         const msg = 'Error: Could not Update Booking.\n'
         console.error(`${msg}: ${err.response.data}`)
-        navigateTo('/bookings')
+        navigateTo(URL.BOOKINGS)
       })
   }
 

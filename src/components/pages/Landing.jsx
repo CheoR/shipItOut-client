@@ -1,8 +1,11 @@
 import React from 'react'
 import { Link as RouterLink } from 'react-router-dom'
+
 import { Box, Button, ButtonGroup, Typography } from '@mui/material'
 
 import logo from '../../assets/images/pugTransport.svg'
+import { URL } from '../../constants/routes'
+
 
 export const Landing = () => {
   return (
@@ -52,10 +55,10 @@ export const Landing = () => {
         sx={{ gap: 1, margin: '0 auto' }}
         size='large'
       >
-        <RouterLink to='login'>
+        <RouterLink to={URL.LOGIN}>
           <Button>Login</Button>
         </RouterLink>
-        <RouterLink to='/register'>
+        <RouterLink to={URL.REGISTER}>
           <Button>Register</Button>
         </RouterLink>
       </ButtonGroup>

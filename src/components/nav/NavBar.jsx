@@ -18,6 +18,7 @@ import Box from '@mui/material/Box'
 import { loggedInPages, loggedOutPages, settings } from '../../constants/pages'
 import { UserContext } from '../../context/UserContext'
 import logo from '../../assets/images/pugTransport.svg'
+import { URL } from '../../constants/routes'
 
 
 export const NavBar = () => {
@@ -55,7 +56,7 @@ export const NavBar = () => {
   
   const logoutUser = () => {
     logout()
-    navigateTo('/')
+    navigateTo(URL.HOME)
   }
 
   return (

@@ -16,9 +16,10 @@ import {
   Typography,
 } from '@mui/material'
 
-import { UserContext } from '../../context/UserContext'
 import { ACCOUNT_TYPE } from '../../constants/formFields'
+import { UserContext } from '../../context/UserContext'
 import axiosInstance from '../../utils/axios'
+import { URL } from '../../constants/routes'
 
 
 export const Register = () => {
@@ -70,26 +71,26 @@ export const Register = () => {
         account_type: parseInt(accountType.current.value),
       }
 
-      return axiosInstance.post('/register', newUser)
+      return axiosInstance.post(URL.REGISTER, newUser)
         .then((response) => {
           if (response.data.valid) {
             login({
               name: username.current.value,
               token: response.data.token,
             })
-            navigateTo('/bookings')
+            navigateTo(URL.BOOKINGS)
           } else {
             // TODO: return error reason from server to display in popup
             handleOpen(response.data.reason)
           }
         })
         .catch((err) => {
-        const msg = `Error: could not register ${username.current.value}.\n`
-        if(err.response) {
-          // Not in 200 response range
-          console.error(`${msg}\n `, err.response.data)
-        }
-      })
+          const msg = `Error: could not register ${username.current.value}.\n`
+          if(err.response) {
+            // Not in 200 response range
+            console.error(`${msg}\n `, err.response.data)
+          }
+        })
 
     } else {
       handleOpen('password')
@@ -300,7 +301,7 @@ export const Register = () => {
         >
           Already registered?{' '}
           <RouterLink
-            to='/login'
+            to={URL.LOGIN}
             style={{ textDecoration: 'none' }}
           >
             Login

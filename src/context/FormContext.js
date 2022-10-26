@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from 'react'
 
 import axiosInstance from '../utils/axios'
+import { URL } from '../constants/routes'
 
 export const FormContext = createContext(null)
 
@@ -38,20 +39,16 @@ const FormContextProvider = ({ children }) => {
       //     console.error(`${msg}\n `, err.response.data)
       //   }
       // }
-      const fetchCarriers = await axiosInstance.get('/appusers/just_carriers')
-      const fetchPorts = await axiosInstance.get('/ports')
-      const fetchVoyages = await axiosInstance.get('/voyages')
-      const fetchBookingStatus = await axiosInstance.get(
-        '/bookings/booking_statuses',
-      )
-      const fetchContainerTypes = await axiosInstance.get(
-        '/containers/container_types',
-      )
+      const fetchCarriers = await axiosInstance.get(URL.JUST_CARRIERS)
+      const fetchPorts = await axiosInstance.get(URL.PORTS)
+      const fetchVoyages = await axiosInstance.get(URL.VOYAGES)
+      const fetchBookingStatus = await axiosInstance.get(URL.BOOKING_STATUSES)
+      const fetchContainerTypes = await axiosInstance.get(URL.CONTAINER_TYPES)
       const fetchContainerLocations = await axiosInstance.get(
-        '/containers/container_locations',
+        URL.CONTAINER_LOCATIONS,
       )
       const fetchContainerAvailable = await axiosInstance.get(
-        '/containers/available_containers',
+        URL.CONTAINERS_AVAILABLE,
       )
 
       Promise.all([

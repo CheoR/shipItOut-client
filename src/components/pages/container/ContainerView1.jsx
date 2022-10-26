@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 
 import { makeStyles } from '@mui/material/styles'
 import {
@@ -15,7 +16,9 @@ import {
 import DateTimePicker from '@mui/lab/DateTimePicker'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 import { ThemeProvider } from '@mui/material/styles'
-import { Link } from 'react-router-dom'
+
+import { URL } from '../../../constants/routes'
+
 
 export const ContainerView1 = ({ nextStep, formValues }) => {
   const useStyles = makeStyles((theme) => ({
@@ -103,8 +106,8 @@ export const ContainerView1 = ({ nextStep, formValues }) => {
                   variant='contained'
                   color='secondary'
                   label='cabcek'
-                  component={Link}
-                  to='/bookings'
+                  component={RouterLink}
+                  to={URL.BOOKINGS}
                   className={classes.button}
                 >
                   Cancel
