@@ -14,9 +14,6 @@ import {
   TextareaAutosize,
 } from '@mui/material'
 
-import {
-  CONTAINERS,
-} from '../../../constants/formFields'
 import AgentBlock from '../../layout/AgentBlock'
 import ButtonPanel from '../../buttons/ButtonPanel'
 
@@ -172,11 +169,11 @@ export const BookingPage2 = ({
                 value={formValues.container || ''}
                 onChange={handleInputChange}
               >
-                {CONTAINERS.map((s) => (
+                {data.containers_available.map((s) => (
                   <MenuItem
-                    key={s.id}
-                    id={s.id}
-                    value={s.id}
+                    key={parseInt(s.id)}
+                    id={parseInt(s.id)}
+                    value={parseInt(s.id)}
                   >
                     {s.container}
                   </MenuItem>

@@ -50,6 +50,9 @@ const FormContextProvider = ({ children }) => {
       const fetchContainerLocations = await axiosInstance.get(
         '/containers/container_locations',
       )
+      const fetchContainerAvailable = await axiosInstance.get(
+        '/containers/available_containers',
+      )
 
       Promise.all([
         fetchCarriers,
@@ -58,18 +61,30 @@ const FormContextProvider = ({ children }) => {
         fetchBookingStatus,
         fetchContainerTypes,
         fetchContainerLocations,
+        fetchContainerAvailable,
       ])
-        .then(([carriers, ports, voyages, statuses, containers, locations]) => {
-          setData({
-            carriers: carriers.data,
-            ports: ports.data,
-            voyages: voyages.data,
-            booking_statuses: statuses.data.booking_status,
-            container_types: containers.data.container_type,
-            container_locations: locations.data.container_location,
-            isLoading: false,
-          })
-        })
+        .then(
+          ([
+            carriers,
+            ports,
+            voyages,
+            statuses,
+            containers,
+            locations,
+            availablity,
+          ]) => {
+            setData({
+              carriers: carriers.data,
+              ports: ports.data,
+              voyages: voyages.data,
+              booking_statuses: statuses.data.booking_status,
+              container_types: containers.data.container_type,
+              container_locations: locations.data.container_location,
+              containers_available: availablity.data,
+              isLoading: false,
+            })
+          },
+        )
         .catch((err) => {
           const msg = `Error: could not fetch promise data.\n`
           if (err.response) {
