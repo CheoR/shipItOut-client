@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+
+import { FormContext } from '../../../context/FormContext'
 import axiosInstance from '../../../utils/axios'
 
 import { BookingPage1 } from './BookingPage1'
 import { BookingPage2 } from './BookingPage2'
 import { BookingPage3 } from './BookingPage3'
 
+
 export const BookingPage = () => {
   let location = useLocation()
   const [ , endpoint, action, instance] = location.pathname.split('/')
   const isView = action === 'view'
 
-  const [ports, setPorts] = useState([])
-  const [voyages, setVoyages] = useState([])
-  const [carriers, setCarriers] = useState([])
+  const { data: { ports, voyages, carriers, isLoading } } = useContext(FormContext)
   const [formValues, setFormValues] = useState({
     // pages
     step: 1,
@@ -57,66 +58,19 @@ export const BookingPage = () => {
     is_reefer: false,
   })
 
-    useEffect(() => {
-      const fetchBooking = () => {
-        return axiosInstance.get(`/${endpoint}/${instance}`)
-          .then((response) => {
-            response.data.step = 1
-            response.data.instance = instance
-            setFormValues(response.data)
-          })
-      }
-      if(!location.pathname.includes('create')) {
-        fetchBooking()
-      }
+  useEffect(() => {
+    const fetchBooking = () => {
+      return axiosInstance.get(`/${endpoint}/${instance}`)
+        .then((response) => {
+          response.data.step = 1
+          response.data.instance = instance
+          setFormValues(response.data)
+        })
+    }
+    if(!location.pathname.includes('create')) {
+      fetchBooking()
+    }
   }, [action, endpoint, instance, location.pathname])
-
-  useEffect(() => {
-    const fetchPorts = () => {
-      return axiosInstance.get('/ports')
-        .then((response) => setPorts(response.data))
-        .catch((err) => {
-          const msg = `Error: could not fetch Ports.\n`
-          if(err.response) {
-            // Not in 200 response range
-            console.error(`${msg}\n `, err.response.data)
-          }
-        })
-    }
-    fetchPorts()
-  }, [])
-
-  useEffect(() => {
-    const fetchVoyages = () => {
-      return axiosInstance.get('/voyages')
-        .then((response) => setVoyages(response.data))
-        .catch((err) => {
-          const msg = `Error: could not fetch Voyages.\n`
-          if(err.response) {
-            // Not in 200 response range
-            console.error(`${msg}\n `, err.response.data)
-          }
-        })
-    }
-    fetchVoyages()
-  }, [])
-
-  useEffect(() => {
-    const getCarriers = () => {
-      return axiosInstance.get('/appusers/just_carriers')
-        .then((response) => setCarriers(response.data))
-        .catch((err) => {
-          const msg = `Error: could not fetch Carriers.\n`
-          if(err.response) {
-            // Not in 200 response range
-            console.error(`${msg}\n `, err.response.data)
-          }
-        })
-    }
-
-    getCarriers()
-  }, [])
-
 
   const nextStep = () => {
     const { step } = formValues
@@ -157,6 +111,8 @@ export const BookingPage = () => {
       [name]: value,
     })
   }
+
+  if (isLoading) return
 
   switch (formValues.step) {
     case 1:
