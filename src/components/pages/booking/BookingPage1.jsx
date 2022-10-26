@@ -16,9 +16,6 @@ import {
   Typography,
 } from '@mui/material'
 
-import {
-  BOOKING_STATUS,
-} from '../../../constants/formFields'
 import ButtonPanel from '../../buttons/ButtonPanel'
 import AgentBlock from '../../layout/AgentBlock'
 
@@ -220,11 +217,11 @@ export const BookingPage1 = ({
                 value={formValues.booking_status || ""}
                 onChange={handleInputChange}
               >
-                {BOOKING_STATUS.map((c) => (
+                {data.booking_statuses.map((c) => (
                   <MenuItem
-                    key={c.id}
-                    id={c.id}
-                    value={c.id}
+                    key={parseInt(c.id)}
+                    id={parseInt(c.id)}
+                    value={parseInt(c.id)}
                   >
                     {c.booking_status}
                   </MenuItem>

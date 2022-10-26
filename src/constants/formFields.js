@@ -103,21 +103,25 @@ export const CONTAINER_LOCATION = [
 
 export const BOOKING_STATUS = [
   {
+    id: -1,
+    booking_status: 'ERROR',
+  },
+  {
     id: 0,
-    booking_status: "XX",
+    booking_status: 'XX',
   },
-    {
+  {
     id: 1,
-    booking_status: "PENDING",
+    booking_status: 'PENDING',
   },
-    {
+  {
     id: 2,
-    booking_status: "COMPLETE",
+    booking_status: 'COMPLETE',
   },
-    {
+  {
     id: 3,
-    booking_status: "CLOSED",
-  }
+    booking_status: 'CLOSED',
+  },
 ]
 
 export const TEST_TABLE_DATA = [
