@@ -1,4 +1,4 @@
-import React, { createRef, useContext, useState, } from 'react'
+import React, { useContext, useState, } from 'react'
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -8,15 +8,33 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  Input,
-  InputLabel,
+  TextField,
   Typography,
 } from '@mui/material'
+
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 import { UserContext } from '../../context/UserContext'
 import axiosInstance from '../../utils/axios'
 import { URL } from '../../constants/routes'
+
+
+const loginValidationSchema = Yup.object({
+  username: Yup
+    .string("Please enter username")
+    // .min(5, "Username length must be at least 5 characters")
+    .required("Username Required"),
+  password: Yup
+    .string()
+    // .min(2, "Pasword not secure")
+    .required("Password Required)")
+})
+
+const initialLoginFormValues = {
+    username: "",
+    password: ""
+  }
 
 
 export const Login = () => {
@@ -29,36 +47,51 @@ export const Login = () => {
   const [open, setOpen] = useState(false)
   const navigateTo = useNavigate()
 
-  const username = createRef()
-  const password = createRef()
-
   const handleOpen = () => setOpen(true)
   const handleClose = () => setOpen(false)
 
-  const handleLogin = (e) => {
-    e.preventDefault()
-
-    return axiosInstance.post(URL.LOGIN, {
-      username: username.current.value,
-      password: password.current.value,
-    })
-    .then((res) => {
-      if (
-        'valid' in res.data &&
-        res.data.valid &&
-        'token' in res.data
-      ) {
-        login({
-          name: username.current.value,
-          token: res.data.token,
+  const formik = useFormik({
+    initialValues: initialLoginFormValues,
+    validationSchema: loginValidationSchema,
+    onSubmit: (values, helpers) => {
+      handleLogin(values)
+      .catch((err) => {
+        helpers.setErrors({
+          submit: err.message,
         })
-        // prevPage if they tried to view a page without logging in first
-        // take user back to that page
-        navigateTo(prevPage ?? URL.HOME, { replace: true })
-      } else {
-        handleOpen()
-      }
-    })
+      })
+    }
+  })
+
+  const handleLogin = async (values) => {
+    return await axiosInstance.post(URL.LOGIN, values)
+      .then((res) => {
+        if (
+          'valid' in res.data &&
+          res.data.valid &&
+          'token' in res.data
+        ) {
+          login({
+            name: values.username,
+            token: res.data.token,
+          })
+          // prevPage if they tried to view a page without logging in first
+          // take user back to that page
+          navigateTo(prevPage ?? URL.HOME, { replace: true })
+        } else {
+          handleOpen()
+          throw Error("Could not log in")
+        }
+      })
+      .catch((err) => {
+        const msg = `Error: could not login.\n`
+        if (err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+          handleOpen()
+          throw Error(`${msg}\n `, err.response.data)
+        }
+      })
   }
 
   return (
@@ -88,7 +121,7 @@ export const Login = () => {
       </Dialog>
       <Box
         component='form'
-        onSubmit={handleLogin}
+        onSubmit={formik.handleSubmit}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -110,24 +143,32 @@ export const Login = () => {
           Please Login
         </Typography>
         <Box sx={{ flex: 1 }}>{''}</Box>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='username'>Username</InputLabel>
-          <Input
-            id='username'
-            inputRef={username}
+          <TextField
+            fullWidth
+            variant='standard'
+            value={formik.values.username}
+            onChange={formik.handleChange}
+            error={formik.touched.username && Boolean(formik.errors.username)}
+            helperText={formik.touched.username && formik.errors.username}
             type='text'
-            required
+            label="Username"
+            id="username"
+            name="username"
           />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='inputpassword'>Password</InputLabel>
-          <Input
-            id='inputpassword'
-            inputRef={password}
+
+          <TextField
+            fullWidth
+            variant='standard'
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            error={formik.touched.password && Boolean(formik.errors.password)}
+            helperText={formik.touched.password && formik.errors.password}
             type='password'
-            required
+            label="Password"
+            id="password"
+            name="password"
           />
-        </FormControl>
+
         <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
           <Button
             variant='contained'
