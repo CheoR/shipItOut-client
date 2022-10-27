@@ -1,5 +1,5 @@
-// import axios from 'axios'
-const axios = require('axios').default
+import axios from 'axios'
+// const axios = require('axios').default
 const axiosInstance = axios.create()
 
 // Axios will remember that baseURL, plus other values you might
