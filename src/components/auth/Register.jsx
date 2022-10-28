@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link as RouterLink, useNavigate } from 'react-router-dom'
 import {
   Box,
@@ -8,36 +8,87 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  Input,
-  InputLabel,
   MenuItem,
-  Select,
+  TextField,
   Typography,
 } from '@mui/material'
+
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 import { ACCOUNT_TYPE } from '../../constants/formFields'
 import { UserContext } from '../../context/UserContext'
 import axiosInstance from '../../utils/axios'
 import { URL } from '../../constants/routes'
 
+const PHONEREGEXP = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
+
+const registrationValidationSchema = Yup.object({
+  username: Yup
+    .string("Please enter username")
+    .min(5, "Username length must be at least 5 characters")
+    .required("Username Required"),
+  firstName: Yup
+    .string("Please enter First Name")
+    .min(2, 'First Name length must be at least 2 characters')
+    .required("First Name Required"),
+  lastName: Yup
+    .string("Please enter Last Name")
+    .min(2, 'Last Name length must be at least 2 characters')
+    .required("Last Name Required"),
+  email: Yup
+    .string('Please enter your email')
+    .email('Please enter a valid email')
+    .required('Email Required'),
+  company: Yup
+    .string("Please enter Company Name")
+    .min(2, 'Company Name length must be at least 2 characters')
+    .required("Company Name Required"),
+  role: Yup
+    .string("Please enter Company Role")
+    .min(2, 'Company Role length must be at least 2 characters')
+    .required("Company Role Required"),
+  phone: Yup
+    .string("Please enter Company Phone Number")
+    .matches(PHONEREGEXP, 'Phone Number Invalid')
+    .required("Company Phone Required"),
+  password: Yup
+    .string()
+    // .min(2, "Pasword not secure")
+    .required("Password Required"),
+  verifyPassword: Yup
+    .string()
+    .oneOf([Yup.ref('password'), null], 'Passwords must match'),
+  accountType: Yup
+    .number()
+    .test(
+      'Is positive?',
+      'Please Select Account Type',
+      (value) => value > 0
+    )
+    .required(),
+})
+
+const initialRegistrationFormValues = {
+  username: "",
+  firstName: "",
+  lastName: "",
+  email: "",
+  company: "",
+  role: "",
+  phone: "",
+  password: "",
+  verifyPassword: "",
+  accountType:   0,
+}
+
 
 export const Register = () => {
   const { login } = useContext(UserContext)
   const navigateTo = useNavigate()
-  const username = React.createRef()
-  const firstName = React.createRef()
-  const lastName = React.createRef()
-  const email = React.createRef()
-  const password = React.createRef()
-  const verifyPassword = React.createRef()
-  const company = React.createRef()
-  const role = React.createRef()
-  const phone = React.createRef()
-  const accountType = React.createRef()
 
-  const [openPasswordDialog, setOpenPasswordDialog] = React.useState(false)
-  const [openErrorDialog, setOpenErrorDialog] = React.useState(false)
+  const [openPasswordDialog, setOpenPasswordDialog] = useState(false)
+  const [openErrorDialog, setOpenErrorDialog] = useState(false)
 
   const handleOpen = (type) => {
     if (type === 'password') {
@@ -55,46 +106,59 @@ export const Register = () => {
     }
   }
 
-  const handleRegister = (e) => {
-    e.preventDefault()
-
-    if (password.current.value === verifyPassword.current.value) {
-      const newUser = {
-        username: username.current.value,
-        first_name: firstName.current.value,
-        last_name: lastName.current.value,
-        email: email.current.value,
-        password: password.current.value,
-        company: company.current.value,
-        role: role.current.value,
-        phone: phone.current.value,
-        account_type: parseInt(accountType.current.value),
-      }
-
-      return axiosInstance.post(URL.REGISTER, newUser)
-        .then((response) => {
-          if (response.data.valid) {
-            login({
-              name: username.current.value,
-              token: response.data.token,
-            })
-            navigateTo(URL.BOOKINGS)
-          } else {
-            // TODO: return error reason from server to display in popup
-            handleOpen(response.data.reason)
-          }
+  const formik = useFormik({
+    initialValues: initialRegistrationFormValues,
+    validationSchema: registrationValidationSchema,
+    onSubmit: (values, helpers) => {
+      console.log('formik on submit')
+      delete values.verifyPassword
+      handleRegister(values)
+      .catch((err) => {
+        helpers.setErrors({
+          submit: err.message,
         })
-        .catch((err) => {
-          const msg = `Error: could not register ${username.current.value}.\n`
-          if(err.response) {
-            // Not in 200 response range
-            console.error(`${msg}\n `, err.response.data)
-          }
-        })
-
-    } else {
-      handleOpen('password')
+      })
     }
+  })
+
+  const handleRegister = async (values) => {
+    console.log('in handle register')
+    console.log(values)
+    const newUser = {
+      username: values.username,
+      first_name: values.firstName,
+      last_name: values.lastName,
+      email: values.email,
+      password: values.password,
+      company: values.company,
+      role: values.role,
+      phone: values.phone,
+      account_type: parseInt(values.accountType),
+    }
+
+    return await axiosInstance.post(URL.REGISTER, newUser)
+      .then((response) => {
+        if (response.data.valid) {
+          login({
+            name: values.username,
+            token: response.data.token,
+          })
+          navigateTo(URL.BOOKINGS)
+        } else {
+          // TODO: return error reason from server to display in popup
+          handleOpen(response.data.reason)
+          throw Error("Could not register")
+        }
+      })
+      .catch((err) => {
+        const msg = `Error: could not register ${values.username}.\n`
+        if(err.response) {
+          // Not in 200 response range
+          console.error(`${msg}\n `, err.response.data)
+          handleOpen()
+          throw Error(`${msg}\n `, err.response.data)
+        }
+      })
   }
 
   //   <dialog
@@ -155,7 +219,7 @@ export const Register = () => {
       </Dialog>
       <Box
         component='form'
-        onSubmit={handleRegister}
+        onSubmit={formik.handleSubmit}
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -176,116 +240,156 @@ export const Register = () => {
         >
           Register account
         </Typography>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='username'>Username</InputLabel>
-          <Input
-            id='username'
-            inputRef={username}
-            type='text'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='firstName'>First Name</InputLabel>
-          <Input
-            id='firstName'
-            inputRef={firstName}
-            type='text'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='lastName'>Last Name</InputLabel>
-          <Input
-            id='lastName'
-            inputRef={lastName}
-            type='text'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='email'>Email</InputLabel>
-          <Input
-            id='email'
-            inputRef={email}
-            type='email'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='company'>Company</InputLabel>
-          <Input
-            id='company'
-            inputRef={company}
-            type='text'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='role'>Role</InputLabel>
-          <Input
-            id='role'
-            inputRef={role}
-            type='text'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='phone'>Phone</InputLabel>
-          <Input
-            id='phone'
-            inputRef={phone}
-            type='phone'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='password'>Password</InputLabel>
-          <Input
-            id='password'
-            inputRef={password}
-            type='password'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl variant='standard'>
-          <InputLabel htmlFor='verifyPassword'>Verify Password</InputLabel>
-          <Input
-            id='verifyPassword'
-            inputRef={verifyPassword}
-            type='password'
-            required
-            autoFocus
-          />
-        </FormControl>
-        <FormControl sx={{ width: '100%' }}>
-          <InputLabel id='accountType'>Account Type</InputLabel>
-          <Select
-            labelId='accountType'
-            id='accountType'
-            name='account_type'
-            value={accountType.current?.value || 0}
-            inputRef={accountType}
-          >
-            {ACCOUNT_TYPE.map((role) => (
-              <MenuItem
-                key={role.key}
-                id={role.key}
-                value={role.key}
-              >
-                {role.type.toUpperCase()}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.username}
+          onChange={formik.handleChange}
+          error={formik.touched.username && Boolean(formik.errors.username)}
+          helperText={formik.touched.username && formik.errors.username}
+          type='text'
+          label="Username"
+          id="username"
+          name="username"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.firstName}
+          onChange={formik.handleChange}
+          error={formik.touched.firstName && Boolean(formik.errors.firstName)}
+          helperText={formik.touched.firstName && formik.errors.firstName}
+          type='text'
+          label="First Name"
+          id="firstName"
+          name="firstName"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.lastName}
+          onChange={formik.handleChange}
+          error={formik.touched.lastName && Boolean(formik.errors.lastName)}
+          helperText={formik.touched.lastName && formik.errors.lastName}
+          type='text'
+          label="Last Name"
+          id="lastName"
+          name="lastName"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.email}
+          onChange={formik.handleChange}
+          error={formik.touched.email && Boolean(formik.errors.email)}
+          helperText={formik.touched.email && formik.errors.email}
+          type='email'
+          label="Email"
+          id="email"
+          name="email"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.company}
+          onChange={formik.handleChange}
+          error={formik.touched.company && Boolean(formik.errors.company)}
+          helperText={formik.touched.company && formik.errors.company}
+          type='text'
+          label="Company"
+          id="company"
+          name="company"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.role}
+          onChange={formik.handleChange}
+          error={formik.touched.role && Boolean(formik.errors.role)}
+          helperText={formik.touched.role && formik.errors.role}
+          type='text'
+          label="Role"
+          id="role"
+          name="role"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.phone}
+          onChange={formik.handleChange}
+          error={formik.touched.phone && Boolean(formik.errors.phone)}
+          helperText={formik.touched.phone && formik.errors.phone}
+          type='tel'
+          label="Phone"
+          id="phone"
+          name="phone"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.password}
+          onChange={formik.handleChange}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          type='password'
+          label="Password"
+          id="password"
+          name="password"
+          autoFocus
+        />
+
+        <TextField
+          fullWidth
+          variant='standard'
+          value={formik.values.verifyPassword}
+          onChange={formik.handleChange}
+          error={formik.touched.verifyPassword && Boolean(formik.errors.verifyPassword)}
+          helperText={formik.touched.verifyPassword && formik.errors.verifyPassword}
+          type='password'
+          label="Verify Password"
+          id="verifyPassword"
+          name="verifyPassword"
+          autoFocus
+        />
+
+        <TextField
+          select
+          fullWidth
+          id="accountType"
+          label="Account Type"
+          variant='standard'
+          name='account_type'
+          error={formik.touched.accountType && Boolean(formik.errors.accountType)}
+          helperText={formik.touched.accountType && formik.errors.accountType}
+          onChange={formik.handleChange("accountType")}
+          value={formik.values.accountType || 0}
+        >
+          {ACCOUNT_TYPE.map((role) => (
+            <MenuItem
+              key={role.key}
+              id={role.key}
+              value={role.key}
+            >
+              {role.type.toUpperCase()}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <Box sx={{ mt: 5, display: 'flex', justifyContent: 'center' }}>
           <Button
             variant='contained'
